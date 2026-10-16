@@ -1,0 +1,212 @@
+{
+  "pairwise": [
+    {
+      "n": 8,
+      "num_vars": 64,
+      "num_clauses": 744,
+      "encoding_time_ms": 0.32,
+      "solving_time_ms": 1.58,
+      "status": "SAT"
+    },
+    {
+      "n": 16,
+      "num_vars": 256,
+      "num_clauses": 6352,
+      "encoding_time_ms": 2.51,
+      "solving_time_ms": 17.83,
+      "status": "SAT"
+    },
+    {
+      "n": 32,
+      "num_vars": 1024,
+      "num_clauses": 52640,
+      "encoding_time_ms": 16.47,
+      "solving_time_ms": 314.53,
+      "status": "SAT"
+    },
+    {
+      "n": 64,
+      "num_vars": 4096,
+      "num_clauses": 428864,
+      "encoding_time_ms": 217.91,
+      "solving_time_ms": 823.43,
+      "status": "SAT"
+    },
+    {
+      "n": 128,
+      "num_vars": 16384,
+      "num_clauses": 3462784,
+      "encoding_time_ms": 2008.94,
+      "solving_time_ms": 7072.09,
+      "status": "SAT"
+    }
+  ],
+  "sequential": [
+    {
+      "n": 8,
+      "num_vars": 270,
+      "num_clauses": 600,
+      "encoding_time_ms": 0.21,
+      "solving_time_ms": 1.13,
+      "status": "SAT"
+    },
+    {
+      "n": 16,
+      "num_vars": 1182,
+      "num_clauses": 2728,
+      "encoding_time_ms": 1.09,
+      "solving_time_ms": 44.32,
+      "status": "SAT"
+    },
+    {
+      "n": 32,
+      "num_vars": 4926,
+      "num_clauses": 11592,
+      "encoding_time_ms": 3.41,
+      "solving_time_ms": 274.28,
+      "status": "SAT"
+    },
+    {
+      "n": 64,
+      "num_vars": 20094,
+      "num_clauses": 47752,
+      "encoding_time_ms": 16.96,
+      "solving_time_ms": 1953.16,
+      "status": "SAT"
+    },
+    {
+      "n": 128,
+      "num_vars": 81150,
+      "num_clauses": 193800,
+      "encoding_time_ms": 91.08,
+      "solving_time_ms": 30298.47,
+      "status": "SAT"
+    }
+  ],
+  "commander": [
+    {
+      "n": 8,
+      "num_vars": 154,
+      "num_clauses": 634,
+      "encoding_time_ms": 0.38,
+      "solving_time_ms": 1.63,
+      "status": "SAT"
+    },
+    {
+      "n": 16,
+      "num_vars": 744,
+      "num_clauses": 3176,
+      "encoding_time_ms": 2.18,
+      "solving_time_ms": 7.59,
+      "status": "SAT"
+    },
+    {
+      "n": 32,
+      "num_vars": 3114,
+      "num_clauses": 13606,
+      "encoding_time_ms": 7.19,
+      "solving_time_ms": 46.37,
+      "status": "SAT"
+    },
+    {
+      "n": 64,
+      "num_vars": 12442,
+      "num_clauses": 55990,
+      "encoding_time_ms": 37.61,
+      "solving_time_ms": 222.29,
+      "status": "SAT"
+    },
+    {
+      "n": 128,
+      "num_vars": 49674,
+      "num_clauses": 227010,
+      "encoding_time_ms": 199.84,
+      "solving_time_ms": 1327.57,
+      "status": "SAT"
+    }
+  ],
+  "binary": [
+    {
+      "n": 8,
+      "num_vars": 170,
+      "num_clauses": 724,
+      "encoding_time_ms": 0.36,
+      "solving_time_ms": 1.72,
+      "status": "SAT"
+    },
+    {
+      "n": 16,
+      "num_vars": 568,
+      "num_clauses": 3924,
+      "encoding_time_ms": 1.99,
+      "solving_time_ms": 17.17,
+      "status": "SAT"
+    },
+    {
+      "n": 32,
+      "num_vars": 1846,
+      "num_clauses": 19796,
+      "encoding_time_ms": 10.4,
+      "solving_time_ms": 222.58,
+      "status": "SAT"
+    },
+    {
+      "n": 64,
+      "num_vars": 6132,
+      "num_clauses": 95572,
+      "encoding_time_ms": 43.15,
+      "solving_time_ms": 528.49,
+      "status": "SAT"
+    },
+    {
+      "n": 128,
+      "num_vars": 21234,
+      "num_clauses": 447828,
+      "encoding_time_ms": 376.81,
+      "solving_time_ms": 2149.19,
+      "status": "SAT"
+    }
+  ],
+  "product": [
+    {
+      "n": 8,
+      "num_vars": 252,
+      "num_clauses": 690,
+      "encoding_time_ms": 0.33,
+      "solving_time_ms": 1.62,
+      "status": "SAT"
+    },
+    {
+      "n": 16,
+      "num_vars": 836,
+      "num_clauses": 2840,
+      "encoding_time_ms": 1.35,
+      "solving_time_ms": 18.91,
+      "status": "SAT"
+    },
+    {
+      "n": 32,
+      "num_vars": 2768,
+      "num_clauses": 11998,
+      "encoding_time_ms": 5.25,
+      "solving_time_ms": 91.93,
+      "status": "SAT"
+    },
+    {
+      "n": 64,
+      "num_vars": 8940,
+      "num_clauses": 47520,
+      "encoding_time_ms": 22.76,
+      "solving_time_ms": 499.05,
+      "status": "SAT"
+    },
+    {
+      "n": 128,
+      "num_vars": 30182,
+      "num_clauses": 193122,
+      "encoding_time_ms": 145.33,
+      "solving_time_ms": 2167.7,
+      "status": "SAT"
+    }
+  ]
+}

@@ -1,0 +1,617 @@
+{
+  "metadata": {
+    "time_limit": 300.0,
+    "repetitions": 3,
+    "cpu": "Intel Core i7-12700KF (Single Thread)",
+    "ram": "32GB DDR4",
+    "os": "Windows 11 Pro 64-bit",
+    "cadical_version": "1.9.5",
+    "glucose_version": "4.2",
+    "pysat_version": "1.9.dev15",
+    "gurobi_version": "13.0.3 (Trial size limit 2000 vars)",
+    "scip_version": "9.0",
+    "ortools_version": "9.15"
+  },
+  "amo_ablation": {
+    "8": {
+      "pairwise": {
+        "num_vars": 64,
+        "num_clauses": 744,
+        "encoding_time_ms": 0.31,
+        "solving_time_ms": 1.93,
+        "min_solving_ms": 1.24,
+        "max_solving_ms": 7.4,
+        "status": "SAT"
+      },
+      "sequential": {
+        "num_vars": 270,
+        "num_clauses": 600,
+        "encoding_time_ms": 0.2,
+        "solving_time_ms": 1.28,
+        "min_solving_ms": 1.16,
+        "max_solving_ms": 1.61,
+        "status": "SAT"
+      },
+      "commander": {
+        "num_vars": 154,
+        "num_clauses": 634,
+        "encoding_time_ms": 0.45,
+        "solving_time_ms": 1.19,
+        "min_solving_ms": 1.15,
+        "max_solving_ms": 1.83,
+        "status": "SAT"
+      },
+      "binary": {
+        "num_vars": 170,
+        "num_clauses": 724,
+        "encoding_time_ms": 0.43,
+        "solving_time_ms": 1.66,
+        "min_solving_ms": 1.32,
+        "max_solving_ms": 2.42,
+        "status": "SAT"
+      },
+      "product": {
+        "num_vars": 252,
+        "num_clauses": 690,
+        "encoding_time_ms": 0.3,
+        "solving_time_ms": 1.58,
+        "min_solving_ms": 1.54,
+        "max_solving_ms": 2.29,
+        "status": "SAT"
+      }
+    },
+    "16": {
+      "pairwise": {
+        "num_vars": 256,
+        "num_clauses": 6352,
+        "encoding_time_ms": 1.84,
+        "solving_time_ms": 16.94,
+        "min_solving_ms": 16.51,
+        "max_solving_ms": 48.01,
+        "status": "SAT"
+      },
+      "sequential": {
+        "num_vars": 1182,
+        "num_clauses": 2728,
+        "encoding_time_ms": 0.84,
+        "solving_time_ms": 41.27,
+        "min_solving_ms": 39.72,
+        "max_solving_ms": 71.08,
+        "status": "SAT"
+      },
+      "commander": {
+        "num_vars": 744,
+        "num_clauses": 3176,
+        "encoding_time_ms": 1.57,
+        "solving_time_ms": 7.08,
+        "min_solving_ms": 6.74,
+        "max_solving_ms": 7.96,
+        "status": "SAT"
+      },
+      "binary": {
+        "num_vars": 568,
+        "num_clauses": 3924,
+        "encoding_time_ms": 1.65,
+        "solving_time_ms": 16.66,
+        "min_solving_ms": 15.53,
+        "max_solving_ms": 18.15,
+        "status": "SAT"
+      },
+      "product": {
+        "num_vars": 836,
+        "num_clauses": 2840,
+        "encoding_time_ms": 1.49,
+        "solving_time_ms": 18.02,
+        "min_solving_ms": 17.28,
+        "max_solving_ms": 18.93,
+        "status": "SAT"
+      }
+    },
+    "32": {
+      "pairwise": {
+        "num_vars": 1024,
+        "num_clauses": 52640,
+        "encoding_time_ms": 16.32,
+        "solving_time_ms": 271.4,
+        "min_solving_ms": 267.76,
+        "max_solving_ms": 291.46,
+        "status": "SAT"
+      },
+      "sequential": {
+        "num_vars": 4926,
+        "num_clauses": 11592,
+        "encoding_time_ms": 3.37,
+        "solving_time_ms": 245.78,
+        "min_solving_ms": 242.71,
+        "max_solving_ms": 251.66,
+        "status": "SAT"
+      },
+      "commander": {
+        "num_vars": 3114,
+        "num_clauses": 13606,
+        "encoding_time_ms": 6.98,
+        "solving_time_ms": 35.37,
+        "min_solving_ms": 34.6,
+        "max_solving_ms": 36.09,
+        "status": "SAT"
+      },
+      "binary": {
+        "num_vars": 1846,
+        "num_clauses": 19796,
+        "encoding_time_ms": 8.18,
+        "solving_time_ms": 191.03,
+        "min_solving_ms": 176.97,
+        "max_solving_ms": 205.85,
+        "status": "SAT"
+      },
+      "product": {
+        "num_vars": 2768,
+        "num_clauses": 11998,
+        "encoding_time_ms": 4.69,
+        "solving_time_ms": 80.87,
+        "min_solving_ms": 77.47,
+        "max_solving_ms": 84.01,
+        "status": "SAT"
+      }
+    },
+    "64": {
+      "pairwise": {
+        "num_vars": 4096,
+        "num_clauses": 428864,
+        "encoding_time_ms": 180.45,
+        "solving_time_ms": 670.02,
+        "min_solving_ms": 645.91,
+        "max_solving_ms": 720.47,
+        "status": "SAT"
+      },
+      "sequential": {
+        "num_vars": 20094,
+        "num_clauses": 47752,
+        "encoding_time_ms": 15.56,
+        "solving_time_ms": 1606.5,
+        "min_solving_ms": 1587.13,
+        "max_solving_ms": 1609.25,
+        "status": "SAT"
+      },
+      "commander": {
+        "num_vars": 12442,
+        "num_clauses": 55990,
+        "encoding_time_ms": 26.53,
+        "solving_time_ms": 174.14,
+        "min_solving_ms": 173.83,
+        "max_solving_ms": 175.91,
+        "status": "SAT"
+      },
+      "binary": {
+        "num_vars": 6132,
+        "num_clauses": 95572,
+        "encoding_time_ms": 33.35,
+        "solving_time_ms": 415.81,
+        "min_solving_ms": 414.15,
+        "max_solving_ms": 430.55,
+        "status": "SAT"
+      },
+      "product": {
+        "num_vars": 8940,
+        "num_clauses": 47520,
+        "encoding_time_ms": 17.86,
+        "solving_time_ms": 397.2,
+        "min_solving_ms": 391.35,
+        "max_solving_ms": 405.26,
+        "status": "SAT"
+      }
+    },
+    "128": {
+      "pairwise": {
+        "num_vars": 16384,
+        "num_clauses": 3462784,
+        "encoding_time_ms": 1980.38,
+        "solving_time_ms": 6476.69,
+        "min_solving_ms": 6263.13,
+        "max_solving_ms": 6731.12,
+        "status": "SAT"
+      },
+      "sequential": {
+        "num_vars": 81150,
+        "num_clauses": 193800,
+        "encoding_time_ms": 58.93,
+        "solving_time_ms": 22654.75,
+        "min_solving_ms": 21562.95,
+        "max_solving_ms": 23889.71,
+        "status": "SAT"
+      },
+      "commander": {
+        "num_vars": 49674,
+        "num_clauses": 227010,
+        "encoding_time_ms": 152.86,
+        "solving_time_ms": 616.66,
+        "min_solving_ms": 591.79,
+        "max_solving_ms": 635.13,
+        "status": "SAT"
+      },
+      "binary": {
+        "num_vars": 21234,
+        "num_clauses": 447828,
+        "encoding_time_ms": 283.61,
+        "solving_time_ms": 1290.5,
+        "min_solving_ms": 1178.75,
+        "max_solving_ms": 1318.36,
+        "status": "SAT"
+      },
+      "product": {
+        "num_vars": 30182,
+        "num_clauses": 193122,
+        "encoding_time_ms": 95.5,
+        "solving_time_ms": 1246.66,
+        "min_solving_ms": 1244.81,
+        "max_solving_ms": 1277.86,
+        "status": "SAT"
+      }
+    },
+    "256": {
+      "pairwise": {
+        "num_vars": 65536,
+        "num_clauses": 27831552,
+        "encoding_time_ms": 15931.59,
+        "solving_time_ms": 82190.36,
+        "status": "SAT"
+      },
+      "sequential": {
+        "num_vars": 326142,
+        "num_clauses": 780808,
+        "encoding_time_ms": 329.4,
+        "solving_time_ms": 81765.0,
+        "min_solving_ms": 72874.18,
+        "max_solving_ms": 89095.16,
+        "status": "SAT"
+      },
+      "commander": {
+        "num_vars": 198786,
+        "num_clauses": 914898,
+        "encoding_time_ms": 450.9,
+        "solving_time_ms": 7211.25,
+        "min_solving_ms": 7166.9,
+        "max_solving_ms": 7375.99,
+        "status": "SAT"
+      },
+      "binary": {
+        "num_vars": null,
+        "num_clauses": null,
+        "encoding_time_ms": null,
+        "solving_time_ms": null,
+        "status": "SKIPPED"
+      },
+      "product": {
+        "num_vars": 104188,
+        "num_clauses": 773232,
+        "encoding_time_ms": 523.75,
+        "solving_time_ms": 6818.15,
+        "min_solving_ms": 6607.31,
+        "max_solving_ms": 6957.19,
+        "status": "SAT"
+      }
+    },
+    "500": {
+      "pairwise": {
+        "num_vars": 250000,
+        "num_clauses": null,
+        "encoding_time_ms": null,
+        "solving_time_ms": null,
+        "status": "SKIPPED_MEM"
+      },
+      "sequential": {
+        "num_vars": null,
+        "num_clauses": null,
+        "encoding_time_ms": null,
+        "solving_time_ms": null,
+        "status": "TIMEOUT"
+      },
+      "commander": {
+        "num_vars": 754084,
+        "num_clauses": 3493508,
+        "encoding_time_ms": 2786.48,
+        "solving_time_ms": null,
+        "status": "TIMEOUT"
+      },
+      "binary": {
+        "num_vars": null,
+        "num_clauses": null,
+        "encoding_time_ms": null,
+        "solving_time_ms": null,
+        "status": "SKIPPED"
+      },
+      "product": {
+        "num_vars": 355526,
+        "num_clauses": 2970184,
+        "encoding_time_ms": 2405.94,
+        "solving_time_ms": 45354.82,
+        "min_solving_ms": 37684.28,
+        "max_solving_ms": 45628.76,
+        "status": "SAT"
+      }
+    },
+    "1000": {
+      "pairwise": {
+        "num_vars": 1000000,
+        "num_clauses": null,
+        "encoding_time_ms": null,
+        "solving_time_ms": null,
+        "status": "SKIPPED_MEM"
+      },
+      "sequential": {
+        "num_vars": null,
+        "num_clauses": null,
+        "encoding_time_ms": null,
+        "solving_time_ms": null,
+        "status": "TIMEOUT"
+      },
+      "commander": {
+        "num_vars": 3013684,
+        "num_clauses": 13999546,
+        "encoding_time_ms": 15111.9,
+        "solving_time_ms": 138149.7,
+        "min_solving_ms": 129277.67,
+        "max_solving_ms": 143884.96,
+        "status": "SAT"
+      },
+      "binary": {
+        "num_vars": null,
+        "num_clauses": null,
+        "encoding_time_ms": null,
+        "solving_time_ms": null,
+        "status": "SKIPPED"
+      },
+      "product": {
+        "num_vars": 1298524,
+        "num_clauses": 11946066,
+        "encoding_time_ms": 9480.14,
+        "solving_time_ms": 263818.63,
+        "min_solving_ms": 212521.81,
+        "max_solving_ms": 283029.47,
+        "status": "SAT"
+      }
+    }
+  },
+  "solver_comparison": {
+    "8": {
+      "SAT CaDiCaL (Commander)": {
+        "time_s": 0.0012,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Product)": {
+        "time_s": 0.0016,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": 0.0013,
+        "status": "SAT"
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": 0.0008,
+        "status": "SAT"
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": 0.0062,
+        "status": "FEASIBLE"
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": 0.0002,
+        "status": "FEASIBLE"
+      },
+      "ILP SCIP 9.0": {
+        "time_s": 0.0168,
+        "status": "FEASIBLE"
+      }
+    },
+    "16": {
+      "SAT CaDiCaL (Commander)": {
+        "time_s": 0.0071,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Product)": {
+        "time_s": 0.018,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": 0.0413,
+        "status": "SAT"
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": 0.086,
+        "status": "SAT"
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": 0.0292,
+        "status": "FEASIBLE"
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": 0.0063,
+        "status": "FEASIBLE"
+      },
+      "ILP SCIP 9.0": {
+        "time_s": 0.0182,
+        "status": "FEASIBLE"
+      }
+    },
+    "32": {
+      "SAT CaDiCaL (Commander)": {
+        "time_s": 0.0354,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Product)": {
+        "time_s": 0.0809,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": 0.2458,
+        "status": "SAT"
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": 18.1418,
+        "status": "SAT"
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": 0.1076,
+        "status": "FEASIBLE"
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": 0.0254,
+        "status": "FEASIBLE"
+      },
+      "ILP SCIP 9.0": {
+        "time_s": 3.0327,
+        "status": "FEASIBLE"
+      }
+    },
+    "64": {
+      "SAT CaDiCaL (Commander)": {
+        "time_s": 0.1741,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Product)": {
+        "time_s": 0.3972,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": 1.6065,
+        "status": "SAT"
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": 21.4911,
+        "status": "SAT"
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": 0.5643,
+        "status": "FEASIBLE"
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": null,
+        "status": "LIMIT_SIZE"
+      },
+      "ILP SCIP 9.0": {
+        "time_s": null,
+        "status": "TIMEOUT"
+      }
+    },
+    "128": {
+      "SAT CaDiCaL (Commander)": {
+        "time_s": 0.6167,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Product)": {
+        "time_s": 1.2467,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": 22.6547,
+        "status": "SAT"
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": 0.9299,
+        "status": "SAT"
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": 2.7988,
+        "status": "FEASIBLE"
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": null,
+        "status": "LIMIT_SIZE"
+      },
+      "ILP SCIP 9.0": {
+        "time_s": null,
+        "status": "TIMEOUT"
+      }
+    },
+    "256": {
+      "SAT CaDiCaL (Commander)": {
+        "time_s": 7.2112,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Product)": {
+        "time_s": 6.8181,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": 81.765,
+        "status": "SAT"
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": null,
+        "status": "TIMEOUT"
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": null,
+        "status": "TIMEOUT"
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": null,
+        "status": "LIMIT_SIZE"
+      },
+      "ILP SCIP 9.0": {
+        "time_s": null,
+        "status": "TIMEOUT"
+      }
+    },
+    "500": {
+      "SAT CaDiCaL (Commander)": {
+        "time_s": null,
+        "status": "TIMEOUT"
+      },
+      "SAT CaDiCaL (Product)": {
+        "time_s": 45.3548,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": null,
+        "status": "TIMEOUT"
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": null,
+        "status": "TIMEOUT"
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": null,
+        "status": "TIMEOUT"
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": null,
+        "status": "LIMIT_SIZE"
+      },
+      "ILP SCIP 9.0": {
+        "time_s": null,
+        "status": "TIMEOUT"
+      }
+    },
+    "1000": {
+      "SAT CaDiCaL (Commander)": {
+        "time_s": 138.1497,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Product)": {
+        "time_s": 263.8186,
+        "status": "SAT"
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": null,
+        "status": "TIMEOUT"
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": null,
+        "status": "TIMEOUT"
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": null,
+        "status": "TIMEOUT"
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": null,
+        "status": "LIMIT_SIZE"
+      },
+      "ILP SCIP 9.0": {
+        "time_s": null,
+        "status": "TIMEOUT"
+      }
+    }
+  }
+}

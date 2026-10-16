@@ -1,0 +1,296 @@
+{
+  "SAT CaDiCaL (Commander)": [
+    {
+      "n": 8,
+      "time_s": 0.002314099998329766,
+      "status": "SAT"
+    },
+    {
+      "n": 16,
+      "time_s": 0.014207900007022545,
+      "status": "SAT"
+    },
+    {
+      "n": 32,
+      "time_s": 0.06567350000841543,
+      "status": "SAT"
+    },
+    {
+      "n": 64,
+      "time_s": 0.32348649999767076,
+      "status": "SAT"
+    },
+    {
+      "n": 128,
+      "time_s": 1.0695030999922892,
+      "status": "SAT"
+    },
+    {
+      "n": 256,
+      "time_s": 16.728387099996326,
+      "status": "SAT"
+    },
+    {
+      "n": 500,
+      "time_s": 62.084668199997395,
+      "status": "SAT"
+    },
+    {
+      "n": 1000,
+      "time_s": 192.9690860999981,
+      "status": "SAT"
+    }
+  ],
+  "SAT CaDiCaL (Product)": [
+    {
+      "n": 8,
+      "time_s": 0.002360899990890175,
+      "status": "SAT"
+    },
+    {
+      "n": 16,
+      "time_s": 0.02607170000555925,
+      "status": "SAT"
+    },
+    {
+      "n": 32,
+      "time_s": 0.13903760000539478,
+      "status": "SAT"
+    },
+    {
+      "n": 64,
+      "time_s": 0.651763599991682,
+      "status": "SAT"
+    },
+    {
+      "n": 128,
+      "time_s": 2.1245664000016404,
+      "status": "SAT"
+    },
+    {
+      "n": 256,
+      "time_s": 14.899204000001191,
+      "status": "SAT"
+    },
+    {
+      "n": 500,
+      "time_s": 60.72484149999218,
+      "status": "SAT"
+    },
+    {
+      "n": 1000,
+      "time_s": null,
+      "status": "TIMEOUT"
+    }
+  ],
+  "SAT CaDiCaL (Sequential)": [
+    {
+      "n": 8,
+      "time_s": 0.0015622000064468011,
+      "status": "SAT"
+    },
+    {
+      "n": 16,
+      "time_s": 0.07613940000010189,
+      "status": "SAT"
+    },
+    {
+      "n": 32,
+      "time_s": 0.37668940000003204,
+      "status": "SAT"
+    },
+    {
+      "n": 64,
+      "time_s": 2.4782323999970686,
+      "status": "SAT"
+    },
+    {
+      "n": 128,
+      "time_s": 28.670658800008823,
+      "status": "SAT"
+    },
+    {
+      "n": 256,
+      "time_s": 159.97466729998996,
+      "status": "SAT"
+    },
+    {
+      "n": 500,
+      "time_s": null,
+      "status": "TIMEOUT"
+    },
+    {
+      "n": 1000,
+      "time_s": null,
+      "status": "TIMEOUT"
+    }
+  ],
+  "SAT Glucose 4.2 (Product)": [
+    {
+      "n": 8,
+      "time_s": 0.001263199999812059,
+      "status": "SAT"
+    },
+    {
+      "n": 16,
+      "time_s": 0.14397390000522137,
+      "status": "SAT"
+    },
+    {
+      "n": 32,
+      "time_s": 27.19405179999012,
+      "status": "SAT"
+    },
+    {
+      "n": 64,
+      "time_s": 32.56889280000178,
+      "status": "SAT"
+    },
+    {
+      "n": 128,
+      "time_s": 1.84386349999113,
+      "status": "SAT"
+    },
+    {
+      "n": 256,
+      "time_s": null,
+      "status": "TIMEOUT"
+    },
+    {
+      "n": 500,
+      "time_s": null,
+      "status": "TIMEOUT"
+    },
+    {
+      "n": 1000,
+      "time_s": null,
+      "status": "TIMEOUT"
+    }
+  ],
+  "CP-SAT (OR-Tools, 1w)": [
+    {
+      "n": 8,
+      "time_s": 0.013770499994279817,
+      "status": "FEASIBLE"
+    },
+    {
+      "n": 16,
+      "time_s": 0.043185800008359365,
+      "status": "FEASIBLE"
+    },
+    {
+      "n": 32,
+      "time_s": 0.19042970000009518,
+      "status": "FEASIBLE"
+    },
+    {
+      "n": 64,
+      "time_s": 0.8531233000103384,
+      "status": "FEASIBLE"
+    },
+    {
+      "n": 128,
+      "time_s": 6.094210199997178,
+      "status": "FEASIBLE"
+    },
+    {
+      "n": 256,
+      "time_s": null,
+      "status": "TIMEOUT"
+    },
+    {
+      "n": 500,
+      "time_s": null,
+      "status": "TIMEOUT"
+    },
+    {
+      "n": 1000,
+      "time_s": null,
+      "status": "TIMEOUT"
+    }
+  ],
+  "Gurobi 13.0 (1t)": [
+    {
+      "n": 8,
+      "time_s": 0.0004115000047022477,
+      "status": "FEASIBLE"
+    },
+    {
+      "n": 16,
+      "time_s": 0.010948600000119768,
+      "status": "FEASIBLE"
+    },
+    {
+      "n": 32,
+      "time_s": 0.03701649999129586,
+      "status": "FEASIBLE"
+    },
+    {
+      "n": 64,
+      "time_s": null,
+      "status": "TIMEOUT"
+    },
+    {
+      "n": 128,
+      "time_s": null,
+      "status": "TIMEOUT"
+    },
+    {
+      "n": 256,
+      "time_s": null,
+      "status": "TIMEOUT"
+    },
+    {
+      "n": 500,
+      "time_s": null,
+      "status": "TIMEOUT"
+    },
+    {
+      "n": 1000,
+      "time_s": null,
+      "status": "TIMEOUT"
+    }
+  ],
+  "ILP SCIP 9.0": [
+    {
+      "n": 8,
+      "time_s": 0.026181799999903888,
+      "status": "FEASIBLE"
+    },
+    {
+      "n": 16,
+      "time_s": 0.024533299991162494,
+      "status": "FEASIBLE"
+    },
+    {
+      "n": 32,
+      "time_s": 4.516820000004373,
+      "status": "FEASIBLE"
+    },
+    {
+      "n": 64,
+      "time_s": null,
+      "status": "TIMEOUT"
+    },
+    {
+      "n": 128,
+      "time_s": null,
+      "status": "TIMEOUT"
+    },
+    {
+      "n": 256,
+      "time_s": null,
+      "status": "TIMEOUT"
+    },
+    {
+      "n": 500,
+      "time_s": null,
+      "status": "TIMEOUT"
+    },
+    {
+      "n": 1000,
+      "time_s": null,
+      "status": "TIMEOUT"
+    }
+  ]
+}
