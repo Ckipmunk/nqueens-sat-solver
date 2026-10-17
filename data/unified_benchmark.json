@@ -1,557 +1,398 @@
 {
-  "metadata": {
-    "time_limit": 300.0,
-    "repetitions": 3,
-    "cpu": "Intel Core i7-12700KF (Single Thread)",
-    "ram": "32GB DDR4",
-    "os": "Windows 11 Pro 64-bit",
-    "cadical_version": "1.9.5 (PySAT bundled core)",
-    "glucose_version": "4.2",
-    "pysat_version": "1.9.dev15",
-    "gurobi_version": "13.0.3 (Size limit 2000 vars/constrs)",
-    "scip_version": "9.0",
-    "ortools_version": "9.15"
-  },
   "amo_ablation": {
     "8": {
       "pairwise": {
         "num_vars": 64,
         "num_clauses": 744,
-        "cnf_hash": "b9f8ad7a",
-        "encoding_time_ms": 0.34,
-        "solving_time_ms": 0.05,
-        "min_solving_ms": 0.04,
-        "max_solving_ms": 0.09,
-        "status": "SAT"
+        "encoding_time_s": 0.0004,
+        "solving_time_s": 0.0014,
+        "cnf_hash": "b9f8ad7a"
       },
       "sequential": {
         "num_vars": 270,
         "num_clauses": 600,
-        "cnf_hash": "0c4f2a00",
-        "encoding_time_ms": 0.24,
-        "solving_time_ms": 0.06,
-        "min_solving_ms": 0.06,
-        "max_solving_ms": 0.07,
-        "status": "SAT"
+        "encoding_time_s": 0.0003,
+        "solving_time_s": 0.0014,
+        "cnf_hash": "0c4f2a00"
       },
       "commander": {
         "num_vars": 154,
         "num_clauses": 634,
-        "cnf_hash": "c1c64b61",
-        "encoding_time_ms": 0.39,
-        "solving_time_ms": 0.07,
-        "min_solving_ms": 0.07,
-        "max_solving_ms": 0.09,
-        "status": "SAT"
+        "encoding_time_s": 0.0005,
+        "solving_time_s": 0.0016,
+        "cnf_hash": "c1c64b61"
       },
       "binary": {
         "num_vars": 170,
         "num_clauses": 724,
-        "cnf_hash": "f9837ad1",
-        "encoding_time_ms": 0.39,
-        "solving_time_ms": 0.13,
-        "min_solving_ms": 0.11,
-        "max_solving_ms": 0.28,
-        "status": "SAT"
+        "encoding_time_s": 0.0004,
+        "solving_time_s": 0.0017,
+        "cnf_hash": "f9837ad1"
       },
       "product": {
         "num_vars": 252,
         "num_clauses": 690,
-        "cnf_hash": "1dc0b472",
-        "encoding_time_ms": 0.52,
-        "solving_time_ms": 0.42,
-        "min_solving_ms": 0.39,
-        "max_solving_ms": 0.44,
-        "status": "SAT"
+        "encoding_time_s": 0.0005,
+        "solving_time_s": 0.0018,
+        "cnf_hash": "1dc0b472"
       }
     },
     "16": {
       "pairwise": {
         "num_vars": 256,
         "num_clauses": 6352,
-        "cnf_hash": "c22d7d93",
-        "encoding_time_ms": 2.31,
-        "solving_time_ms": 11.42,
-        "min_solving_ms": 10.73,
-        "max_solving_ms": 13.0,
-        "status": "SAT"
+        "encoding_time_s": 0.0051,
+        "solving_time_s": 0.017,
+        "cnf_hash": "c22d7d93"
       },
       "sequential": {
         "num_vars": 1182,
         "num_clauses": 2728,
-        "cnf_hash": "04bed000",
-        "encoding_time_ms": 1.17,
-        "solving_time_ms": 39.81,
-        "min_solving_ms": 37.78,
-        "max_solving_ms": 42.73,
-        "status": "SAT"
+        "encoding_time_s": 0.0036,
+        "solving_time_s": 0.0391,
+        "cnf_hash": "04bed000"
       },
       "commander": {
         "num_vars": 744,
         "num_clauses": 3176,
-        "cnf_hash": "b2cf4917",
-        "encoding_time_ms": 2.52,
-        "solving_time_ms": 3.51,
-        "min_solving_ms": 3.18,
-        "max_solving_ms": 3.97,
-        "status": "SAT"
+        "encoding_time_s": 0.0049,
+        "solving_time_s": 0.0077,
+        "cnf_hash": "b2cf4917"
       },
       "binary": {
         "num_vars": 568,
         "num_clauses": 3924,
-        "cnf_hash": "79ceeff6",
-        "encoding_time_ms": 2.33,
-        "solving_time_ms": 11.35,
-        "min_solving_ms": 11.03,
-        "max_solving_ms": 15.76,
-        "status": "SAT"
+        "encoding_time_s": 0.0047,
+        "solving_time_s": 0.0171,
+        "cnf_hash": "79ceeff6"
       },
       "product": {
         "num_vars": 836,
         "num_clauses": 2840,
-        "cnf_hash": "9c01129b",
-        "encoding_time_ms": 1.6,
-        "solving_time_ms": 14.24,
-        "min_solving_ms": 13.84,
-        "max_solving_ms": 14.8,
-        "status": "SAT"
+        "encoding_time_s": 0.004,
+        "solving_time_s": 0.0179,
+        "cnf_hash": "9c01129b"
       }
     },
     "32": {
       "pairwise": {
         "num_vars": 1024,
         "num_clauses": 52640,
-        "cnf_hash": "4c85bc53",
-        "encoding_time_ms": 19.72,
-        "solving_time_ms": 235.3,
-        "min_solving_ms": 224.61,
-        "max_solving_ms": 239.18,
-        "status": "SAT"
+        "encoding_time_s": 0.019,
+        "solving_time_s": 0.2976,
+        "cnf_hash": "4c85bc53"
       },
       "sequential": {
         "num_vars": 4926,
         "num_clauses": 11592,
-        "cnf_hash": "8b1dd622",
-        "encoding_time_ms": 5.36,
-        "solving_time_ms": 238.16,
-        "min_solving_ms": 231.11,
-        "max_solving_ms": 248.41,
-        "status": "SAT"
+        "encoding_time_s": 0.0071,
+        "solving_time_s": 0.2445,
+        "cnf_hash": "8b1dd622"
       },
       "commander": {
         "num_vars": 3114,
         "num_clauses": 13606,
-        "cnf_hash": "2ffbf5e9",
-        "encoding_time_ms": 10.53,
-        "solving_time_ms": 20.01,
-        "min_solving_ms": 19.33,
-        "max_solving_ms": 20.27,
-        "status": "SAT"
+        "encoding_time_s": 0.0115,
+        "solving_time_s": 0.0375,
+        "cnf_hash": "2ffbf5e9"
       },
       "binary": {
         "num_vars": 1846,
         "num_clauses": 19796,
-        "cnf_hash": "a1fb0e60",
-        "encoding_time_ms": 10.03,
-        "solving_time_ms": 171.28,
-        "min_solving_ms": 160.73,
-        "max_solving_ms": 178.01,
-        "status": "SAT"
+        "encoding_time_s": 0.0137,
+        "solving_time_s": 0.2024,
+        "cnf_hash": "a1fb0e60"
       },
       "product": {
         "num_vars": 2768,
         "num_clauses": 11998,
-        "cnf_hash": "697756bc",
-        "encoding_time_ms": 6.78,
-        "solving_time_ms": 65.95,
-        "min_solving_ms": 65.85,
-        "max_solving_ms": 67.28,
-        "status": "SAT"
+        "encoding_time_s": 0.0086,
+        "solving_time_s": 0.0857,
+        "cnf_hash": "697756bc"
       }
     },
     "64": {
       "pairwise": {
         "num_vars": 4096,
         "num_clauses": 428864,
-        "cnf_hash": "5e1aa9fb",
-        "encoding_time_ms": 185.02,
-        "solving_time_ms": 308.64,
-        "min_solving_ms": 293.43,
-        "max_solving_ms": 327.22,
-        "status": "SAT"
+        "encoding_time_s": 0.1488,
+        "solving_time_s": 0.7351,
+        "cnf_hash": "5e1aa9fb"
       },
       "sequential": {
         "num_vars": 20094,
         "num_clauses": 47752,
-        "cnf_hash": "bf9fc874",
-        "encoding_time_ms": 19.6,
-        "solving_time_ms": 1669.31,
-        "min_solving_ms": 1640.22,
-        "max_solving_ms": 1746.77,
-        "status": "SAT"
+        "encoding_time_s": 0.0188,
+        "solving_time_s": 1.7193,
+        "cnf_hash": "bf9fc874"
       },
       "commander": {
         "num_vars": 12442,
         "num_clauses": 55990,
-        "cnf_hash": "04eec852",
-        "encoding_time_ms": 39.81,
-        "solving_time_ms": 125.93,
-        "min_solving_ms": 122.94,
-        "max_solving_ms": 128.1,
-        "status": "SAT"
+        "encoding_time_s": 0.0339,
+        "solving_time_s": 0.187,
+        "cnf_hash": "04eec852"
       },
       "binary": {
         "num_vars": 6132,
         "num_clauses": 95572,
-        "cnf_hash": "bd631316",
-        "encoding_time_ms": 55.84,
-        "solving_time_ms": 385.51,
-        "min_solving_ms": 380.78,
-        "max_solving_ms": 396.62,
-        "status": "SAT"
+        "encoding_time_s": 0.0412,
+        "solving_time_s": 0.4714,
+        "cnf_hash": "bd631316"
       },
       "product": {
         "num_vars": 8940,
         "num_clauses": 47520,
-        "cnf_hash": "92c734f2",
-        "encoding_time_ms": 26.08,
-        "solving_time_ms": 387.93,
-        "min_solving_ms": 379.44,
-        "max_solving_ms": 389.56,
-        "status": "SAT"
+        "encoding_time_s": 0.0223,
+        "solving_time_s": 0.4211,
+        "cnf_hash": "92c734f2"
       }
     },
     "128": {
       "pairwise": {
         "num_vars": 16384,
         "num_clauses": 3462784,
-        "cnf_hash": "ba8097f7",
-        "encoding_time_ms": 1978.76,
-        "solving_time_ms": 3026.69,
-        "min_solving_ms": 2921.38,
-        "max_solving_ms": 3388.19,
-        "status": "SAT"
+        "encoding_time_s": 1.7983,
+        "solving_time_s": 6.296,
+        "cnf_hash": "32a14679"
       },
       "sequential": {
         "num_vars": 81150,
         "num_clauses": 193800,
-        "cnf_hash": "e86ef7e5",
-        "encoding_time_ms": 93.63,
-        "solving_time_ms": 23699.21,
-        "min_solving_ms": 23680.46,
-        "max_solving_ms": 23700.55,
-        "status": "SAT"
+        "encoding_time_s": 0.0727,
+        "solving_time_s": 24.8451,
+        "cnf_hash": "e86ef7e5"
       },
       "commander": {
         "num_vars": 49674,
         "num_clauses": 227010,
-        "cnf_hash": "7db3eb0a",
-        "encoding_time_ms": 184.36,
-        "solving_time_ms": 427.65,
-        "min_solving_ms": 419.94,
-        "max_solving_ms": 460.31,
-        "status": "SAT"
+        "encoding_time_s": 0.1235,
+        "solving_time_s": 0.7569,
+        "cnf_hash": "7db3eb0a"
       },
       "binary": {
         "num_vars": 21234,
         "num_clauses": 447828,
-        "cnf_hash": "1c62b54c",
-        "encoding_time_ms": 284.62,
-        "solving_time_ms": 901.48,
-        "min_solving_ms": 870.87,
-        "max_solving_ms": 902.83,
-        "status": "SAT"
+        "encoding_time_s": 0.2087,
+        "solving_time_s": 1.4151,
+        "cnf_hash": "1c62b54c"
       },
       "product": {
         "num_vars": 30182,
         "num_clauses": 193122,
-        "cnf_hash": "04d29c2e",
-        "encoding_time_ms": 101.55,
-        "solving_time_ms": 1218.62,
-        "min_solving_ms": 1196.62,
-        "max_solving_ms": 1259.77,
-        "status": "SAT"
+        "encoding_time_s": 0.0762,
+        "solving_time_s": 1.4863,
+        "cnf_hash": "04d29c2e"
       }
     }
   },
   "solver_comparison": {
     "8": {
-      "Gurobi 13.0 (1t)": {
-        "time_s": 0.0002,
-        "status": "FEASIBLE"
-      },
-      "ILP SCIP 9.0": {
-        "time_s": 0.0168,
-        "status": "FEASIBLE"
-      },
-      "CP-SAT (OR-Tools, 1w)": {
-        "time_s": 0.0062,
-        "status": "FEASIBLE"
-      },
-      "SAT Glucose 4.2 (Product)": {
-        "time_s": 0.0009,
-        "status": "SAT"
-      },
       "SAT CaDiCaL (Commander)": {
-        "time_s": 0.0001,
-        "status": "SAT"
+        "time_s": 0.0016
       },
       "SAT CaDiCaL (Product)": {
-        "time_s": 0.0004,
-        "status": "SAT"
-      },
-      "SAT CaDiCaL (Sequential)": {
-        "time_s": 0.0001,
-        "status": "SAT"
+        "time_s": 0.0018
       },
       "SAT CaDiCaL (Pairwise)": {
-        "time_s": 0.0001,
-        "status": "SAT",
-        "peak_ram": "25.6 MB"
+        "time_s": 0.0014
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": 0.0014
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": 0.0009
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": 0.0062
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": 0.0002
+      },
+      "ILP SCIP 9.0": {
+        "time_s": 0.0168
       }
     },
     "16": {
-      "Gurobi 13.0 (1t)": {
-        "time_s": 0.0063,
-        "status": "FEASIBLE"
-      },
-      "ILP SCIP 9.0": {
-        "time_s": 0.0182,
-        "status": "FEASIBLE"
-      },
-      "CP-SAT (OR-Tools, 1w)": {
-        "time_s": 0.0292,
-        "status": "FEASIBLE"
-      },
-      "SAT Glucose 4.2 (Product)": {
-        "time_s": 0.0871,
-        "status": "SAT"
-      },
       "SAT CaDiCaL (Commander)": {
-        "time_s": 0.0035,
-        "status": "SAT"
+        "time_s": 0.0077
       },
       "SAT CaDiCaL (Product)": {
-        "time_s": 0.0142,
-        "status": "SAT"
-      },
-      "SAT CaDiCaL (Sequential)": {
-        "time_s": 0.0398,
-        "status": "SAT"
+        "time_s": 0.0179
       },
       "SAT CaDiCaL (Pairwise)": {
-        "time_s": 0.0114,
-        "status": "SAT",
-        "peak_ram": "28.1 MB"
+        "time_s": 0.017
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": 0.0391
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": 0.0871
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": 0.0292
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": 0.0063
+      },
+      "ILP SCIP 9.0": {
+        "time_s": 0.0182
       }
     },
     "32": {
-      "Gurobi 13.0 (1t)": {
-        "time_s": 0.0254,
-        "status": "FEASIBLE"
-      },
-      "ILP SCIP 9.0": {
-        "time_s": 3.0327,
-        "status": "FEASIBLE"
-      },
-      "CP-SAT (OR-Tools, 1w)": {
-        "time_s": 0.1076,
-        "status": "FEASIBLE"
-      },
-      "SAT Glucose 4.2 (Product)": {
-        "time_s": 19.4494,
-        "status": "SAT"
-      },
       "SAT CaDiCaL (Commander)": {
-        "time_s": 0.02,
-        "status": "SAT"
+        "time_s": 0.0375
       },
       "SAT CaDiCaL (Product)": {
-        "time_s": 0.066,
-        "status": "SAT"
-      },
-      "SAT CaDiCaL (Sequential)": {
-        "time_s": 0.2382,
-        "status": "SAT"
+        "time_s": 0.0857
       },
       "SAT CaDiCaL (Pairwise)": {
-        "time_s": 0.2353,
-        "status": "SAT",
-        "peak_ram": "49.2 MB"
+        "time_s": 0.2976
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": 0.2445
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": 19.4494
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": 0.1076
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": 0.0254
+      },
+      "ILP SCIP 9.0": {
+        "time_s": 3.0327
       }
     },
     "64": {
-      "Gurobi 13.0 (1t)": {
-        "time_s": null,
-        "status": "LIMIT_SIZE"
-      },
-      "ILP SCIP 9.0": {
-        "time_s": null,
-        "status": "TIMEOUT"
-      },
-      "CP-SAT (OR-Tools, 1w)": {
-        "time_s": 0.5643,
-        "status": "FEASIBLE"
-      },
-      "SAT Glucose 4.2 (Product)": {
-        "time_s": 22.9288,
-        "status": "SAT"
-      },
       "SAT CaDiCaL (Commander)": {
-        "time_s": 0.1259,
-        "status": "SAT"
+        "time_s": 0.187
       },
       "SAT CaDiCaL (Product)": {
-        "time_s": 0.3879,
-        "status": "SAT"
-      },
-      "SAT CaDiCaL (Sequential)": {
-        "time_s": 1.6693,
-        "status": "SAT"
+        "time_s": 0.4211
       },
       "SAT CaDiCaL (Pairwise)": {
-        "time_s": 0.3086,
-        "status": "SAT",
-        "peak_ram": "178.1 MB"
+        "time_s": 0.7351
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": 1.7193
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": 22.9288
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": 0.5643
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": null
+      },
+      "ILP SCIP 9.0": {
+        "time_s": null
       }
     },
     "128": {
-      "Gurobi 13.0 (1t)": {
-        "time_s": null,
-        "status": "LIMIT_SIZE"
-      },
-      "ILP SCIP 9.0": {
-        "time_s": null,
-        "status": "TIMEOUT"
-      },
-      "CP-SAT (OR-Tools, 1w)": {
-        "time_s": 2.7988,
-        "status": "FEASIBLE"
-      },
-      "SAT Glucose 4.2 (Product)": {
-        "time_s": 1.0695,
-        "status": "SAT"
-      },
       "SAT CaDiCaL (Commander)": {
-        "time_s": 0.4277,
-        "status": "SAT"
+        "time_s": 0.7569
       },
       "SAT CaDiCaL (Product)": {
-        "time_s": 1.2186,
-        "status": "SAT"
-      },
-      "SAT CaDiCaL (Sequential)": {
-        "time_s": 23.6992,
-        "status": "SAT"
+        "time_s": 1.4863
       },
       "SAT CaDiCaL (Pairwise)": {
-        "time_s": 3.0267,
-        "status": "SAT",
-        "peak_ram": "1065.0 MB"
+        "time_s": 6.296
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": 24.8451
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": 1.0695
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": 2.7988
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": null
+      },
+      "ILP SCIP 9.0": {
+        "time_s": null
       }
     },
     "256": {
-      "Gurobi 13.0 (1t)": {
-        "time_s": null,
-        "status": "LIMIT_SIZE"
-      },
-      "ILP SCIP 9.0": {
-        "time_s": null,
-        "status": "TIMEOUT"
-      },
-      "CP-SAT (OR-Tools, 1w)": {
-        "time_s": null,
-        "status": "TIMEOUT"
-      },
-      "SAT Glucose 4.2 (Product)": {
-        "time_s": null,
-        "status": "TIMEOUT"
-      },
       "SAT CaDiCaL (Commander)": {
-        "time_s": 7.21,
-        "status": "SAT"
+        "time_s": 8.4583
       },
       "SAT CaDiCaL (Product)": {
-        "time_s": 6.82,
-        "status": "SAT"
-      },
-      "SAT CaDiCaL (Sequential)": {
-        "time_s": 81.765,
-        "status": "SAT"
+        "time_s": 7.9877
       },
       "SAT CaDiCaL (Pairwise)": {
-        "time_s": 89.94,
-        "status": "SAT",
-        "peak_ram": "4073.8 MB"
+        "time_s": 83.4554
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": 85.6734
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": null
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": null
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": null
+      },
+      "ILP SCIP 9.0": {
+        "time_s": null
       }
     },
     "500": {
-      "Gurobi 13.0 (1t)": {
-        "time_s": null,
-        "status": "LIMIT_SIZE"
-      },
-      "ILP SCIP 9.0": {
-        "time_s": null,
-        "status": "TIMEOUT"
-      },
-      "CP-SAT (OR-Tools, 1w)": {
-        "time_s": null,
-        "status": "TIMEOUT"
-      },
-      "SAT Glucose 4.2 (Product)": {
-        "time_s": null,
-        "status": "TIMEOUT"
-      },
       "SAT CaDiCaL (Commander)": {
-        "time_s": 35.22,
-        "status": "SAT"
+        "time_s": 32.1096
       },
       "SAT CaDiCaL (Product)": {
-        "time_s": 36.02,
-        "status": "SAT"
-      },
-      "SAT CaDiCaL (Sequential)": {
-        "time_s": null,
-        "status": "TIMEOUT"
+        "time_s": 32.2573
       },
       "SAT CaDiCaL (Pairwise)": {
-        "time_s": null,
-        "status": "OOM",
-        "peak_ram": "> 16 GB (OOM)"
+        "time_s": null
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": null
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": null
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": null
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": null
+      },
+      "ILP SCIP 9.0": {
+        "time_s": null
       }
     },
     "1000": {
-      "Gurobi 13.0 (1t)": {
-        "time_s": null,
-        "status": "LIMIT_SIZE"
-      },
-      "ILP SCIP 9.0": {
-        "time_s": null,
-        "status": "TIMEOUT"
-      },
-      "CP-SAT (OR-Tools, 1w)": {
-        "time_s": null,
-        "status": "TIMEOUT"
-      },
-      "SAT Glucose 4.2 (Product)": {
-        "time_s": null,
-        "status": "TIMEOUT"
-      },
       "SAT CaDiCaL (Commander)": {
-        "time_s": 138.15,
-        "status": "SAT"
+        "time_s": 100.9182
       },
       "SAT CaDiCaL (Product)": {
-        "time_s": 263.82,
-        "status": "SAT"
-      },
-      "SAT CaDiCaL (Sequential)": {
-        "time_s": null,
-        "status": "SKIPPED_TIMEOUT"
+        "time_s": 200.3552
       },
       "SAT CaDiCaL (Pairwise)": {
-        "time_s": null,
-        "status": "SKIPPED_OOM"
+        "time_s": null
+      },
+      "SAT CaDiCaL (Sequential)": {
+        "time_s": null
+      },
+      "SAT Glucose 4.2 (Product)": {
+        "time_s": null
+      },
+      "CP-SAT (OR-Tools, 1w)": {
+        "time_s": null
+      },
+      "Gurobi 13.0 (1t)": {
+        "time_s": null
+      },
+      "ILP SCIP 9.0": {
+        "time_s": null
       }
     }
   }

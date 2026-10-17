@@ -22,18 +22,18 @@ Binary (Bitwise) & $170$ & $568$ & $1{,}846$ & $6{,}132$ & $21{,}234$ & Biến p
 Product (2D Grid) & $252$ & $836$ & $2{,}768$ & $8{,}940$ & $30{,}182$ & Biến phụ $\mathcal{O}(N\sqrt{N})$ \\
 \midrule
 \multicolumn{7}{l}{\textbf{Thời gian mã hóa tạo mô hình CNF - Encoding Time (ms)}} \\
-Pairwise (Direct) & $0.34$ & $2.31$ & $19.72$ & $185.02$ & $1978.76$ & Đo đạc tự động \\
-Sequential Counter & $0.24$ & $1.17$ & $5.36$ & $19.60$ & $93.63$ & Đo đạc tự động \\
-Commander Variable & $0.39$ & $2.52$ & $10.53$ & $39.81$ & $184.36$ & Đo đạc tự động \\
-Binary (Bitwise) & $0.39$ & $2.33$ & $10.03$ & $55.84$ & $284.62$ & Đo đạc tự động \\
-Product (2D Grid) & $0.52$ & $1.60$ & $6.78$ & $26.08$ & $101.55$ & Đo đạc tự động \\
+Pairwise (Direct) & $0.40$ & $5.10$ & $19.00$ & $148.80$ & $1798.30$ & Đo đạc tự động \\
+Sequential Counter & $0.30$ & $3.60$ & $7.10$ & $18.80$ & $72.70$ & Đo đạc tự động \\
+Commander Variable & $0.50$ & $4.90$ & $11.50$ & $33.90$ & $123.50$ & Đo đạc tự động \\
+Binary (Bitwise) & $0.40$ & $4.70$ & $13.70$ & $41.20$ & $208.70$ & Đo đạc tự động \\
+Product (2D Grid) & $0.50$ & $4.00$ & $8.60$ & $22.30$ & $76.20$ & Đo đạc tự động \\
 \midrule
 \multicolumn{7}{l}{\textbf{Thời gian giải trung vị - Solving Time CaDiCaL 1.9.5 (ms)}} \\
-Pairwise (Direct) & $0.05$ & $11.42$ & $235.30$ & $308.64$ & $3{,}026.69$ & Chậm dần ở $N$ lớn \\
-Sequential Counter & $0.06$ & $39.81$ & $238.16$ & $1669.31$ & $23{,}699.21$ & Chậm ở $N=128$ do bùng nổ số xung đột CDCL \\
-Commander Variable & $\mathbf{0.07}$ & $\mathbf{3.51}$ & $\mathbf{20.01}$ & $\mathbf{125.93}$ & $\mathbf{427.65}$ & Nhanh nhất trên dải $N \in [16, 128]$ \\
-Binary (Bitwise) & $0.13$ & $11.35$ & $171.28$ & $385.51$ & $901.48$ & Hiệu năng khá tốt \\
-Product (2D Grid) & $0.42$ & $14.24$ & $65.95$ & $387.93$ & $1{,}218.62$ & Tương đương Sequential ở $N \ge 64$, rất ổn định \\
+Pairwise (Direct) & $1.40$ & $17.00$ & $297.60$ & $735.10$ & $6{,}296.00$ & Chậm dần ở $N$ lớn \\
+Sequential Counter & $1.40$ & $39.10$ & $244.50$ & $1719.30$ & $24{,}845.10$ & Chậm ở $N=128$ do bùng nổ số xung đột CDCL \\
+Commander Variable & $\mathbf{1.60}$ & $\mathbf{7.70}$ & $\mathbf{37.50}$ & $\mathbf{187.00}$ & $\mathbf{756.90}$ & Nhanh nhất trên dải $N \in [16, 128]$ \\
+Binary (Bitwise) & $1.70$ & $17.10$ & $202.40$ & $471.40$ & $1{,}415.10$ & Hiệu năng khá tốt \\
+Product (2D Grid) & $1.80$ & $17.90$ & $85.70$ & $421.10$ & $1{,}486.30$ & Số lượng mệnh đề tương đương Sequential ở $N \ge 64$, rất ổn định \\
 \bottomrule
 \end{tabular*}%
 }

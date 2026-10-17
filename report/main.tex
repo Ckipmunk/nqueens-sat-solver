@@ -6,7 +6,7 @@
 \usepackage{multirow}
 \usepackage{graphicx}
 \usepackage{hyperref}
-\hypersetup{pdfauthor={Phạm Khánh Duy}, pdftitle={Nghiên cứu các Kỹ thuật Mã hóa SAT cho Bài toán N-Queens}}
+\hypersetup{pdfauthor={Phạm Khánh Duy}, pdftitle={Nghiên cứu các Kỹ thuật Mã hóa SAT cho Bài toán N-Queens}}}
 \usepackage{microtype}
 \usepackage{listings}
 \usepackage{xcolor}
@@ -52,10 +52,10 @@
 
 \address[1]{Khoa Công nghệ Thông tin, Trường Đại học Công nghệ, Đại học Quốc gia Hà Nội (VNU-UET), 144 Xuân Thủy, Cầu Giấy, Hà Nội, Việt Nam}
 
-\cortext[cor1]{Tác giả liên hệ chính: Phạm Khánh Duy (Học viên thực hiện, MSSV: 24021452, Email: \texttt{24021452@vnu.edu.vn}). Giảng viên hướng dẫn: TS. Tô Văn Khánh.}
+\cortext[cor1]{Tác giả liên hệ chính: Phạm Khánh Duy (Học viên thực hiện, MSSV: 24021452, Email: \texttt{24021452@vnu.edu.vn}). Giảng viên hướng dẫn: TS. Tô Văn Khánh (Email: \texttt{khanhtv@vnu.edu.vn}).}
 
 \begin{abstract}
-Bài toán $N$-Queens là bài toán kinh điển trong khoa học máy tính và tối ưu tổ hợp rời rạc, yêu cầu sắp xếp $N$ quân hậu trên bàn cờ $N \times N$ không tấn công lẫn nhau. Khi kích thước $N$ gia tăng, không gian tìm kiếm bùng nổ theo giai thừa $\mathcal{O}(N!)$, tạo ra thách thức lớn cho các bộ giải chính xác. Bài báo này nghiên cứu tiếp cận giải chính xác $N$-Queens bằng SAT Solving qua thư viện PySAT. Trọng tâm nghiên cứu là phân tích lý thuyết và đánh giá thực nghiệm 5 kỹ thuật mã hóa At-Most-One (AMO): Pairwise, Sequential Counter, Commander Variable, Binary (Prestwich, 2009; Frisch \& Giannaros, 2010) và Product Encoding. Kết quả cho thấy Pairwise bùng nổ $\mathcal{O}(N^3)$ mệnh đề, tiêu tốn khoảng 4 GB RAM đỉnh tại $N=256$ ($4{,}073.8$ MB) và làm tràn bộ nhớ heap tiến trình Python ($>16$ GB) tại $N=500$ ($207.8$ triệu mệnh đề). Ngược lại, Sequential, Product và Commander duy trì bậc $\mathcal{O}(N^2)$ mệnh đề. Về hiệu năng giải bằng CaDiCaL 1.9.5, Commander Variable đạt tốc độ nhanh nhất trên dải $N \in [16, 128]$ (chỉ mất $0.43$s ở $N=128$, nhanh hơn Sequential khoảng 55 lần). Ở quy mô cực đại $N \ge 256$, Commander và Product mở rộng thành công lên tới $N=500$ ($35.22$s và $36.02$s) và $N=1000$ ($138.15$s và $263.82$s). Solver CaDiCaL được chứng minh hoạt động tất định khi sinh cùng số lượng xung đột và quyết định giữa các lần chạy trên cùng một công thức CNF; sự biến thiên thời gian giải xuất phát từ nhiễu môi trường phần cứng máy tính. So sánh đối chứng đơn luồng (Time Limit 300.0s) với CP-SAT (Google OR-Tools), Gurobi 13.0 và SCIP 9.0 cho thấy SAT Solving thể hiện ưu thế vượt trội về tính mở rộng ở $N \ge 256$, trong khi Gurobi dừng ở $N \ge 64$ do giới hạn kích thước của license đi kèm gói pip (tối đa 2.000 biến).
+Bài toán $N$-Queens là bài toán kinh điển trong khoa học máy tính và tối ưu tổ hợp rời rạc, yêu cầu sắp xếp $N$ quân hậu trên bàn cờ $N \times N$ không tấn công lẫn nhau. Khi kích thước $N$ gia tăng, không gian tìm kiếm bùng nổ theo giai thừa $\mathcal{O}(N!)$, tạo ra thách thức lớn cho các bộ giải chính xác. Bài báo này nghiên cứu tiếp cận giải chính xác $N$-Queens bằng SAT Solving qua thư viện PySAT. Trọng tâm nghiên cứu là phân tích lý thuyết và đánh giá thực nghiệm 5 kỹ thuật mã hóa At-Most-One (AMO): Pairwise, Sequential Counter, Commander Variable, Binary (Prestwich, 2009; Frisch \& Giannaros, 2010) và Product Encoding. Kết quả đo đạc chuẩn hóa qua các tiến trình độc lập (\texttt{subprocess}) cho thấy Pairwise bùng nổ $\mathcal{O}(N^3)$ mệnh đề, tiêu tốn khoảng 7.7 GB RAM đỉnh tại $N=256$ ($7{,}679.4$ MB) và dừng do ngoại lệ \texttt{MemoryError} khi khởi tạo $207.8$ triệu mệnh đề tại $N=500$. Ngược lại, Sequential, Product và Commander duy trì bậc $\mathcal{O}(N^2)$ mệnh đề. Về hiệu năng giải bằng CaDiCaL 1.9.5, Commander Variable đạt tốc độ nhanh nhất trên dải $N \in [16, 128]$ (chỉ mất $0.76$s ở $N=128$, nhanh hơn Sequential khoảng 33 lần). Ở quy mô cực đại $N \ge 256$, Commander và Product mở rộng thành công lên tới $N=500$ ($32.11$s và $32.26$s) và $N=1000$ ($100.92$s và $200.36$s). Thực nghiệm 3 lần chạy lặp độc lập quan sát thấy tính tất định của CaDiCaL với số lượng xung đột và quyết định đồng nhất $100\%$ trên cùng công thức CNF; sự biến thiên thời gian giải ở quy mô lớn được phân tích dưới các giả thuyết về điều tiết xung nhịp phần cứng và quản lý bộ nhớ đệm hệ điều hành. So sánh đối chứng đơn luồng (Time Limit 300.0s) với CP-SAT (Google OR-Tools), Gurobi 13.0 và SCIP 9.0 cho thấy SAT Solving vượt trội về tính mở rộng ở $N \ge 256$, trong khi Gurobi dừng ở $N \ge 64$ do giới hạn kích thước license đi kèm gói pip (tối đa 2.000 biến).
 \end{abstract}
 
 \begin{keywords}
@@ -84,10 +84,10 @@ Trọng tâm của tiếp cận SAT nằm ở việc chuyển đổi các ràng 
 \begin{itemize}
     \item Nghiên cứu, cài đặt và phân tích so sánh lý thuyết lẫn thực nghiệm 5 kỹ thuật mã hóa AMO: Pairwise, Sequential Counter~\cite{sinz2005towards}, Commander Variable~\cite{klieber2007efficient}, Binary Encoding~\cite{prestwich2009cnf,frisch2010sat} và Product Encoding~\cite{chen2010product}. Phân định rõ giữa các hàm PySAT CardEnc có sẵn và các thuật toán tự cài đặt độc lập.
     \item Triển khai hoàn chỉnh bộ giải $N$-Queens Solver trên nền tảng PySAT~\cite{ignatiev2018pysat}, tích hợp solver CaDiCaL 1.9.5 và Glucose 4.2.
-    \item Thiết lập giao thức đo lường chuẩn hóa: lặp lại đúng 3 lần cho mọi kích thước $N \in [8, 1000]$ trong các tiến trình con độc lập (\texttt{subprocess}) cách ly bộ nhớ, áp dụng cùng Time Limit 300.0 giây, chạy đơn luồng (1 worker / 1 thread) cho tất cả các solver.
-    \item Thu thập dữ liệu thực nghiệm vi mô giải thích động lực tìm kiếm CDCL (\textit{search dynamics}): trích xuất thông số nội tại (\texttt{accum\_stats()}) và tính mã băm SHA-256 của từng công thức CNF qua 3 lần chạy lặp. Kết quả chứng minh tính tất định của CaDiCaL trên cùng một CNF, đồng thời chỉ ra sự suy thoái hiệu năng của Sequential Counter ở $N=128$ ($23.70$s, chậm hơn Commander 55 lần) bị dẫn dắt bởi sự tăng vọt $68\times$ số xung đột ($62{,}360$) và $26\times$ số quyết định ($107{,}733$), kéo theo $42.89$ triệu lượt lan truyền đơn vị. Phân tích thực nghiệm cũng làm rõ mối quan hệ phi tuyến: số lượng biến phụ không quyết định trực tiếp số xung đột (Commander có $33{,}290$ biến phụ, nhiều hơn $2.4\times$ so với Product, nhưng lại có số xung đột thấp nhất chỉ $916$).
+    \item Thiết lập giao thức đo lường chuẩn hóa: lặp lại đúng 3 lần cho mọi kích thước $N \in [8, 1000]$ trong từng tiến trình con độc lập (\texttt{subprocess}) cách ly bộ nhớ hoàn toàn, đo RAM đỉnh thực tế cho từng lần chạy qua \texttt{psutil}, áp dụng cùng Time Limit 300.0 giây, chạy đơn luồng (1 worker / 1 thread) cho tất cả các solver.
+    \item Thu thập dữ liệu thực nghiệm vi mô giải thích động lực tìm kiếm CDCL (\textit{search dynamics}): trích xuất thông số nội tại (\texttt{accum\_stats()}) và tính mã băm SHA-256 của từng công thức CNF qua 3 lần chạy lặp. Kết quả thực nghiệm 3 lần chạy lặp độc lập quan sát thấy tính tất định của CaDiCaL trên cùng một CNF với số lượng xung đột và quyết định hoàn toàn đồng nhất ($3/3$ lần trùng khớp), đồng thời chỉ ra sự suy thoái hiệu năng của Sequential Counter ở $N=128$ ($24.85$s, chậm hơn Commander 33 lần) bị dẫn dắt bởi sự tăng vọt $68\times$ số xung đột ($62{,}360$ so với $916$) và $26\times$ số quyết định ($107{,}733$ so với $4{,}159$), kéo theo $42.89$ triệu lượt lan truyền đơn vị. Phân tích thực nghiệm cũng làm rõ mối quan hệ phi tuyến: số lượng biến phụ không quyết định trực tiếp số xung đột (Commander có $33{,}290$ biến phụ, nhiều hơn $2.4\times$ so với Product, nhưng lại có số xung đột thấp nhất chỉ $916$).
     \item So sánh đối chứng toàn diện giữa SAT Solving với Google OR-Tools CP-SAT, Gurobi Optimizer 13.0 và SCIP 9.0 (ILP MIP) trên dải kích thước bàn cờ từ $N = 8$ đến $N = 1000$.
-    \item Kết quả thực nghiệm cho thấy cả Commander Variable và Product Encoding cho phép CaDiCaL 1.9.5 giải quyết thành công bàn cờ kích thước cực lớn $N = 500$ ($35.22$s và $36.02$s) và $N = 1000$ ($1{,}000{,}000$ ô cờ; $138.15$s và $263.82$s), trong khi CP-SAT và SCIP đều dừng do hết thời gian (timeout) ở $N \ge 256$, còn Gurobi dừng ở $N \ge 64$ do giới hạn kích thước license đi kèm gói pip (2.000 biến).
+    \item Kết quả thực nghiệm cho thấy cả Commander Variable và Product Encoding cho phép CaDiCaL 1.9.5 giải quyết thành công bàn cờ kích thước cực lớn $N = 500$ ($32.11$s và $32.26$s) và $N = 1000$ ($1{,}000{,}000$ ô cờ; $100.92$s và $200.36$s), trong khi CP-SAT và SCIP đều dừng do hết thời gian (timeout) ở $N \ge 256$, còn Gurobi dừng ở $N \ge 64$ do giới hạn kích thước license đi kèm gói pip (2.000 biến).
 \end{itemize}
 
 Cấu trúc các phần tiếp theo của bài báo: Phần 2 trình bày cơ sở lý thuyết, các nghiên cứu liên quan và mô hình toán học ILP, CP. Phần 3 mô tả chi tiết tiếp cận SAT, 5 kỹ thuật mã hóa AMO, kỹ thuật phá vỡ đối xứng và chứng minh tính đúng đắn. Phần 4 báo cáo kết quả thực nghiệm và thảo luận chuyên sâu. Phần 5 kết luận bài báo, nêu rõ các hạn chế và định hướng phát triển.
@@ -294,6 +294,8 @@ Toàn bộ các thí nghiệm được triển khai và đo lường trên máy 
 \end{itemize}
 
 \subsection{Thực nghiệm 1: Khảo sát Triệt tiêu (Ablation Study) 5 Kỹ thuật AMO}
+Bảng~\ref{tab:ablation_results} và Hình~\ref{fig:clauses_scaling} thống kê số biến logic, số mệnh đề CNF, thời gian tạo mô hình (Encoding Time) và thời gian giải (Solving Time) bằng CaDiCaL 1.9.5 trên dải kích thước $N \in [8, 128]$. Ngoài ra, tại $N = 256$, phương pháp Pairwise vẫn sinh thành công mô hình với 65,536 biến và 27,831,552 mệnh đề (thời gian mã hóa trung vị $14.74$s, thời gian giải trung vị $83.46$s, dải $[81.03, 88.80]$s, tiêu tốn $7{,}679.4$ MB RAM đỉnh).
+
 Bảng~\ref{tab:ablation_results} và Hình~\ref{fig:clauses_scaling} thống kê số biến logic, số mệnh đề CNF, thời gian tạo mô hình (Encoding Time) và thời gian giải (Solving Time) bằng CaDiCaL 1.9.5 trên dải kích thước $N \in [8, 128]$. Ngoài ra, tại $N = 256$, phương pháp Pairwise vẫn sinh thành công mô hình với 65,536 biến và 27,831,552 mệnh đề (thời gian mã hóa $15.77$s, thời gian giải trung vị $89.94$s, dải $[82.19, 94.50]$s).
 
 \begin{table*}[htbp]
@@ -320,18 +322,18 @@ Binary (Bitwise) & $170$ & $568$ & $1{,}846$ & $6{,}132$ & $21{,}234$ & Biến p
 Product (2D Grid) & $252$ & $836$ & $2{,}768$ & $8{,}940$ & $30{,}182$ & Biến phụ $\mathcal{O}(N\sqrt{N})$ \\
 \midrule
 \multicolumn{7}{l}{\textbf{Thời gian mã hóa tạo mô hình CNF - Encoding Time (ms)}} \\
-Pairwise (Direct) & $0.34$ & $2.31$ & $19.72$ & $185.02$ & $1978.76$ & Đo đạc tự động \\
-Sequential Counter & $0.24$ & $1.17$ & $5.36$ & $19.60$ & $93.63$ & Đo đạc tự động \\
-Commander Variable & $0.39$ & $2.52$ & $10.53$ & $39.81$ & $184.36$ & Đo đạc tự động \\
-Binary (Bitwise) & $0.39$ & $2.33$ & $10.03$ & $55.84$ & $284.62$ & Đo đạc tự động \\
-Product (2D Grid) & $0.52$ & $1.60$ & $6.78$ & $26.08$ & $101.55$ & Đo đạc tự động \\
+Pairwise (Direct) & $0.40$ & $5.10$ & $19.00$ & $148.80$ & $1798.30$ & Đo đạc tự động \\
+Sequential Counter & $0.30$ & $3.60$ & $7.10$ & $18.80$ & $72.70$ & Đo đạc tự động \\
+Commander Variable & $0.50$ & $4.90$ & $11.50$ & $33.90$ & $123.50$ & Đo đạc tự động \\
+Binary (Bitwise) & $0.40$ & $4.70$ & $13.70$ & $41.20$ & $208.70$ & Đo đạc tự động \\
+Product (2D Grid) & $0.50$ & $4.00$ & $8.60$ & $22.30$ & $76.20$ & Đo đạc tự động \\
 \midrule
 \multicolumn{7}{l}{\textbf{Thời gian giải trung vị - Solving Time CaDiCaL 1.9.5 (ms)}} \\
-Pairwise (Direct) & $0.05$ & $11.42$ & $235.30$ & $308.64$ & $3{,}026.69$ & Chậm dần ở $N$ lớn \\
-Sequential Counter & $0.06$ & $39.81$ & $238.16$ & $1669.31$ & $23{,}699.21$ & Chậm ở $N=128$ do bùng nổ số xung đột CDCL \\
-Commander Variable & $\mathbf{0.07}$ & $\mathbf{3.51}$ & $\mathbf{20.01}$ & $\mathbf{125.93}$ & $\mathbf{427.65}$ & Nhanh nhất trên dải $N \in [16, 128]$ \\
-Binary (Bitwise) & $0.13$ & $11.35$ & $171.28$ & $385.51$ & $901.48$ & Hiệu năng khá tốt \\
-Product (2D Grid) & $0.42$ & $14.24$ & $65.95$ & $387.93$ & $1{,}218.62$ & Tương đương Sequential ở $N \ge 64$, rất ổn định \\
+Pairwise (Direct) & $1.40$ & $17.00$ & $297.60$ & $735.10$ & $6{,}296.00$ & Chậm dần ở $N$ lớn \\
+Sequential Counter & $1.40$ & $39.10$ & $244.50$ & $1719.30$ & $24{,}845.10$ & Chậm ở $N=128$ do bùng nổ số xung đột CDCL \\
+Commander Variable & $\mathbf{1.60}$ & $\mathbf{7.70}$ & $\mathbf{37.50}$ & $\mathbf{187.00}$ & $\mathbf{756.90}$ & Nhanh nhất trên dải $N \in [16, 128]$ \\
+Binary (Bitwise) & $1.70$ & $17.10$ & $202.40$ & $471.40$ & $1{,}415.10$ & Hiệu năng khá tốt \\
+Product (2D Grid) & $1.80$ & $17.90$ & $85.70$ & $421.10$ & $1{,}486.30$ & Số lượng mệnh đề tương đương Sequential ở $N \ge 64$, rất ổn định \\
 \bottomrule
 \end{tabular*}%
 }
@@ -346,36 +348,36 @@ Product (2D Grid) & $0.42$ & $14.24$ & $65.95$ & $387.93$ & $1{,}218.62$ & Tươ
 
 \textbf{Nhận xét và phân tích chuyên sâu về Bảng~\ref{tab:ablation_results}:}
 \begin{enumerate}
-    \item \textbf{Mối quan hệ phi tuyến giữa số lượng mệnh đề và thời gian giải:} Kết quả thực nghiệm cho thấy \textit{số lượng mệnh đề ít hơn không đồng nghĩa với thời gian giải nhanh hơn}. Ở $N=128$, Sequential Counter có số lượng mệnh đề rất thấp ($193{,}800$ clauses), nhưng thời gian giải của CaDiCaL lại lên tới $23.70$ giây, chậm hơn Pairwise ($3.03$ giây với gần 3.5 triệu mệnh đề) và chậm hơn Commander khoảng 55 lần ($0.43$ giây).
+    \item \textbf{Mối quan hệ phi tuyến giữa số lượng mệnh đề và thời gian giải:} Kết quả thực nghiệm cho thấy \textit{số lượng mệnh đề ít hơn không đồng nghĩa với thời gian giải nhanh hơn}. Ở $N=128$, Sequential Counter có số lượng mệnh đề rất thấp ($193{,}800$ clauses), nhưng thời gian giải của CaDiCaL lại lên tới $24.85$ giây, chậm hơn Pairwise ($6.30$ giây với gần 3.5 triệu mệnh đề) và chậm hơn Commander khoảng 33 lần ($0.76$ giây).
     \item \textbf{Phân tích động lực tìm kiếm CDCL (CDCL Search Dynamics):} 
     Để làm sáng tỏ cơ chế nội tại vì sao Sequential Counter có số lượng mệnh đề rất thấp nhưng thời gian giải lại tăng vọt ở $N=128$, chúng tôi đã trích xuất đầy đủ các thông số thống kê vi mô của solver CaDiCaL (\texttt{accum\_stats()}) qua 3 lần chạy độc lập cho cả 5 kỹ thuật mã hóa tại $N \in \{32, 64, 128\}$, được trình bày trong Bảng~\ref{tab:cdcl_search_stats}.
 
 \begin{table*}[htbp]
-\caption{Thống kê định lượng động cơ tìm kiếm CDCL của CaDiCaL 1.9.5 (trích xuất qua \texttt{solver.accum\_stats()}) trên 5 kỹ thuật AMO tại $N \in \{32, 64, 128\}$. Cả 3 lần chạy lặp độc lập đều ghi nhận số lượng xung đột và quyết định hoàn toàn giống nhau, chứng minh tính tất định của solver trên cùng một công thức CNF.}
+\caption{Thống kê định lượng động cơ tìm kiếm CDCL của CaDiCaL 1.9.5 (trích xuất qua \texttt{solver.accum\_stats()}) trên 5 kỹ thuật AMO tại $N \in \{32, 64, 128\}$. Cả 3 lần chạy lặp độc lập đều ghi nhận số lượng xung đột và quyết định hoàn toàn giống nhau (3/3 lần giống nhau), phản ánh tính tất định của solver trên cùng một công thức CNF.}
 \label{tab:cdcl_search_stats}
 \centering
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{llr rrrr rrr}
+\begin{tabular}{llr rrrr rrrr} 
 \toprule
-\textbf{Phương pháp AMO} & $N$ & \textbf{CNF Hash} & \textbf{Biến phụ} & \textbf{Tổng mệnh đề} & \textbf{Xung đột (3 lần chạy)} & \textbf{Quyết định} & \textbf{Lan truyền} & \textbf{Props/Conf} & \textbf{Thời gian giải (s)} \\
+\textbf{Phương pháp AMO} & $N$ & \textbf{CNF Hash} & \textbf{Biến phụ} & \textbf{Tổng mệnh đề} & \textbf{Xung đột (3/3 lần)} & \textbf{Quyết định} & \textbf{Lan truyền} & \textbf{Props/Conf} & \textbf{Props/Dec} & \textbf{Thời gian giải (s)} \\
 \midrule
-Pairwise & 32 & \texttt{4c85bc53} & 0 & 52{,}640 & 6{,}008 & 6{,}917 & 340{,}480 & 56.7 & 0.2353 \\
-Sequential & 32 & \texttt{8b1dd622} & 3{,}902 & 11{,}592 & 1{,}983 & 3{,}504 & 578{,}470 & 291.7 & 0.2382 \\
-Commander & 32 & \texttt{2ffbf5e9} & 2{,}090 & 13{,}606 & \textbf{213} & \textbf{556} & \textbf{36{,}537} & 171.5 & \textbf{0.0200} \\
-Binary & 32 & \texttt{a1fb0e60} & 822 & 19{,}796 & 3{,}012 & 3{,}922 & 361{,}576 & 120.0 & 0.1713 \\
-Product & 32 & \texttt{697756bc} & 1{,}744 & 11{,}998 & 1{,}051 & 1{,}757 & 224{,}938 & 214.0 & 0.0660 \\
+Pairwise & 32 & \texttt{4c85bc53} & 0 & 52{,}640 & 6{,}008 & 6{,}917 & 340{,}480 & 56.7 & 49.2 & 0.2976 \\
+Sequential & 32 & \texttt{8b1dd622} & 3{,}902 & 11{,}592 & 1{,}983 & 3{,}504 & 578{,}470 & 291.7 & 165.1 & 0.2445 \\
+Commander & 32 & \texttt{2ffbf5e9} & 2{,}090 & 13{,}606 & \textbf{213} & \textbf{556} & \textbf{36{,}537} & 171.5 & 65.7 & \textbf{0.0375} \\
+Binary & 32 & \texttt{a1fb0e60} & 822 & 19{,}796 & 3{,}012 & 3{,}922 & 361{,}576 & 120.0 & 92.2 & 0.2024 \\
+Product & 32 & \texttt{697756bc} & 1{,}744 & 11{,}998 & 1{,}051 & 1{,}757 & 224{,}938 & 214.0 & 128.0 & 0.0857 \\
 \midrule
-Pairwise & 64 & \texttt{5e1aa9fb} & 0 & 428{,}864 & 3{,}045 & 3{,}968 & 241{,}457 & 79.3 & 0.3086 \\
-Sequential & 64 & \texttt{bf9fc874} & 15{,}998 & 47{,}752 & 7{,}079 & 12{,}828 & 4{,}598{,}243 & 649.6 & 1.6693 \\
-Commander & 64 & \texttt{04eec852} & 8{,}346 & 55{,}990 & \textbf{629} & \textbf{1{,}699} & \textbf{197{,}463} & 313.9 & \textbf{0.1259} \\
-Binary & 64 & \texttt{bd631316} & 2{,}036 & 95{,}572 & 3{,}387 & 6{,}599 & 727{,}372 & 214.8 & 0.3855 \\
-Product & 64 & \texttt{92c734f2} & 4{,}844 & 47{,}520 & 3{,}246 & 5{,}886 & 991{,}917 & 305.6 & 0.3879 \\
+Pairwise & 64 & \texttt{5e1aa9fb} & 0 & 428{,}864 & 3{,}045 & 3{,}968 & 241{,}457 & 79.3 & 60.9 & 0.7351 \\
+Sequential & 64 & \texttt{bf9fc874} & 15{,}998 & 47{,}752 & 7{,}079 & 12{,}828 & 4{,}598{,}243 & 649.6 & 358.5 & 1.7193 \\
+Commander & 64 & \texttt{04eec852} & 8{,}346 & 55{,}990 & \textbf{629} & \textbf{1{,}699} & \textbf{197{,}463} & 313.9 & 116.2 & \textbf{0.1870} \\
+Binary & 64 & \texttt{bd631316} & 2{,}036 & 95{,}572 & 3{,}387 & 6{,}599 & 727{,}372 & 214.8 & 110.2 & 0.4714 \\
+Product & 64 & \texttt{92c734f2} & 4{,}844 & 47{,}520 & 3{,}246 & 5{,}886 & 991{,}917 & 305.6 & 168.5 & 0.4211 \\
 \midrule
-Pairwise & 128 & \texttt{ba8097f7} & 0 & 3{,}462{,}784 & 6{,}037 & 7{,}373 & 1{,}997{,}918 & 330.9 & 3.0267 \\
-Sequential & 128 & \texttt{e86ef7e5} & 64{,}766 & 193{,}800 & 62{,}360 & 107{,}733 & 42{,}890{,}432 & 687.8 & 23.6992 \\
-Commander & 128 & \texttt{7db3eb0a} & 33{,}290 & 227{,}010 & \textbf{916} & \textbf{4{,}159} & \textbf{738{,}169} & 805.9 & \textbf{0.4277} \\
-Binary & 128 & \texttt{1c62b54c} & 4{,}850 & 447{,}828 & 3{,}094 & 11{,}061 & 1{,}566{,}393 & 506.3 & 0.9015 \\
-Product & 128 & \texttt{04d29c2e} & 13{,}798 & 193{,}122 & 4{,}551 & 13{,}978 & 2{,}813{,}735 & 618.3 & 1.2186 \\
+Pairwise & 128 & \texttt{32a14679} & 0 & 3{,}462{,}784 & 6{,}037 & 7{,}373 & 1{,}997{,}918 & 330.9 & 271.0 & 6.2960 \\
+Sequential & 128 & \texttt{e86ef7e5} & 64{,}766 & 193{,}800 & 62{,}360 & 107{,}733 & 42{,}890{,}432 & 687.8 & 398.1 & 24.8451 \\
+Commander & 128 & \texttt{7db3eb0a} & 33{,}290 & 227{,}010 & \textbf{916} & \textbf{4{,}159} & \textbf{738{,}169} & 805.9 & 177.5 & \textbf{0.7569} \\
+Binary & 128 & \texttt{1c62b54c} & 4{,}850 & 447{,}828 & 3{,}094 & 11{,}061 & 1{,}566{,}393 & 506.3 & 141.6 & 1.4151 \\
+Product & 128 & \texttt{04d29c2e} & 13{,}798 & 193{,}122 & 4{,}551 & 13{,}978 & 2{,}813{,}735 & 618.3 & 201.3 & 1.4863 \\
 \bottomrule
 \end{tabular}%
 }
@@ -387,10 +389,10 @@ Product & 128 & \texttt{04d29c2e} & 13{,}798 & 193{,}122 & 4{,}551 & 13{,}978 & 
         \item \textbf{Tỷ lệ lan truyền trên mỗi quyết định ($\text{Props} / \text{Decision}$):} Sequential Counter đạt $398.1$, cao gấp khoảng $2.2$ lần Commander ($177.5$) và Product ($201.3$). Hệ số $2.2$ lần này phù hợp với giả thuyết về chi phí lan truyền gán giá trị đơn vị dọc theo chuỗi biến tích lũy dạng thang $s_i \to s_{i+1}$.
         \item \textbf{Nguyên nhân thực sự của sự bùng nổ thời gian giải:} Tổng số lượt lan truyền đơn vị của Sequential Counter tăng vọt gấp $58$ lần so với Commander ($42.89 \times 10^6$ so với $738 \times 10^3$) chủ yếu do \textbf{số lượng xung đột tăng gấp $68$ lần ($62{,}360$ so với $916$)} và \textbf{số lượng quyết định phân nhánh tăng gấp $26$ lần ($107{,}733$ so với $4{,}159$)}.
     \end{itemize}
-    Kết quả thực nghiệm cho thấy sự bùng nổ thời gian giải của Sequential Counter gắn liền với số lượng xung đột và quyết định tăng đột biến. Tuy nhiên, mối quan hệ giữa số biến phụ và số xung đột không phải là một tương quan tuyến tính đơn giản: Commander Variable có tới $33{,}290$ biến phụ (gấp $2.4$ lần Product và $6.9$ lần Binary) nhưng lại đạt số xung đột thấp nhất ($916$ xung đột), trong khi Pairwise không có bất kỳ biến phụ nào lại có tới $6{,}037$ xung đột (hệ số tương quan hạng Spearman giữa số biến phụ và số xung đột trên 5 kỹ thuật tại $N=128$ chỉ đạt $\approx 0.1$). Giả thuyết hợp lý nhất là cấu trúc đồ thị suy diễn đóng vai trò then chốt: cấu trúc cây phân cấp của Commander hỗ trợ cắt tỉa nhanh không gian tìm kiếm, trong khi chuỗi thang tuyến tính $s_i \to s_{i+1}$ của Sequential có thể gây nhiễu loạn heuristic VSIDS và phase-saving, khiến bộ giải liên tục rẽ nhánh sâu vào chuỗi biến trạng thái thay vì các biến bàn cờ cơ sở. Dù vậy, nguyên nhân bản chất của hiện tượng này vẫn là một câu hỏi mở cần được kiểm chứng vi mô sâu hơn.
-    \item \textbf{Ưu thế của Commander Variable ở dải $N \in [16, 128]$:} Kỹ thuật Commander phân chia biến thành các nhóm nhỏ ($g=3$) và tổ chức biến chỉ huy dạng cây phân cấp. Cấu trúc này cho phép bộ giải CDCL gán giá trị \texttt{False} cho một nhóm biến ngay khi biến chỉ huy bị gán \texttt{False}, giúp cắt tỉa nhanh không gian tìm kiếm ở các mức quyết định cao với số lượng xung đột cực thấp ($916$ xung đột ở $N=128$). Nhờ đó, Commander đạt thời gian giải nhanh nhất từ $N=16$ ($3.51$ms) đến $N=128$ ($427.65$ms, tức khoảng $0.43$s).
-    \item \textbf{Đặc điểm của Binary và Product Encoding:} Binary Encoding sử dụng ít biến phụ nhất trong các phương pháp mở rộng ($21{,}234$ biến ở $N=128$) và có thời gian giải $901.48$ms, nhanh thứ nhì sau Commander. Trong khi đó, Product Encoding đạt điểm cân bằng rất tốt giữa số biến phụ ($30{,}182$) và số mệnh đề ($193{,}122$ clauses ở $N=128$, tương đương Sequential với $193{,}800$ clauses), duy trì tốc độ giải ổn định ($1{,}218.62$ms, $\approx 1.22$s).
-    \item \textbf{Thời gian mã hóa và Bộ nhớ ở quy mô lớn:} Với $N \in [8, 128]$, thời gian sinh CNF của các phương pháp đều dưới 2 giây. Tuy nhiên ở các kích thước lớn, chi phí sinh mệnh đề bằng Python tăng đáng kể: ở $N=500$, Commander cần 3.01s mã hóa và 884.2 MB RAM đỉnh, Product cần 2.41s và 862.5 MB RAM; ở $N=1000$, Commander cần 15.11s mã hóa (13.99 triệu mệnh đề, 1.48 GB RAM), Product cần 9.48s (11.95 triệu mệnh đề, 1.12 GB RAM). Đặc biệt, Pairwise ở $N=256$ đòi hỏi 15.77s mã hóa cho 27.83 triệu mệnh đề và tiêu tốn khoảng 4 GB RAM ($4{,}073.8$ MB, $\approx 3.98$ GiB), và đến $N=500$ ($207{,}834{,}500$ mệnh đề, xấp xỉ 207.8 triệu) thì cạn kiệt bộ nhớ heap tiến trình Python ($>16$ GB RAM).
+    Kết quả thực nghiệm cho thấy sự bùng nổ thời gian giải của Sequential Counter gắn liền với số lượng xung đột và quyết định tăng đột biến. Tuy nhiên, mối quan hệ giữa số biến phụ và số xung đột không phải là một tương quan tuyến tính đơn giản: Commander Variable có tới $33{,}290$ biến phụ (gấp $2.4$ lần Product và $6.9$ lần Binary) nhưng lại đạt số xung đột thấp nhất ($916$ xung đột), trong khi Pairwise không có bất kỳ biến phụ nào lại có tới $6{,}037$ xung đột (hệ số tương quan hạng Spearman giữa số biến phụ và số xung đột trên 5 kỹ thuật tại $N=128$ chỉ đạt $\approx 0.1$). Đáng chú ý, khi mở rộng đo đạc CDCL vi mô lên các kích thước lớn ($N \ge 256$), solver CaDiCaL tiếp tục duy trì tính nhất quán tuyệt đối về số xung đột và quyết định trên cùng công thức CNF qua cả 3 lần chạy độc lập: ở $N=256$, Commander luôn có đúng $5{,}132$ xung đột, Product có $6{,}607$ xung đột, Pairwise có $6{,}174$ xung đột, trong khi Sequential lên tới $120{,}089$ xung đột; ở $N=500$, Commander có $5{,}096$ xung đột còn Product có $7{,}798$ xung đột; ở $N=1000$, Commander có $943$ xung đột còn Product có $13{,}397$ xung đột. Giả thuyết hợp lý nhất là cấu trúc đồ thị suy diễn đóng vai trò then chốt: cấu trúc cây phân cấp của Commander hỗ trợ cắt tỉa nhanh không gian tìm kiếm, trong khi chuỗi thang tuyến tính $s_i \to s_{i+1}$ của Sequential có thể gây nhiễu loạn heuristic VSIDS và phase-saving, khiến bộ giải liên tục rẽ nhánh sâu vào chuỗi biến trạng thái thay vì các biến bàn cờ cơ sở. Dù vậy, nguyên nhân bản chất của hiện tượng này vẫn là một câu hỏi mở cần được kiểm chứng vi mô sâu hơn.
+    \item \textbf{Ưu thế của Commander Variable ở dải $N \in [16, 128]$:} Kỹ thuật Commander phân chia biến thành các nhóm nhỏ ($g=3$) và tổ chức biến chỉ huy dạng cây phân cấp. Cấu trúc này cho phép bộ giải CDCL gán giá trị \texttt{False} cho một nhóm biến ngay khi biến chỉ huy bị gán \texttt{False}, giúp cắt tỉa nhanh không gian tìm kiếm ở các mức quyết định cao với số lượng xung đột cực thấp ($916$ xung đột ở $N=128$). Nhờ đó, Commander đạt thời gian giải nhanh nhất từ $N=16$ ($7.70$ms) đến $N=128$ ($756.90$ms, tức khoảng $0.76$s).
+    \item \textbf{Đặc điểm của Binary và Product Encoding:} Binary Encoding sử dụng ít biến phụ nhất trong các phương pháp mở rộng ($21{,}234$ biến ở $N=128$) và có thời gian giải $1{,}415.10$ms, tương đương Product Encoding ($1{,}486.30$ms). Trong khi đó, Product Encoding đạt điểm cân bằng rất tốt giữa số biến phụ ($30{,}182$) và số mệnh đề ($193{,}122$ clauses ở $N=128$, tương đương Sequential với $193{,}800$ clauses), duy trì tốc độ giải ổn định.
+    \item \textbf{Thời gian mã hóa và Bộ nhớ ở quy mô lớn:} Với $N \in [8, 128]$, thời gian sinh CNF của các phương pháp đều dưới 2 giây. Tuy nhiên ở các kích thước lớn, chi phí sinh mệnh đề bằng Python tăng đáng kể: ở $N=500$, Commander cần 2.83s mã hóa và $1{,}389.9$ MB RAM đỉnh, Product cần 1.79s và $983.1$ MB RAM; ở $N=1000$, Commander cần 11.38s mã hóa (13.99 triệu mệnh đề, $4{,}410.8$ MB RAM), Product cần 7.57s (11.95 triệu mệnh đề, $3{,}832.5$ MB RAM). Đặc biệt, Pairwise ở $N=256$ đòi hỏi 14.74s mã hóa cho 27.83 triệu mệnh đề và tiêu tốn đỉnh điểm $7{,}679.4$ MB RAM ($\approx 7.50$ GiB), và đến $N=500$ ($207{,}834{,}500$ mệnh đề, xấp xỉ 207.8 triệu) thì dừng do ngoại lệ \texttt{MemoryError} khi tiến trình Python cố gắng khởi tạo cấu trúc danh sách (\texttt{list}) vượt quá không gian bộ nhớ heap khả dụng liên tục của runtime 64-bit trên hệ thống Windows.
 \end{enumerate}
 
 \subsection{Thực nghiệm 2: So sánh Hiệu năng giữa SAT, CP-SAT, Gurobi và SCIP}
@@ -409,10 +411,10 @@ Gurobi 13.0 (1 thread) & $\mathbf{0.0002}$ & $\mathbf{0.0063}$ & $\mathbf{0.0254
 ILP SCIP 9.0 (MIP) & $0.0168$ & $0.0182$ & $3.0327$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
 CP-SAT (OR-Tools, 1 worker) & $0.0062$ & $0.0292$ & $0.1076$ & $0.5643$ & $2.7988$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
 Glucose 4.2 (Product) & $0.0009$ & $0.0871$ & $19.4494$ & $22.9288$ & $1.0695$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
-CaDiCaL (Pairwise) & $0.0001$ & $0.0114$ & $0.2353$ & $0.3086$ & $3.0267$ & $89.9400$ & OOM & Không chạy \\
-CaDiCaL (Sequential) & $0.0001$ & $0.0398$ & $0.2382$ & $1.6693$ & $23.6992$ & $81.7650$ & $> 300.0$ & Không chạy \\
-CaDiCaL (Product) & $0.0004$ & $0.0142$ & $0.0660$ & $0.3879$ & $1.2186$ & $\mathbf{6.8200}$ & $36.0200$ & $263.8200$ \\
-CaDiCaL (Commander) & $0.0001$ & $0.0035$ & $0.0200$ & $\mathbf{0.1259}$ & $\mathbf{0.4277}$ & $7.2100$ & $\mathbf{35.2200}$ & $\mathbf{138.1500}$ \\
+CaDiCaL (Pairwise) & $0.0014$ & $0.0170$ & $0.2976$ & $0.7351$ & $6.2960$ & $83.4554$ & OOM & Không chạy \\
+CaDiCaL (Sequential) & $0.0014$ & $0.0391$ & $0.2445$ & $1.7193$ & $24.8451$ & $85.6734$ & $> 300.0$ & Không chạy \\
+CaDiCaL (Product) & $0.0018$ & $0.0179$ & $0.0857$ & $0.4211$ & $1.4863$ & $\mathbf{7.9877}$ & $32.2573$ & $200.3552$ \\
+CaDiCaL (Commander) & $0.0016$ & $0.0077$ & $0.0375$ & $\mathbf{0.1870}$ & $\mathbf{0.7569}$ & $8.4583$ & $\mathbf{32.1096}$ & $\mathbf{100.9182}$ \\
 \bottomrule
 \end{tabular}%
 }
@@ -436,16 +438,16 @@ CaDiCaL (Commander) & $0.0001$ & $0.0035$ & $0.0200$ & $\mathbf{0.1259}$ & $\mat
 \begin{enumerate}
     \item \textbf{Hiệu năng của Gurobi và ILP:} Ở các kích thước nhỏ ($N \le 32$), Gurobi 13.0 thể hiện tốc độ ấn tượng ($0.0002$s ở $N=8$ và $0.0254$s ở $N=32$) nhờ các thuật toán tiền xử lý (Presolve) và cắt mặt phẳng (cutting planes) tiên tiến. Tuy nhiên, ở $N \ge 64$, mô hình có $4{,}096$ biến, vượt quá giới hạn 2.000 biến của license dùng thử đi kèm gói cài đặt pip nên bộ giải dừng ngay với thông báo lỗi nguyên văn: \texttt{"Model too large for size-limited license; visit https://gurobi.com/unrestricted"}. Cần làm rõ rằng đây là giới hạn kỹ thuật của gói license hạn chế kích thước đi kèm gói pip, không phải lỗi thuật toán hay license học thuật đầy đủ. Đối với SCIP (bộ giải không giới hạn kích thước), thời gian giải tăng vọt từ $0.0182$s ($N=16$) lên $3.0327$s ($N=32$) và chạm trần $300.0$s ở $N \ge 64$. Điều này phù hợp với lý thuyết tối ưu tổ hợp: mô hình ILP nới lỏng tuyến tính của $N$-Queens cho nghiệm phân số đồng nhất $x_{r,c} = 1/N$, khiến cận dưới trùng nhau tại mọi nút và triệt tiêu sức mạnh cắt tỉa của cây nhánh-cận.
     \item \textbf{Hiệu năng của Google OR-Tools CP-SAT và Hạn chế cấu hình:} CP-SAT đơn luồng (\texttt{num\_workers = 1}, chiến lược tìm kiếm mặc định) hoạt động rất hiệu quả ở dải $N \in [8, 128]$ ($N=128$ giải trong $2.80$s) nhờ các thuật toán lọc miền giá trị dựa trên toán tử \texttt{AllDifferent}. Tuy nhiên, ở $N \ge 256$, bộ giải không thể tìm thấy nghiệm trong giới hạn 300 giây và trả về trạng thái \texttt{UNKNOWN/TIMEOUT}. Cấu hình đơn luồng là bắt buộc nhằm đảm bảo tính so sánh công bằng đối đầu với SAT CaDiCaL (vốn là giải thuật đơn luồng tuần tự); tuy nhiên, cấu hình này cũng hạn chế tiềm năng thực tế của CP-SAT khi không khai thác danh mục thuật toán song song đa luồng (portfolio search) và các bộ sinh nghiệm láng giềng lớn (LNS - Large Neighborhood Search).
-    \item \textbf{So sánh hai chiều giữa Glucose 4.2 và CaDiCaL:} Cùng áp dụng kỹ thuật Product AMO, Glucose 4.2 và CaDiCaL thể hiện các đặc tính tìm kiếm khác nhau rõ rệt theo quy mô $N$: ở $N=128$, Glucose giải trong $1.07$s (dải $[1.06, 1.08]$s), nhanh hơn CaDiCaL Product ($1.22$s); tuy nhiên ở $N=32$, Glucose mất tới $19.45$s trong khi CaDiCaL chỉ mất $0.07$s (chậm hơn khoảng 280 lần). Ở $N=64$, Glucose cũng mất tới $22.93$s so với $0.39$s của CaDiCaL (chậm hơn khoảng 59 lần). Sự khác biệt hiệu năng này có thể liên quan đến giả thuyết về chiến lược quản lý độ dài mệnh đề học (LBD - Literal Block Distance) và tần suất khởi động lại (restart) giữa hai bộ giải khi cấu trúc đồ thị lan truyền thay đổi theo quy mô $N$.
+    \item \textbf{So sánh hai chiều giữa Glucose 4.2 và CaDiCaL:} Cùng áp dụng kỹ thuật Product AMO, Glucose 4.2 và CaDiCaL thể hiện các đặc tính tìm kiếm khác nhau rõ rệt theo quy mô $N$: ở $N=128$, Glucose giải trong $1.07$s (dải $[1.06, 1.08]$s), nhanh hơn CaDiCaL Product ($1.49$s); tuy nhiên ở $N=32$, Glucose mất tới $19.45$s trong khi CaDiCaL chỉ mất $0.0857$s (chậm hơn khoảng $227$ lần: $19.4494 / 0.0857 \approx 227$). Ở $N=64$, Glucose cũng mất tới $22.93$s so với $0.4211$s của CaDiCaL (chậm hơn khoảng 54 lần). Sự khác biệt hiệu năng này có thể liên quan đến giả thuyết về chiến lược quản lý độ dài mệnh đề học (LBD - Literal Block Distance) và tần suất khởi động lại (restart) giữa hai bộ giải khi cấu trúc đồ thị lan truyền thay đổi theo quy mô $N$.
     \item \textbf{Khả năng mở rộng của SAT CaDiCaL và Bản chất độ biến động thời gian ở quy mô cực đại ($N \ge 256$):} 
     CaDiCaL 1.9.5 với mã hóa Commander và Product thể hiện khả năng mở rộng quy mô vượt trội so với các phương pháp đối chứng:
     \begin{itemize}
-        \item Ở $N=64$, CaDiCaL Commander giải trong $0.13$s (nhanh gấp 4.3 lần CP-SAT).
-        \item Ở $N=256$, Product giải trong $6.82$s (dải $[6.55, 7.12]$s) và Commander giải trong $7.21$s (dải $[6.94, 7.45]$s). Mô hình Pairwise vẫn giải được ở $N=256$ trong $89.94$s nhưng tiêu tốn đỉnh điểm khoảng 4 GB RAM ($4{,}073.8$ MB, $\approx 3.98$ GiB).
-        \item Ở $N=500$, khi được đo lường trong tiến trình độc lập, cả Commander và Product đều giải quyết thành công bàn cờ với thời gian tương đương nhau: Commander đạt trung vị $35.22$s (dải $[34.54, 35.45]$s, $\sigma = 0.47$s), Product đạt trung vị $36.02$s (dải $[35.94, 37.75]$s, $\sigma = 1.02$s). Pairwise ở kích thước này dừng do cạn kiệt bộ nhớ heap tiến trình Python khi tạo $207{,}834{,}500$ mệnh đề ($>16\,\text{GB}$ RAM tiến trình trên hệ thống 32 GB RAM).
-        \item Ở kích thước cực đại $N=1000$ ($1{,}000{,}000$ ô cờ), Commander giải trong $138.15$s (dải $[129.28, 143.88]$s, $\sigma = 7.36$s), Product giải trong $263.82$s (dải $[212.52, 283.03]$s, $\sigma = 36.45$s). Product giải thành công cả 3 lần nhưng thời gian tiến sát ngưỡng giới hạn 300 s và độ biến thiên tương đối lớn ($\approx 14\%$). Nếu tính cả thời gian tạo mệnh đề (Commander: 15.11s, Product: 9.48s), tổng thời gian thực thi (wall-clock time) lần lượt là $\approx 153.26$s và $\approx 273.30$s.
+        \item Ở $N=64$, CaDiCaL Commander giải trong $0.1870$s (nhanh gấp khoảng $3.0$ lần CP-SAT với $0.5643$s).
+        \item Ở $N=256$, Product giải trong $7.99$s (dải $[7.67, 8.05]$s) và Commander giải trong $8.46$s (dải $[8.12, 8.58]$s). Mô hình Pairwise vẫn giải được ở $N=256$ trong $83.46$s nhưng tiêu tốn đỉnh điểm $7{,}679.4$ MB RAM ($\approx 7.50$ GiB).
+        \item Ở $N=500$, khi được đo lường trong từng tiến trình độc lập, cả Commander và Product đều giải quyết thành công bàn cờ với thời gian tương đương nhau: Commander đạt trung vị $32.11$s (dải $[31.94, 32.64]$s, $\sigma = 0.37$s), Product đạt trung vị $32.26$s (dải $[31.75, 32.32]$s, $\sigma = 0.31$s). Pairwise ở kích thước này dừng do ngoại lệ \texttt{MemoryError} khi tiến trình Python cố gắng khởi tạo $207{,}834{,}500$ đối tượng mệnh đề trong danh sách liên tục.
+        \item Ở kích thước cực đại $N=1000$ ($1{,}000{,}000$ ô cờ), Commander giải thành công cả 3 lần với trung vị $100.92$s (dải $[99.29, 105.40]$s, $\sigma = 3.17$s, RAM đỉnh $4{,}410.8$ MB). Product giải thành công 2 trong 3 lần chạy với thời gian $\approx 199.47$s và $200.36$s (1 lần chạm giới hạn thời gian $300.0$s), RAM đỉnh $3{,}832.5$ MB. Nếu tính cả thời gian tạo mệnh đề (Commander: 11.38s, Product: 7.57s), tổng thời gian thực thi (wall-clock time) lần lượt là $\approx 112.30$s và $\approx 207.93$s.
     \end{itemize}
-    Về sự dao động thời gian giữa các lần chạy (đặc biệt ở $N=1000$ của Product: $212.52$s đến $283.03$s), solver CaDiCaL được chứng minh hoạt động tất định: với cùng một công thức CNF và thứ tự mệnh đề cố định, solver luôn trải qua chính xác cùng số lượng xung đột, quyết định và lan truyền (như số liệu kiểm chứng trong Bảng~\ref{tab:cdcl_search_stats}). Do đó, độ biến thiên thời gian giải xuất phát từ nhiễu môi trường phần cứng máy tính (nhiệt độ CPU kích hoạt điều tiết xung nhịp Thermal Throttling, cạnh tranh bộ nhớ đệm và chính sách cấp nguồn của hệ điều hành Windows). Đối với hiện tượng suy giảm hiệu năng ở các lần chạy sơ bộ trước đây trong vòng lặp đơn tiến trình (từng xuất hiện timeout ở $N \ge 500$), việc áp dụng giao thức chuẩn hóa đo đạc độc lập từng tiến trình (\texttt{subprocess}) đã loại bỏ hiện tượng này, duy trì thời gian giải ổn định ở mức $\approx 35$s ($N=500$) và $\approx 138$s ($N=1000$).
+    Về bản chất tìm kiếm, thực nghiệm khẳng định solver CaDiCaL vận hành mang tính tất định: trên cùng một công thức CNF và thứ tự mệnh đề cố định, solver luôn ghi nhận chính xác cùng số lượng xung đột và quyết định giữa các lần chạy độc lập (như kiểm chứng trong Bảng~\ref{tab:cdcl_search_stats}). Đối với sự dao động thời gian giữa các lần chạy ở quy mô lớn (đặc biệt ở $N=1000$ khi Product có lần chạm trần 300s), các yếu tố như nhiệt độ CPU kích hoạt điều tiết xung nhịp (Thermal Throttling), cạnh tranh bộ nhớ đệm L3 và cơ chế điều phối tiến trình nền của hệ điều hành Windows được nhìn nhận dưới dạng các giả thuyết thực nghiệm cần được kiểm chứng vi mô sâu hơn.
 \end{enumerate}
 
 ---
@@ -453,9 +455,9 @@ CaDiCaL (Commander) & $0.0001$ & $0.0035$ & $0.0200$ & $\mathbf{0.1259}$ & $\mat
 \section{Kết luận và Thảo luận (Conclusion \& Discussion)}
 Bài báo đã nghiên cứu, cài đặt và đánh giá toàn diện phương pháp giải chính xác bài toán $N$-Queens bằng SAT Solving trên thư viện PySAT. Thông qua việc phân tích lý thuyết và thực nghiệm 5 kỹ thuật mã hóa AMO, bài báo rút ra các kết luận quan trọng:
 \begin{itemize}
-    \item Mã hóa Pairwise bùng nổ đa thức bậc ba $\mathcal{O}(N^3)$ mệnh đề trên toàn bàn cờ. Thực nghiệm đo đạc ghi nhận Pairwise tiêu tốn khoảng 4 GB RAM đỉnh tại $N=256$ ($4{,}073.8$ MB, $\approx 3.98$ GiB cho $27{,}831{,}552$ mệnh đề, giải trong $89.94$s) và làm tràn bộ nhớ heap tiến trình Python tại $N=500$ khi khởi tạo $207{,}834{,}500$ mệnh đề (xấp xỉ $207.8$ triệu).
-    \item Sequential Counter tuy giảm số mệnh đề xuống $\mathcal{O}(N^2)$ nhưng sinh ra số lượng xung đột ($62{,}360$) và quyết định ($107{,}733$) vượt trội ở $N=128$, kéo theo $42.89$ triệu lượt lan truyền đơn vị khiến thời gian giải suy giảm nghiêm trọng ($23.70$s, chậm hơn Commander khoảng 55 lần). Tuy nhiên, số lượng biến phụ không quyết định trực tiếp số xung đột (Commander có nhiều biến phụ gấp $2.4\times$ Product nhưng có ít xung đột nhất), cho thấy cấu trúc đồ thị lan truyền cục bộ đóng vai trò quyết định tới hành vi phân nhánh CDCL.
-    \item Commander Variable và Product Encoding là hai kỹ thuật mã hóa có năng lực mở rộng tốt nhất. Commander Variable giúp solver CaDiCaL đạt tốc độ giải nhanh nhất trên dải $N \in [16, 128]$ (chỉ $0.43$s ở $N=128$). Ở quy mô cực đại $N \ge 256$, cả Commander Variable và Product Encoding đều mở rộng thành công lên tới $N=500$ ($35.22$s và $36.02$s) và $N = 1000$ ($138.15$s và $263.82$s, trong đó Product giải thành công cả 3 lần nhưng tiến sát ngưỡng 300s). Product Encoding đạt quy mô mệnh đề tương đương Sequential ở $N \ge 64$ ($47{,}520$ clauses ở $N=64$ và $193{,}122$ clauses ở $N=128$), trong khi Sequential Counter có ít mệnh đề hơn ở $N \le 32$.
+    \item Mã hóa Pairwise bùng nổ đa thức bậc ba $\mathcal{O}(N^3)$ mệnh đề trên toàn bàn cờ. Thực nghiệm đo đạc ghi nhận Pairwise tiêu tốn $7{,}679.4$ MB RAM đỉnh tại $N=256$ ($\approx 7.50$ GiB cho $27{,}831{,}552$ mệnh đề, giải trong $83.46$s) và dừng do ngoại lệ \texttt{MemoryError} tại $N=500$ khi khởi tạo $207{,}834{,}500$ mệnh đề trong danh sách đối tượng Python.
+    \item Sequential Counter tuy giảm số mệnh đề xuống $\mathcal{O}(N^2)$ nhưng sinh ra số lượng xung đột ($62{,}360$) và quyết định ($107{,}733$) vượt trội ở $N=128$, kéo theo $42.89$ triệu lượt lan truyền đơn vị khiến thời gian giải suy giảm nghiêm trọng ($24.85$s, chậm hơn Commander khoảng 33 lần). Tuy nhiên, số lượng biến phụ không quyết định trực tiếp số xung đột (Commander có nhiều biến phụ gấp $2.4\times$ Product nhưng có ít xung đột nhất), cho thấy cấu trúc đồ thị lan truyền cục bộ đóng vai trò quyết định tới hành vi phân nhánh CDCL.
+    \item Commander Variable và Product Encoding là hai kỹ thuật mã hóa có năng lực mở rộng tốt nhất. Commander Variable giúp solver CaDiCaL đạt tốc độ giải nhanh nhất trên dải $N \in [16, 128]$ (chỉ $0.76$s ở $N=128$). Ở quy mô cực đại $N \ge 256$, cả Commander Variable và Product Encoding đều mở rộng thành công lên tới $N=500$ ($32.11$s và $32.26$s) và $N = 1000$ ($100.92$s và $200.36$s, trong đó Product giải thành công 2/3 lần trong giới hạn 300s). Product Encoding đạt quy mô mệnh đề tương đương Sequential ở $N \ge 64$ ($47{,}520$ clauses ở $N=64$ và $193{,}122$ clauses ở $N=128$), trong khi Sequential Counter có ít mệnh đề hơn ở $N \le 32$.
     \item So sánh đối chứng thực nghiệm cho thấy SAT Solving (đặc biệt là CaDiCaL 1.9.5) vượt trội rõ rệt so với SCIP và CP-SAT về khả năng mở rộng ở các kích thước $N \ge 256$. Gurobi thể hiện tốc độ nhanh nhất ở quy mô nhỏ $N \le 32$ nhưng dừng ở $N \ge 64$ do giới hạn kích thước license đi kèm gói pip (2.000 biến).
 \end{itemize}
 
@@ -476,10 +478,10 @@ Mở rộng mô hình SAT cho các biến thể $N$-Queens có chướng ngại 
 Các tác giả tuyên bố không có bất kỳ xung đột lợi ích tài chính hoặc mối quan hệ cá nhân nào ảnh hưởng đến nội dung và kết quả công bố trong nghiên cứu này.
 
 \section*{Tuyên bố về sử dụng Trí tuệ Nhân tạo (Declaration of generative AI)}
-Trong quá trình chuẩn bị bài báo này, tác giả đã sử dụng công cụ hỗ trợ lập trình Google Antigravity (dựa trên mô hình ngôn ngữ lớn Claude 3.5 Sonnet và Gemini Pro) với các mục đích cụ thể: (1) hỗ trợ viết các đoạn mã script tự động hóa xử lý dữ liệu và trích xuất bảng biểu LaTeX từ tệp CSV gốc; (2) kiểm tra tính nhất quán toán học giữa các bảng số liệu; và (3) rà soát cú pháp và tối ưu hóa định dạng hiển thị theo quy chuẩn Elsevier. Toàn bộ các kết quả thực nghiệm, dữ liệu đo lường và các phân tích khoa học đều được tác giả trực tiếp kiểm chứng trên máy trạm thực tế và tác giả chịu hoàn toàn trách nhiệm về tính trung thực, độ chính xác và tính học thuật của bài báo.
+Trong quá trình chuẩn bị bài báo này, tác giả đã sử dụng công cụ hỗ trợ lập trình Google Antigravity (dựa trên mô hình ngôn ngữ lớn Claude 3.5 Sonnet và Gemini Pro) với các mục đích cụ thể: (1) hỗ trợ viết các đoạn mã script tự động hóa đo đạc thực nghiệm độc lập và trích xuất bảng biểu LaTeX từ tệp CSV gốc; (2) kiểm tra tính nhất quán toán học giữa các bảng số liệu; và (3) rà soát cú pháp và tối ưu hóa định dạng hiển thị theo quy chuẩn Elsevier. Toàn bộ các kết quả thực nghiệm, dữ liệu đo lường và các phân tích khoa học đều được tác giả trực tiếp kiểm chứng trên máy trạm thực tế và tác giả chịu hoàn toàn trách nhiệm về tính trung thực, độ chính xác và tính học thuật của bài báo.
 
 \section*{Tính khả dụng của dữ liệu và mã nguồn (Data Availability)}
-Toàn bộ mã nguồn cài đặt 5 kỹ thuật mã hóa AMO, các bộ giải SAT (PySAT), CP-SAT, Gurobi, SCIP, các script chạy thực nghiệm tự động, script tự động sinh bảng biểu LaTeX (\texttt{scripts/run\_master\_benchmark.py}, \texttt{scripts/generate\_all\_tables\_from\_master.py}), tệp dữ liệu thô chi tiết cả 3 lần chạy (\texttt{data/raw\_benchmark\_3runs.csv}), tệp dữ liệu vi mô CDCL (\texttt{data/cdcl\_search\_stats\_3runs.csv}) và tệp tổng hợp (\texttt{data/unified\_benchmark.json}) được cung cấp đầy đủ trong gói dự án đính kèm và lưu trữ công khai trên GitHub repository tại địa chỉ:
+Toàn bộ mã nguồn cài đặt 5 kỹ thuật mã hóa AMO, các bộ giải SAT (PySAT), CP-SAT, Gurobi, SCIP, các script chạy thực nghiệm tự động đo lường độc lập (\texttt{scripts/isolated\_run\_worker.py}, \texttt{scripts/run\_isolated\_master\_benchmark.py}), script tự động sinh bảng biểu LaTeX (\texttt{scripts/generate\_all\_tables\_from\_master.py}), tệp dữ liệu thô chi tiết cả 3 lần chạy (\texttt{data/master\_cadical\_runs.csv}) và nhật ký thực thi đầy đủ (\texttt{data/benchmark\_execution.log}) được cung cấp đầy đủ trong gói dự án đính kèm và lưu trữ công khai trên GitHub repository tại địa chỉ:
 \begin{center}
 \url{https://github.com/vnu-uet-khmt/nqueens-sat-solver}
 \end{center}
@@ -497,49 +499,49 @@ Phụ lục này cung cấp toàn bộ dữ liệu thực nghiệm thô đo đ�
 \toprule
 \textbf{Nhóm thực nghiệm} & $N$ & \textbf{Phương pháp} & \textbf{Run 1 (s)} & \textbf{Run 2 (s)} & \textbf{Run 3 (s)} & \textbf{Min (s)} & \textbf{Median (s)} & \textbf{Max (s)} & \textbf{Std ($\sigma$)} & \textbf{Mã hóa (s)} & \textbf{RAM đỉnh (MB)} \\
 \midrule
-AMO Ablation & 8 & Pairwise & 0.0001 & 0.0001 & 0.0000 & 0.0000 & 0.0001 & 0.0001 & 0.0000 & 0.0003 & 25.6 \\
-AMO Ablation & 8 & Sequential & 0.0001 & 0.0001 & 0.0001 & 0.0001 & 0.0001 & 0.0001 & 0.0000 & 0.0002 & 25.6 \\
-AMO Ablation & 8 & Commander & 0.0001 & 0.0001 & 0.0001 & 0.0001 & 0.0001 & 0.0001 & 0.0000 & 0.0004 & 25.6 \\
-AMO Ablation & 8 & Binary & 0.0003 & 0.0001 & 0.0001 & 0.0001 & 0.0001 & 0.0003 & 0.0001 & 0.0004 & 25.6 \\
-AMO Ablation & 8 & Product & 0.0004 & 0.0004 & 0.0004 & 0.0004 & 0.0004 & 0.0004 & 0.0000 & 0.0005 & 25.7 \\
+AMO Ablation & 8 & Pairwise & 0.0014 & 0.0014 & 0.0014 & 0.0014 & 0.0014 & 0.0014 & 0.0000 & 0.0004 & 25.0 \\
+AMO Ablation & 8 & Sequential & 0.0013 & 0.0014 & 0.0014 & 0.0013 & 0.0014 & 0.0014 & 0.0001 & 0.0003 & 24.8 \\
+AMO Ablation & 8 & Commander & 0.0014 & 0.0020 & 0.0016 & 0.0014 & 0.0016 & 0.0020 & 0.0003 & 0.0005 & 24.9 \\
+AMO Ablation & 8 & Binary & 0.0016 & 0.0017 & 0.0022 & 0.0016 & 0.0017 & 0.0022 & 0.0003 & 0.0004 & 25.0 \\
+AMO Ablation & 8 & Product & 0.0019 & 0.0018 & 0.0017 & 0.0017 & 0.0018 & 0.0019 & 0.0001 & 0.0005 & 25.0 \\
 \midrule
-AMO Ablation & 16 & Pairwise & 0.0130 & 0.0114 & 0.0107 & 0.0107 & 0.0114 & 0.0130 & 0.0012 & 0.0023 & 28.1 \\
-AMO Ablation & 16 & Sequential & 0.0427 & 0.0398 & 0.0378 & 0.0378 & 0.0398 & 0.0427 & 0.0025 & 0.0012 & 28.7 \\
-AMO Ablation & 16 & Commander & 0.0035 & 0.0032 & 0.0040 & 0.0032 & 0.0035 & 0.0040 & 0.0004 & 0.0025 & 28.7 \\
-AMO Ablation & 16 & Binary & 0.0158 & 0.0110 & 0.0113 & 0.0110 & 0.0113 & 0.0158 & 0.0026 & 0.0023 & 28.7 \\
-AMO Ablation & 16 & Product & 0.0148 & 0.0138 & 0.0142 & 0.0138 & 0.0142 & 0.0148 & 0.0005 & 0.0016 & 28.7 \\
+AMO Ablation & 16 & Pairwise & 0.0170 & 0.0178 & 0.0170 & 0.0170 & 0.0170 & 0.0178 & 0.0005 & 0.0051 & 27.2 \\
+AMO Ablation & 16 & Sequential & 0.0386 & 0.0431 & 0.0391 & 0.0386 & 0.0391 & 0.0431 & 0.0025 & 0.0036 & 26.4 \\
+AMO Ablation & 16 & Commander & 0.0074 & 0.0079 & 0.0077 & 0.0074 & 0.0077 & 0.0079 & 0.0003 & 0.0049 & 25.7 \\
+AMO Ablation & 16 & Binary & 0.0162 & 0.0171 & 0.0172 & 0.0162 & 0.0171 & 0.0172 & 0.0006 & 0.0047 & 26.2 \\
+AMO Ablation & 16 & Product & 0.0174 & 0.0198 & 0.0179 & 0.0174 & 0.0179 & 0.0198 & 0.0013 & 0.0040 & 25.9 \\
 \midrule
-AMO Ablation & 32 & Pairwise & 0.2392 & 0.2353 & 0.2246 & 0.2246 & 0.2353 & 0.2392 & 0.0075 & 0.0197 & 49.2 \\
-AMO Ablation & 32 & Sequential & 0.2382 & 0.2484 & 0.2311 & 0.2311 & 0.2382 & 0.2484 & 0.0087 & 0.0054 & 49.2 \\
-AMO Ablation & 32 & Commander & 0.0193 & 0.0200 & 0.0203 & 0.0193 & 0.0200 & 0.0203 & 0.0005 & 0.0105 & 49.2 \\
-AMO Ablation & 32 & Binary & 0.1780 & 0.1713 & 0.1607 & 0.1607 & 0.1713 & 0.1780 & 0.0087 & 0.0100 & 49.2 \\
-AMO Ablation & 32 & Product & 0.0673 & 0.0660 & 0.0659 & 0.0659 & 0.0660 & 0.0673 & 0.0008 & 0.0068 & 49.2 \\
+AMO Ablation & 32 & Pairwise & 0.2829 & 0.3015 & 0.2976 & 0.2829 & 0.2976 & 0.3015 & 0.0098 & 0.0190 & 45.5 \\
+AMO Ablation & 32 & Sequential & 0.2445 & 0.2580 & 0.2440 & 0.2440 & 0.2445 & 0.2580 & 0.0079 & 0.0071 & 31.8 \\
+AMO Ablation & 32 & Commander & 0.0375 & 0.0404 & 0.0366 & 0.0366 & 0.0375 & 0.0404 & 0.0020 & 0.0115 & 30.0 \\
+AMO Ablation & 32 & Binary & 0.2024 & 0.1955 & 0.2108 & 0.1955 & 0.2024 & 0.2108 & 0.0077 & 0.0137 & 33.4 \\
+AMO Ablation & 32 & Product & 0.0821 & 0.0857 & 0.0865 & 0.0821 & 0.0857 & 0.0865 & 0.0023 & 0.0086 & 30.3 \\
 \midrule
-AMO Ablation & 64 & Pairwise & 0.2934 & 0.3272 & 0.3086 & 0.2934 & 0.3086 & 0.3272 & 0.0169 & 0.1850 & 178.1 \\
-AMO Ablation & 64 & Sequential & 1.6693 & 1.6402 & 1.7468 & 1.6402 & 1.6693 & 1.7468 & 0.0551 & 0.0196 & 178.1 \\
-AMO Ablation & 64 & Commander & 0.1259 & 0.1281 & 0.1229 & 0.1229 & 0.1259 & 0.1281 & 0.0026 & 0.0398 & 178.1 \\
-AMO Ablation & 64 & Binary & 0.3808 & 0.3855 & 0.3966 & 0.3808 & 0.3855 & 0.3966 & 0.0081 & 0.0558 & 178.1 \\
-AMO Ablation & 64 & Product & 0.3879 & 0.3794 & 0.3896 & 0.3794 & 0.3879 & 0.3896 & 0.0054 & 0.0261 & 178.1 \\
+AMO Ablation & 64 & Pairwise & 0.7339 & 0.7554 & 0.7351 & 0.7339 & 0.7351 & 0.7554 & 0.0121 & 0.1488 & 171.3 \\
+AMO Ablation & 64 & Sequential & 1.7914 & 1.7185 & 1.7193 & 1.7185 & 1.7193 & 1.7914 & 0.0419 & 0.0188 & 53.3 \\
+AMO Ablation & 64 & Commander & 0.1995 & 0.1870 & 0.1845 & 0.1845 & 0.1870 & 0.1995 & 0.0080 & 0.0339 & 48.3 \\
+AMO Ablation & 64 & Binary & 0.4930 & 0.4714 & 0.4698 & 0.4698 & 0.4714 & 0.4930 & 0.0130 & 0.0412 & 60.6 \\
+AMO Ablation & 64 & Product & 0.4601 & 0.4190 & 0.4211 & 0.4190 & 0.4211 & 0.4601 & 0.0231 & 0.0223 & 47.3 \\
 \midrule
-AMO Ablation & 128 & Pairwise & 3.3882 & 2.9214 & 3.0267 & 2.9214 & 3.0267 & 3.3882 & 0.2448 & 1.9788 & 1065.0 \\
-AMO Ablation & 128 & Sequential & 23.6992 & 23.6805 & 23.7006 & 23.6805 & 23.6992 & 23.7006 & 0.0112 & 0.0936 & 1167.0 \\
-AMO Ablation & 128 & Commander & 0.4199 & 0.4603 & 0.4277 & 0.4199 & 0.4277 & 0.4603 & 0.0214 & 0.1844 & 1167.0 \\
-AMO Ablation & 128 & Binary & 0.9028 & 0.9015 & 0.8709 & 0.8709 & 0.9015 & 0.9028 & 0.0181 & 0.2846 & 1167.0 \\
-AMO Ablation & 128 & Product & 1.1966 & 1.2186 & 1.2598 & 1.1966 & 1.2186 & 1.2598 & 0.0321 & 0.1015 & 1167.0 \\
+AMO Ablation & 128 & Pairwise & 6.2634 & 6.4221 & 6.2960 & 6.2634 & 6.2960 & 6.4221 & 0.0838 & 1.7983 & 991.0 \\
+AMO Ablation & 128 & Sequential & 24.9994 & 24.5072 & 24.8451 & 24.5072 & 24.8451 & 24.9994 & 0.2517 & 0.0727 & 128.0 \\
+AMO Ablation & 128 & Commander & 0.7303 & 0.7569 & 0.7747 & 0.7303 & 0.7569 & 0.7747 & 0.0223 & 0.1235 & 104.2 \\
+AMO Ablation & 128 & Binary & 1.4151 & 1.3613 & 1.4384 & 1.3613 & 1.4151 & 1.4384 & 0.0395 & 0.2087 & 166.0 \\
+AMO Ablation & 128 & Product & 1.5033 & 1.4108 & 1.4863 & 1.4108 & 1.4863 & 1.5033 & 0.0492 & 0.0762 & 97.5 \\
 \midrule
-Scale Evaluation & 256 & Pairwise & 82.1900 & 89.9400 & 94.5000 & 82.1900 & 89.9400 & 94.5000 & 6.2235 & 15.7700 & 4,073.8 \\
-Scale Evaluation & 256 & Sequential & 79.8500 & 81.7650 & 83.9200 & 79.8500 & 81.7650 & 83.9200 & 2.0368 & 0.4500 & 482.6 \\
-Scale Evaluation & 256 & Commander & 6.9400 & 7.2100 & 7.4500 & 6.9400 & 7.2100 & 7.4500 & 0.2551 & 0.8500 & 452.3 \\
-Scale Evaluation & 256 & Product & 6.5500 & 6.8200 & 7.1200 & 6.5500 & 6.8200 & 7.1200 & 0.2851 & 0.7200 & 421.8 \\
+Scale Evaluation & 256 & Pairwise & 88.7974 & 81.0261 & 83.4554 & 81.0261 & 83.4554 & 88.7974 & 3.9756 & 14.7420 & 7679.4 \\
+Scale Evaluation & 256 & Sequential & 85.6734 & 86.0543 & 84.4672 & 84.4672 & 85.6734 & 86.0543 & 0.8285 & 0.3939 & 459.6 \\
+Scale Evaluation & 256 & Commander & 8.4583 & 8.5779 & 8.1205 & 8.1205 & 8.4583 & 8.5779 & 0.2372 & 0.6163 & 393.6 \\
+Scale Evaluation & 256 & Product & 8.0495 & 7.9877 & 7.6735 & 7.6735 & 7.9877 & 8.0495 & 0.2016 & 0.3494 & 283.7 \\
 Scale Evaluation & 256 & Binary & \multicolumn{7}{c}{\textit{Không chạy (chưa thực hiện mở rộng tại $N \ge 256$)}} & - & - \\
 \midrule
-Scale Evaluation & 500 & Commander & 34.5400 & 35.2200 & 35.4500 & 34.5400 & 35.2200 & 35.4500 & 0.4732 & 3.0100 & 884.2 \\
-Scale Evaluation & 500 & Product & 35.9400 & 36.0200 & 37.7500 & 35.9400 & 36.0200 & 37.7500 & 1.0227 & 2.4100 & 862.5 \\
+Scale Evaluation & 500 & Commander & 32.1096 & 31.9378 & 32.6404 & 31.9378 & 32.1096 & 32.6404 & 0.3663 & 2.8333 & 1389.9 \\
+Scale Evaluation & 500 & Product & 32.3227 & 32.2573 & 31.7545 & 31.7545 & 32.2573 & 32.3227 & 0.3109 & 1.7912 & 983.1 \\
 Scale Evaluation & 500 & Pairwise & \multicolumn{7}{c}{\textit{Tràn bộ nhớ heap tiến trình Python khi tạo $207{,}834{,}500$ mệnh đề ($>16\,\text{GB}$ RAM)}} & $>16.0$ & $>16{,}000.0$ \\
 Scale Evaluation & 500 & Sequential & \multicolumn{7}{c}{\textit{Quá thời gian quy định ($>300.0\,\text{s}$)}} & 2.1000 & 620.0 \\
 \midrule
-Scale Evaluation & 1000 & Commander & 129.2800 & 138.1500 & 143.8800 & 129.2800 & 138.1500 & 143.8800 & 7.3561 & 15.1100 & 1,482.6 \\
-Scale Evaluation & 1000 & Product & 212.5200 & 263.8200 & 283.0300 & 212.5200 & 263.8200 & 283.0300 & 36.4517 & 9.4800 & 1,123.4 \\
+Scale Evaluation & 1000 & Commander & 105.4045 & 100.9182 & 99.2912 & 99.2912 & 100.9182 & 105.4045 & 3.1661 & 11.3817 & 4410.8 \\
+Scale Evaluation & 1000 & Product & 300.0000 & 199.4701 & 200.3552 & 199.4701 & 200.3552 & 300.0000 & 57.7872 & 7.5685 & 3832.5 \\
 Scale Evaluation & 1000 & Pairwise & \multicolumn{7}{c}{\textit{Không chạy (dự kiến tràn RAM do số mệnh đề lý thuyết $>1.66$ tỷ)}} & - & - \\
 Scale Evaluation & 1000 & Sequential & \multicolumn{7}{c}{\textit{Không chạy (đã quá thời gian $>300.0\,\text{s}$ từ $N=500$)}} & - & - \\
 \bottomrule
@@ -580,14 +582,14 @@ Glucose 4.2 & 64 & Product AMO & 22.6038 & 22.9288 & 23.0412 & 22.6038 & 22.9288
 Glucose 4.2 & 128 & Product AMO & 1.0695 & 1.0580 & 1.0807 & 1.0580 & 1.0695 & 1.0807 & SAT \\
 Glucose 4.2 & 256--1000 & Product AMO & \multicolumn{6}{c}{\textit{Quá giới hạn thời gian ($>300.0\,\text{s}$)}} & Timeout \\
 \midrule
-CaDiCaL 1.9.5 & 128 & Product AMO & 1.1966 & 1.2186 & 1.2598 & 1.1966 & 1.2186 & 1.2598 & SAT \\
-CaDiCaL 1.9.5 & 128 & Commander AMO & 0.4199 & 0.4603 & 0.4277 & 0.4199 & 0.4277 & 0.4603 & SAT \\
-CaDiCaL 1.9.5 & 256 & Product AMO & 6.5500 & 6.8200 & 7.1200 & 6.5500 & 6.8200 & 7.1200 & SAT \\
-CaDiCaL 1.9.5 & 256 & Commander AMO & 6.9400 & 7.2100 & 7.4500 & 6.9400 & 7.2100 & 7.4500 & SAT \\
-CaDiCaL 1.9.5 & 500 & Product AMO & 35.9400 & 36.0200 & 37.7500 & 35.9400 & 36.0200 & 37.7500 & SAT \\
-CaDiCaL 1.9.5 & 500 & Commander AMO & 34.5400 & 35.2200 & 35.4500 & 34.5400 & 35.2200 & 35.4500 & SAT \\
-CaDiCaL 1.9.5 & 1000 & Product AMO & 212.5200 & 263.8200 & 283.0300 & 212.5200 & 263.8200 & 283.0300 & SAT \\
-CaDiCaL 1.9.5 & 1000 & Commander AMO & 129.2800 & 138.1500 & 143.8800 & 129.2800 & 138.1500 & 143.8800 & SAT \\
+CaDiCaL 1.9.5 & 128 & Product AMO & 1.5033 & 1.4108 & 1.4863 & 1.4108 & 1.4863 & 1.5033 & SAT \\
+CaDiCaL 1.9.5 & 128 & Commander AMO & 0.7303 & 0.7569 & 0.7747 & 0.7303 & 0.7569 & 0.7747 & SAT \\
+CaDiCaL 1.9.5 & 256 & Product AMO & 8.0495 & 7.9877 & 7.6735 & 7.6735 & 7.9877 & 8.0495 & SAT \\
+CaDiCaL 1.9.5 & 256 & Commander AMO & 8.4583 & 8.5779 & 8.1205 & 8.1205 & 8.4583 & 8.5779 & SAT \\
+CaDiCaL 1.9.5 & 500 & Product AMO & 32.3227 & 32.2573 & 31.7545 & 31.7545 & 32.2573 & 32.3227 & SAT \\
+CaDiCaL 1.9.5 & 500 & Commander AMO & 32.1096 & 31.9378 & 32.6404 & 31.9378 & 32.1096 & 32.6404 & SAT \\
+CaDiCaL 1.9.5 & 1000 & Product AMO & 300.0000 & 199.4701 & 200.3552 & 199.4701 & 200.3552 & 300.0000 & SAT \\
+CaDiCaL 1.9.5 & 1000 & Commander AMO & 105.4045 & 100.9182 & 99.2912 & 99.2912 & 100.9182 & 105.4045 & SAT \\
 \bottomrule
 \end{tabular}%
 }

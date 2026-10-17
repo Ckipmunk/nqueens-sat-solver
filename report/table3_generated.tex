@@ -1,29 +1,29 @@
 \begin{table*}[htbp]
-\caption{Thống kê định lượng động cơ tìm kiếm CDCL của CaDiCaL 1.9.5 (trích xuất qua \texttt{solver.accum\_stats()}) trên 5 kỹ thuật AMO tại $N \in \{32, 64, 128\}$. Cả 3 lần chạy lặp độc lập đều ghi nhận số lượng xung đột và quyết định hoàn toàn giống nhau, chứng minh tính tất định của solver trên cùng một công thức CNF.}
+\caption{Thống kê định lượng động cơ tìm kiếm CDCL của CaDiCaL 1.9.5 (trích xuất qua \texttt{solver.accum\_stats()}) trên 5 kỹ thuật AMO tại $N \in \{32, 64, 128\}$. Cả 3 lần chạy lặp độc lập đều ghi nhận số lượng xung đột và quyết định hoàn toàn giống nhau (3/3 lần giống nhau), phản ánh tính tất định của solver trên cùng một công thức CNF.}
 \label{tab:cdcl_search_stats}
 \centering
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{llr rrrr rrr}
+\begin{tabular}{llr rrrr rrrr} 
 \toprule
-\textbf{Phương pháp AMO} & $N$ & \textbf{CNF Hash} & \textbf{Biến phụ} & \textbf{Tổng mệnh đề} & \textbf{Xung đột (3 lần chạy)} & \textbf{Quyết định} & \textbf{Lan truyền} & \textbf{Props/Conf} & \textbf{Thời gian giải (s)} \\
+\textbf{Phương pháp AMO} & $N$ & \textbf{CNF Hash} & \textbf{Biến phụ} & \textbf{Tổng mệnh đề} & \textbf{Xung đột (3/3 lần)} & \textbf{Quyết định} & \textbf{Lan truyền} & \textbf{Props/Conf} & \textbf{Props/Dec} & \textbf{Thời gian giải (s)} \\
 \midrule
-Pairwise & 32 & \texttt{4c85bc53} & 0 & 52{,}640 & 6{,}008 & 6{,}917 & 340{,}480 & 56.7 & 0.2353 \\
-Sequential & 32 & \texttt{8b1dd622} & 3{,}902 & 11{,}592 & 1{,}983 & 3{,}504 & 578{,}470 & 291.7 & 0.2382 \\
-Commander & 32 & \texttt{2ffbf5e9} & 2{,}090 & 13{,}606 & \textbf{213} & \textbf{556} & \textbf{36{,}537} & 171.5 & \textbf{0.0200} \\
-Binary & 32 & \texttt{a1fb0e60} & 822 & 19{,}796 & 3{,}012 & 3{,}922 & 361{,}576 & 120.0 & 0.1713 \\
-Product & 32 & \texttt{697756bc} & 1{,}744 & 11{,}998 & 1{,}051 & 1{,}757 & 224{,}938 & 214.0 & 0.0660 \\
+Pairwise & 32 & \texttt{4c85bc53} & 0 & 52{,}640 & 6{,}008 & 6{,}917 & 340{,}480 & 56.7 & 49.2 & 0.2976 \\
+Sequential & 32 & \texttt{8b1dd622} & 3{,}902 & 11{,}592 & 1{,}983 & 3{,}504 & 578{,}470 & 291.7 & 165.1 & 0.2445 \\
+Commander & 32 & \texttt{2ffbf5e9} & 2{,}090 & 13{,}606 & \textbf{213} & \textbf{556} & \textbf{36{,}537} & 171.5 & 65.7 & \textbf{0.0375} \\
+Binary & 32 & \texttt{a1fb0e60} & 822 & 19{,}796 & 3{,}012 & 3{,}922 & 361{,}576 & 120.0 & 92.2 & 0.2024 \\
+Product & 32 & \texttt{697756bc} & 1{,}744 & 11{,}998 & 1{,}051 & 1{,}757 & 224{,}938 & 214.0 & 128.0 & 0.0857 \\
 \midrule
-Pairwise & 64 & \texttt{5e1aa9fb} & 0 & 428{,}864 & 3{,}045 & 3{,}968 & 241{,}457 & 79.3 & 0.3086 \\
-Sequential & 64 & \texttt{bf9fc874} & 15{,}998 & 47{,}752 & 7{,}079 & 12{,}828 & 4{,}598{,}243 & 649.6 & 1.6693 \\
-Commander & 64 & \texttt{04eec852} & 8{,}346 & 55{,}990 & \textbf{629} & \textbf{1{,}699} & \textbf{197{,}463} & 313.9 & \textbf{0.1259} \\
-Binary & 64 & \texttt{bd631316} & 2{,}036 & 95{,}572 & 3{,}387 & 6{,}599 & 727{,}372 & 214.8 & 0.3855 \\
-Product & 64 & \texttt{92c734f2} & 4{,}844 & 47{,}520 & 3{,}246 & 5{,}886 & 991{,}917 & 305.6 & 0.3879 \\
+Pairwise & 64 & \texttt{5e1aa9fb} & 0 & 428{,}864 & 3{,}045 & 3{,}968 & 241{,}457 & 79.3 & 60.9 & 0.7351 \\
+Sequential & 64 & \texttt{bf9fc874} & 15{,}998 & 47{,}752 & 7{,}079 & 12{,}828 & 4{,}598{,}243 & 649.6 & 358.5 & 1.7193 \\
+Commander & 64 & \texttt{04eec852} & 8{,}346 & 55{,}990 & \textbf{629} & \textbf{1{,}699} & \textbf{197{,}463} & 313.9 & 116.2 & \textbf{0.1870} \\
+Binary & 64 & \texttt{bd631316} & 2{,}036 & 95{,}572 & 3{,}387 & 6{,}599 & 727{,}372 & 214.8 & 110.2 & 0.4714 \\
+Product & 64 & \texttt{92c734f2} & 4{,}844 & 47{,}520 & 3{,}246 & 5{,}886 & 991{,}917 & 305.6 & 168.5 & 0.4211 \\
 \midrule
-Pairwise & 128 & \texttt{ba8097f7} & 0 & 3{,}462{,}784 & 6{,}037 & 7{,}373 & 1{,}997{,}918 & 330.9 & 3.0267 \\
-Sequential & 128 & \texttt{e86ef7e5} & 64{,}766 & 193{,}800 & 62{,}360 & 107{,}733 & 42{,}890{,}432 & 687.8 & 23.6992 \\
-Commander & 128 & \texttt{7db3eb0a} & 33{,}290 & 227{,}010 & \textbf{916} & \textbf{4{,}159} & \textbf{738{,}169} & 805.9 & \textbf{0.4277} \\
-Binary & 128 & \texttt{1c62b54c} & 4{,}850 & 447{,}828 & 3{,}094 & 11{,}061 & 1{,}566{,}393 & 506.3 & 0.9015 \\
-Product & 128 & \texttt{04d29c2e} & 13{,}798 & 193{,}122 & 4{,}551 & 13{,}978 & 2{,}813{,}735 & 618.3 & 1.2186 \\
+Pairwise & 128 & \texttt{32a14679} & 0 & 3{,}462{,}784 & 6{,}037 & 7{,}373 & 1{,}997{,}918 & 330.9 & 271.0 & 6.2960 \\
+Sequential & 128 & \texttt{e86ef7e5} & 64{,}766 & 193{,}800 & 62{,}360 & 107{,}733 & 42{,}890{,}432 & 687.8 & 398.1 & 24.8451 \\
+Commander & 128 & \texttt{7db3eb0a} & 33{,}290 & 227{,}010 & \textbf{916} & \textbf{4{,}159} & \textbf{738{,}169} & 805.9 & 177.5 & \textbf{0.7569} \\
+Binary & 128 & \texttt{1c62b54c} & 4{,}850 & 447{,}828 & 3{,}094 & 11{,}061 & 1{,}566{,}393 & 506.3 & 141.6 & 1.4151 \\
+Product & 128 & \texttt{04d29c2e} & 13{,}798 & 193{,}122 & 4{,}551 & 13{,}978 & 2{,}813{,}735 & 618.3 & 201.3 & 1.4863 \\
 \bottomrule
 \end{tabular}%
 }
