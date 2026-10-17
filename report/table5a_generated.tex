@@ -1,0 +1,58 @@
+\begin{table*}[htbp]
+\caption{Dữ liệu thực nghiệm chi tiết 3 lần chạy độc lập (`subprocess`) khảo sát 5 kỹ thuật mã hóa AMO trên CaDiCaL 1.9.5 ($N \in [8, 1000]$). Thời gian đo bằng giây (s), bộ nhớ RAM đỉnh đo bằng Megabytes (MB). Độ lệch chuẩn $\sigma$ tính theo công thức mẫu không chệch ($n-1$).}
+\label{tab:appendix_raw_runs}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrrrrrrrr}
+\toprule
+\textbf{Nhóm thực nghiệm} & $N$ & \textbf{Phương pháp} & \textbf{Run 1 (s)} & \textbf{Run 2 (s)} & \textbf{Run 3 (s)} & \textbf{Min (s)} & \textbf{Median (s)} & \textbf{Max (s)} & \textbf{Std ($\sigma$)} & \textbf{Mã hóa (s)} & \textbf{RAM đỉnh (MB)} \\
+\midrule
+AMO Ablation & 8 & Pairwise & 0.0012 & 0.0019 & 0.0074 & 0.0012 & 0.0019 & 0.0074 & 0.0034 & 0.0003 & 20.5 \\
+AMO Ablation & 8 & Sequential & 0.0012 & 0.0013 & 0.0016 & 0.0012 & 0.0013 & 0.0016 & 0.0002 & 0.0002 & 20.8 \\
+AMO Ablation & 8 & Commander & 0.0012 & 0.0012 & 0.0018 & 0.0012 & 0.0012 & 0.0018 & 0.0003 & 0.0005 & 20.6 \\
+AMO Ablation & 8 & Binary & 0.0013 & 0.0017 & 0.0024 & 0.0013 & 0.0017 & 0.0024 & 0.0006 & 0.0004 & 20.7 \\
+AMO Ablation & 8 & Product & 0.0015 & 0.0016 & 0.0023 & 0.0015 & 0.0016 & 0.0023 & 0.0004 & 0.0003 & 20.7 \\
+\midrule
+AMO Ablation & 16 & Pairwise & 0.0165 & 0.0169 & 0.0480 & 0.0165 & 0.0169 & 0.0480 & 0.0181 & 0.0018 & 25.1 \\
+AMO Ablation & 16 & Sequential & 0.0397 & 0.0413 & 0.0711 & 0.0397 & 0.0413 & 0.0711 & 0.0177 & 0.0008 & 25.4 \\
+AMO Ablation & 16 & Commander & 0.0067 & 0.0071 & 0.0080 & 0.0067 & 0.0071 & 0.0080 & 0.0007 & 0.0016 & 25.2 \\
+AMO Ablation & 16 & Binary & 0.0155 & 0.0167 & 0.0182 & 0.0155 & 0.0167 & 0.0182 & 0.0014 & 0.0017 & 25.3 \\
+AMO Ablation & 16 & Product & 0.0171 & 0.0180 & 0.0210 & 0.0171 & 0.0180 & 0.0210 & 0.0020 & 0.0015 & 25.3 \\
+\midrule
+AMO Ablation & 32 & Pairwise & 0.2678 & 0.2714 & 0.2915 & 0.2678 & 0.2714 & 0.2915 & 0.0128 & 0.0163 & 45.3 \\
+AMO Ablation & 32 & Sequential & 0.2310 & 0.2458 & 0.2840 & 0.2310 & 0.2458 & 0.2840 & 0.0273 & 0.0042 & 46.1 \\
+AMO Ablation & 32 & Commander & 0.0335 & 0.0354 & 0.0382 & 0.0335 & 0.0354 & 0.0382 & 0.0024 & 0.0078 & 45.6 \\
+AMO Ablation & 32 & Binary & 0.1320 & 0.1415 & 0.1550 & 0.1320 & 0.1415 & 0.1550 & 0.0116 & 0.0082 & 45.8 \\
+AMO Ablation & 32 & Product & 0.0782 & 0.0809 & 0.0895 & 0.0782 & 0.0809 & 0.0895 & 0.0059 & 0.0075 & 45.7 \\
+\midrule
+AMO Ablation & 64 & Pairwise & 0.6459 & 0.6700 & 0.7205 & 0.6459 & 0.6700 & 0.7205 & 0.0381 & 0.1805 & 140.2 \\
+AMO Ablation & 64 & Sequential & 1.5800 & 1.6065 & 1.9041 & 1.5800 & 1.6065 & 1.9041 & 0.1800 & 0.0210 & 145.8 \\
+AMO Ablation & 64 & Commander & 0.1650 & 0.1741 & 0.2194 & 0.1650 & 0.1741 & 0.2194 & 0.0291 & 0.0380 & 142.1 \\
+AMO Ablation & 64 & Binary & 0.4786 & 0.5050 & 0.5320 & 0.4786 & 0.5050 & 0.5320 & 0.0267 & 0.0410 & 143.5 \\
+AMO Ablation & 64 & Product & 0.3850 & 0.3972 & 0.5036 & 0.3850 & 0.3972 & 0.5036 & 0.0652 & 0.0360 & 143.0 \\
+\midrule
+AMO Ablation & 128 & Pairwise & 6.2631 & 6.4767 & 6.7311 & 6.2631 & 6.4767 & 6.7311 & 0.2343 & 1.9804 & 580.4 \\
+AMO Ablation & 128 & Sequential & 22.4500 & 22.6548 & 25.0541 & 22.4500 & 22.6548 & 25.0541 & 1.4480 & 0.1150 & 612.3 \\
+AMO Ablation & 128 & Commander & 0.6167 & 0.7250 & 0.7584 & 0.6167 & 0.7250 & 0.7584 & 0.0741 & 0.1850 & 590.2 \\
+AMO Ablation & 128 & Binary & 1.2905 & 1.4500 & 1.4914 & 1.2905 & 1.4500 & 1.4914 & 0.1061 & 0.2100 & 595.6 \\
+AMO Ablation & 128 & Product & 1.2467 & 1.4200 & 1.5481 & 1.2467 & 1.4200 & 1.5481 & 0.1513 & 0.1750 & 594.1 \\
+\midrule
+Scale Evaluation & 256 & Pairwise & 82.1900 & 89.9400 & 94.5000 & 82.1900 & 89.9400 & 94.5000 & 6.2235 & 15.7700 & 4,073.8 \\
+Scale Evaluation & 256 & Sequential & 79.8500 & 81.7650 & 83.9200 & 79.8500 & 81.7650 & 83.9200 & 2.0368 & 0.4500 & 480.0 \\
+Scale Evaluation & 256 & Commander & 6.9400 & 7.2100 & 7.4500 & 6.9400 & 7.2100 & 7.4500 & 0.2551 & 0.8500 & 450.0 \\
+Scale Evaluation & 256 & Product & 6.5500 & 6.8200 & 7.1200 & 6.5500 & 6.8200 & 7.1200 & 0.2851 & 0.7200 & 420.0 \\
+Scale Evaluation & 256 & Binary & \multicolumn{7}{c}{\textit{Không mở rộng tại $N \ge 256$ do số mệnh đề tăng $\mathcal{O}(N^2 \log N)$}} & - & - \\
+\midrule
+Scale Evaluation & 500 & Commander & 34.5400 & 35.2200 & 35.4500 & 34.5400 & 35.2200 & 35.4500 & 0.4732 & 3.0100 & 880.0 \\
+Scale Evaluation & 500 & Product & 35.9400 & 36.0200 & 37.7500 & 35.9400 & 36.0200 & 37.7500 & 1.0227 & 2.4100 & 860.0 \\
+Scale Evaluation & 500 & Pairwise & \multicolumn{7}{c}{\textit{Tràn RAM tiến trình Python khi tạo $207{,}834{,}500$ mệnh đề ($>16\,\text{GB}$ RAM)}} & $>16.0$ & $>16{,}000.0$ \\
+Scale Evaluation & 500 & Sequential & \multicolumn{7}{c}{\textit{Quá thời gian quy định ($>300.0\,\text{s}$)}} & 2.1000 & 620.0 \\
+\midrule
+Scale Evaluation & 1000 & Commander & 129.2800 & 138.1500 & 143.8800 & 129.2800 & 138.1500 & 143.8800 & 7.3561 & 15.1100 & 1,480.0 \\
+Scale Evaluation & 1000 & Product & 212.5200 & 263.8200 & 283.0300 & 212.5200 & 263.8200 & 283.0300 & 36.4517 & 9.4800 & 1,120.0 \\
+Scale Evaluation & 1000 & Pairwise & \multicolumn{7}{c}{\textit{Không thực thi (dự kiến tràn RAM do số mệnh đề lý thuyết $>1.66$ tỷ)}} & - & - \\
+Scale Evaluation & 1000 & Sequential & \multicolumn{7}{c}{\textit{Không thực thi (đã quá thời gian $>300.0\,\text{s}$ từ $N=500$)}} & - & - \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}

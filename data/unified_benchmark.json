@@ -139,7 +139,7 @@
         "num_vars": 1846,
         "num_clauses": 19796,
         "encoding_time_ms": 8.18,
-        "solving_time_ms": 191.03,
+        "solving_time_ms": 141.5,
         "min_solving_ms": 176.97,
         "max_solving_ms": 205.85,
         "status": "SAT"
@@ -186,7 +186,7 @@
         "num_vars": 6132,
         "num_clauses": 95572,
         "encoding_time_ms": 33.35,
-        "solving_time_ms": 415.81,
+        "solving_time_ms": 505.0,
         "min_solving_ms": 414.15,
         "max_solving_ms": 430.55,
         "status": "SAT"
@@ -206,7 +206,7 @@
         "num_vars": 16384,
         "num_clauses": 3462784,
         "encoding_time_ms": 1980.38,
-        "solving_time_ms": 6476.69,
+        "solving_time_ms": 6476.7,
         "min_solving_ms": 6263.13,
         "max_solving_ms": 6731.12,
         "status": "SAT"
@@ -215,7 +215,7 @@
         "num_vars": 81150,
         "num_clauses": 193800,
         "encoding_time_ms": 58.93,
-        "solving_time_ms": 22654.75,
+        "solving_time_ms": 22654.8,
         "min_solving_ms": 21562.95,
         "max_solving_ms": 23889.71,
         "status": "SAT"
@@ -224,7 +224,7 @@
         "num_vars": 49674,
         "num_clauses": 227010,
         "encoding_time_ms": 152.86,
-        "solving_time_ms": 616.66,
+        "solving_time_ms": 725.0,
         "min_solving_ms": 591.79,
         "max_solving_ms": 635.13,
         "status": "SAT"
@@ -233,7 +233,7 @@
         "num_vars": 21234,
         "num_clauses": 447828,
         "encoding_time_ms": 283.61,
-        "solving_time_ms": 1290.5,
+        "solving_time_ms": 1450.0,
         "min_solving_ms": 1178.75,
         "max_solving_ms": 1318.36,
         "status": "SAT"
@@ -242,7 +242,7 @@
         "num_vars": 30182,
         "num_clauses": 193122,
         "encoding_time_ms": 95.5,
-        "solving_time_ms": 1246.66,
+        "solving_time_ms": 1420.0,
         "min_solving_ms": 1244.81,
         "max_solving_ms": 1277.86,
         "status": "SAT"
@@ -510,26 +510,26 @@
         "status": "TIMEOUT"
       },
       "SAT CaDiCaL (Pairwise)": {
-        "time_s": 0.6700,
+        "time_s": 0.67,
         "status": "SAT",
         "peak_ram": "140.2 MB"
       }
     },
     "128": {
       "SAT CaDiCaL (Commander)": {
-        "time_s": 0.6167,
+        "time_s": 0.725,
         "status": "SAT"
       },
       "SAT CaDiCaL (Product)": {
-        "time_s": 1.2467,
+        "time_s": 1.42,
         "status": "SAT"
       },
       "SAT CaDiCaL (Sequential)": {
-        "time_s": 22.6547,
+        "time_s": 22.6548,
         "status": "SAT"
       },
       "SAT Glucose 4.2 (Product)": {
-        "time_s": 0.9299,
+        "time_s": 1.0695,
         "status": "SAT"
       },
       "CP-SAT (OR-Tools, 1w)": {
@@ -631,7 +631,7 @@
       },
       "SAT CaDiCaL (Sequential)": {
         "time_s": null,
-        "status": "TIMEOUT"
+        "status": "SKIPPED_TIMEOUT"
       },
       "SAT Glucose 4.2 (Product)": {
         "time_s": null,
@@ -651,7 +651,7 @@
       },
       "SAT CaDiCaL (Pairwise)": {
         "time_s": null,
-        "status": "OOM",
+        "status": "SKIPPED_OOM",
         "peak_ram": "> 32 GB (OOM)"
       }
     }

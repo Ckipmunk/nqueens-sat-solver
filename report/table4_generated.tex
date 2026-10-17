@@ -1,0 +1,21 @@
+\begin{table*}[htbp]
+\caption{So sánh thời gian giải trung vị (giây) giữa các bộ giải SAT (CaDiCaL 1.9.5, Glucose 4.2), Google OR-Tools CP-SAT, Gurobi Optimizer 13.0 và ILP SCIP 9.0 (Time limit = 300.0s, đơn luồng, lặp 3 lần độc lập qua `subprocess` cho mọi $N$).}
+\label{tab:solver_comparison}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrr}
+\toprule
+\textbf{Bộ giải / Phương pháp} & $N=8$ & $N=16$ & $N=32$ & $N=64$ & $N=128$ & $N=256$ & $N=500$ & $N=1000$ \\
+\midrule
+Gurobi 13.0 (1 thread) & $\mathbf{0.0002}$ & $\mathbf{0.0063}$ & $\mathbf{0.0254}$ & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) \\
+ILP SCIP 9.0 (MIP) & $0.0168$ & $0.0182$ & $3.0327$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
+CP-SAT (OR-Tools, 1 worker) & $0.0062$ & $0.0292$ & $0.1076$ & $0.5643$ & $2.7988$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
+Glucose 4.2 (Product) & $0.0008$ & $0.0860$ & $18.1418$ & $21.4911$ & $0.9299$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
+CaDiCaL (Pairwise) & $0.0019$ & $0.0169$ & $0.2714$ & $0.6700$ & $6.4767$ & $89.9400$ & OOM & Không chạy \\
+CaDiCaL (Sequential) & $0.0013$ & $0.0413$ & $0.2458$ & $1.6065$ & $22.6548$ & $81.7650$ & $> 300.0$ & Không chạy \\
+CaDiCaL (Product) & $0.0016$ & $0.0180$ & $0.0809$ & $0.3972$ & $1.4200$ & $\mathbf{6.8200}$ & $36.0200$ & $263.8200$ \\
+CaDiCaL (Commander) & $0.0012$ & $0.0071$ & $0.0354$ & $\mathbf{0.1741}$ & $\mathbf{0.7250}$ & $7.2100$ & $\mathbf{35.2200}$ & $\mathbf{138.1500}$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}

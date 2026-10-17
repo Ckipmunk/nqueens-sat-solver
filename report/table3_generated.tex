@@ -1,0 +1,30 @@
+\begin{table*}[htbp]
+\caption{Thống kê định lượng động cơ tìm kiếm CDCL của CaDiCaL 1.9.5 (trích xuất qua `solver.accum_stats()`) trên 5 kỹ thuật AMO tại $N \in \{32, 64, 128\}$. Số liệu là trung vị 3 lần chạy lặp độc lập.}
+\label{tab:cdcl_search_stats}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+\textbf{Phương pháp AMO} & $N$ & \textbf{Số biến phụ} & \textbf{Tổng mệnh đề} & \textbf{Xung đột (Conflicts)} & \textbf{Quyết định (Decisions)} & \textbf{Lan truyền (Props)} & \textbf{Props/Conflict} & \textbf{Props/Decision} & \textbf{Thời gian giải (s)} \\
+\midrule
+Pairwise & 32 & 0 & 52{,}640 & 6{,}008 & 6{,}917 & 340{,}480 & 56.7 & 49.2 & 0.2998 \\
+Sequential & 32 & 3{,}902 & 11{,}592 & 1{,}983 & 3{,}504 & 578{,}470 & 291.7 & 165.1 & 0.2558 \\
+Commander & 32 & 2{,}090 & 13{,}606 & \textbf{213} & \textbf{556} & \textbf{36{,}537} & 171.5 & 65.7 & \textbf{0.0417} \\
+Binary & 32 & 822 & 19{,}796 & 3{,}012 & 3{,}922 & 361{,}576 & 120.0 & 92.2 & 0.2053 \\
+Product & 32 & 1{,}744 & 11{,}998 & 1{,}051 & 1{,}757 & 224{,}938 & 214.0 & 128.0 & 0.0874 \\
+\midrule
+Pairwise & 64 & 0 & 428{,}864 & 3{,}045 & 3{,}968 & 241{,}457 & 79.3 & 60.9 & 0.7771 \\
+Sequential & 64 & 15{,}998 & 47{,}752 & 7{,}079 & 12{,}828 & 4{,}598{,}243 & 649.6 & 358.5 & 1.8373 \\
+Commander & 64 & 8{,}346 & 55{,}990 & \textbf{629} & \textbf{1{,}699} & \textbf{197{,}463} & 313.9 & 116.2 & \textbf{0.2045} \\
+Binary & 64 & 2{,}036 & 95{,}572 & 3{,}387 & 6{,}599 & 727{,}372 & 214.8 & 110.2 & 0.4880 \\
+Product & 64 & 4{,}844 & 47{,}520 & 3{,}246 & 5{,}886 & 991{,}917 & 305.6 & 168.5 & 0.4518 \\
+\midrule
+Pairwise & 128 & 0 & 3{,}462{,}784 & 6{,}037 & 7{,}373 & 1{,}997{,}918 & 330.9 & 271.0 & 6.3484 \\
+Sequential & 128 & 64{,}766 & 193{,}800 & 62{,}360 & 107{,}733 & 42{,}890{,}432 & 687.8 & 398.1 & 24.7447 \\
+Commander & 128 & 33{,}290 & 227{,}010 & \textbf{916} & \textbf{4{,}159} & \textbf{738{,}169} & 805.9 & 177.5 & \textbf{0.7310} \\
+Binary & 128 & 4{,}850 & 447{,}828 & 3{,}094 & 11{,}061 & 1{,}566{,}393 & 506.3 & 141.6 & 1.3370 \\
+Product & 128 & 13{,}798 & 193{,}122 & 4{,}551 & 13{,}978 & 2{,}813{,}735 & 618.3 & 201.3 & 1.3988 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}

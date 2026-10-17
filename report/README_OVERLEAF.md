@@ -35,10 +35,10 @@ Dự án đã đóng gói sẵn tệp **`report.zip`** ngay tại thư mục g�
 ### Bước 3: Cấu hình Trình biên dịch (Compiler)
 1. Trên thanh công cụ Overleaf, nhấn vào biểu tượng **Menu** (góc trên cùng bên trái).
 2. Tại mục **Compiler**:
-   - Khuyên dùng: Chọn **XeLaTeX** (hỗ trợ font Unicode tiếng Việt hoàn hảo nhất trên mọi mẫu Elsevier).
-   - Hoặc có thể chọn **pdfLaTeX** (đã cấu hình sẵn gói `[vietnamese,english]{babel}` và `[T5,T1]{fontenc}`).
+   - Chọn **pdfLaTeX** hoặc **XeLaTeX** (cả hai đều đã được cấu hình font tiếng Việt và biên dịch mượt mà).
 3. Tại mục **Main document**:
-   - Chọn `nqueens_report_elsevier.tex` (hoặc `nqueens_report_standard.tex`).
+   - Mặc định Overleaf đã chọn **`main.tex`** (chính là bản định dạng Elsevier `cas-sc` chuẩn, bạn chỉ cần bấm **Recompile** ngay là ra bài báo chuẩn Elsevier 100%).
+   - Hoặc bạn có thể chọn `nqueens_report_elsevier.tex` (bản Elsevier) hoặc `nqueens_report_standard.tex` (bản article 2 cột).
 4. Nhấn **Recompile** để xuất file PDF hoàn chỉnh.
 
 ---
