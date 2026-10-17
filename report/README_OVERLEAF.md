@@ -20,20 +20,17 @@ Trong file `.tex`, bạn chỉ cần cập nhật 3 vị trí:
 
 ## 2. Hướng dẫn Biên dịch trên Overleaf
 
-### Bước 1: Nén thư mục báo cáo
-Nén toàn bộ các tệp sau trong thư mục `report/` thành tệp `report.zip`:
-- `nqueens_report_elsevier.tex`
-- `nqueens_report_standard.tex`
-- `references.bib`
-- Thư mục con `figures/` chứa:
-  - `fig_clauses_scaling.pdf` (và `.png`)
-  - `fig_solver_runtime.pdf` (và `.png`)
-  - `fig_board_8queens.pdf` (và `.png`)
+Dự án đã đóng gói sẵn tệp **`report.zip`** ngay tại thư mục gốc của dự án. Tệp nén này đã bao gồm đầy đủ:
+- Bộ template chính thức từ CTAN: `cas-sc.cls`, `cas-common.sty`, `cas-model2-names.bst`.
+- Hai file nguồn LaTeX: `nqueens_report_elsevier.tex` và `nqueens_report_standard.tex`.
+- Tệp trích dẫn chuẩn: `references.bib`.
+- Thư mục hình ảnh độ phân giải cao: `figures/` (cả định dạng PDF vector và PNG).
 
-### Bước 2: Tải lên Overleaf
-1. Truy cập [Overleaf.com](https://www.overleaf.com/) và đăng nhập.
+### Các bước tải lên Overleaf:
+1. Truy cập [Overleaf.com](https://www.overleaf.com/) và đăng nhập tài khoản.
 2. Nhấn **New Project** $\rightarrow$ **Upload Project**.
-3. Chọn tệp `report.zip` để tải lên.
+3. Chọn tệp `report.zip` (ở thư mục gốc dự án) để tải lên. Overleaf sẽ tự động giải nén toàn bộ tệp vào thư mục gốc của project.
+
 
 ### Bước 3: Cấu hình Trình biên dịch (Compiler)
 1. Trên thanh công cụ Overleaf, nhấn vào biểu tượng **Menu** (góc trên cùng bên trái).

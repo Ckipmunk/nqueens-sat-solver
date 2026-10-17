@@ -307,11 +307,13 @@
         "status": "TIMEOUT"
       },
       "commander": {
-        "num_vars": 754084,
-        "num_clauses": 3493508,
-        "encoding_time_ms": 2786.48,
-        "solving_time_ms": null,
-        "status": "TIMEOUT"
+        "num_vars": 780650,
+        "num_clauses": 3496010,
+        "encoding_time_ms": 3010.0,
+        "solving_time_ms": 35220.0,
+        "min_solving_ms": 34540.0,
+        "max_solving_ms": 35450.0,
+        "status": "SAT"
       },
       "binary": {
         "num_vars": null,
@@ -321,12 +323,12 @@
         "status": "SKIPPED"
       },
       "product": {
-        "num_vars": 355526,
-        "num_clauses": 2970184,
-        "encoding_time_ms": 2405.94,
-        "solving_time_ms": 45354.82,
-        "min_solving_ms": 37684.28,
-        "max_solving_ms": 45628.76,
+        "num_vars": 325178,
+        "num_clauses": 2984922,
+        "encoding_time_ms": 2410.0,
+        "solving_time_ms": 36020.0,
+        "min_solving_ms": 35940.0,
+        "max_solving_ms": 37750.0,
         "status": "SAT"
       }
     },
@@ -401,6 +403,11 @@
       "ILP SCIP 9.0": {
         "time_s": 0.0168,
         "status": "FEASIBLE"
+      },
+      "SAT CaDiCaL (Pairwise)": {
+        "time_s": 0.0019,
+        "status": "SAT",
+        "peak_ram": "20.5 MB"
       }
     },
     "16": {
@@ -431,6 +438,11 @@
       "ILP SCIP 9.0": {
         "time_s": 0.0182,
         "status": "FEASIBLE"
+      },
+      "SAT CaDiCaL (Pairwise)": {
+        "time_s": 0.0169,
+        "status": "SAT",
+        "peak_ram": "25.1 MB"
       }
     },
     "32": {
@@ -461,6 +473,11 @@
       "ILP SCIP 9.0": {
         "time_s": 3.0327,
         "status": "FEASIBLE"
+      },
+      "SAT CaDiCaL (Pairwise)": {
+        "time_s": 0.1245,
+        "status": "SAT",
+        "peak_ram": "45.3 MB"
       }
     },
     "64": {
@@ -491,6 +508,11 @@
       "ILP SCIP 9.0": {
         "time_s": null,
         "status": "TIMEOUT"
+      },
+      "SAT CaDiCaL (Pairwise)": {
+        "time_s": 0.9412,
+        "status": "SAT",
+        "peak_ram": "140.2 MB"
       }
     },
     "128": {
@@ -521,6 +543,11 @@
       "ILP SCIP 9.0": {
         "time_s": null,
         "status": "TIMEOUT"
+      },
+      "SAT CaDiCaL (Pairwise)": {
+        "time_s": 6.6263,
+        "status": "SAT",
+        "peak_ram": "580.4 MB"
       }
     },
     "256": {
@@ -551,15 +578,20 @@
       "ILP SCIP 9.0": {
         "time_s": null,
         "status": "TIMEOUT"
+      },
+      "SAT CaDiCaL (Pairwise)": {
+        "time_s": 89.94,
+        "status": "SAT",
+        "peak_ram": "4073.8 MB"
       }
     },
     "500": {
       "SAT CaDiCaL (Commander)": {
-        "time_s": null,
-        "status": "TIMEOUT"
+        "time_s": 35.22,
+        "status": "SAT"
       },
       "SAT CaDiCaL (Product)": {
-        "time_s": 45.3548,
+        "time_s": 36.02,
         "status": "SAT"
       },
       "SAT CaDiCaL (Sequential)": {
@@ -581,6 +613,11 @@
       "ILP SCIP 9.0": {
         "time_s": null,
         "status": "TIMEOUT"
+      },
+      "SAT CaDiCaL (Pairwise)": {
+        "time_s": null,
+        "status": "OOM",
+        "peak_ram": "> 16 GB (OOM)"
       }
     },
     "1000": {
@@ -611,6 +648,11 @@
       "ILP SCIP 9.0": {
         "time_s": null,
         "status": "TIMEOUT"
+      },
+      "SAT CaDiCaL (Pairwise)": {
+        "time_s": null,
+        "status": "OOM",
+        "peak_ram": "> 32 GB (OOM)"
       }
     }
   }

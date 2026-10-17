@@ -80,6 +80,7 @@ def generate_plots():
     solv_markers = {
         "SAT CaDiCaL (Commander)": '^',
         "SAT CaDiCaL (Product)": 'v',
+        "SAT CaDiCaL (Pairwise)": 'p',
         "SAT CaDiCaL (Sequential)": 's',
         "SAT Glucose 4.2 (Product)": 'o',
         "CP-SAT (OR-Tools, 1w)": 'D',
@@ -89,6 +90,7 @@ def generate_plots():
     solv_colors = {
         "SAT CaDiCaL (Commander)": '#2ca02c',
         "SAT CaDiCaL (Product)": '#ff7f0e',
+        "SAT CaDiCaL (Pairwise)": '#7f7f7f',
         "SAT CaDiCaL (Sequential)": '#1f77b4',
         "SAT Glucose 4.2 (Product)": '#17becf',
         "CP-SAT (OR-Tools, 1w)": '#9467bd',
@@ -100,6 +102,7 @@ def generate_plots():
     all_solvers = [
         "SAT CaDiCaL (Commander)",
         "SAT CaDiCaL (Product)",
+        "SAT CaDiCaL (Pairwise)",
         "SAT CaDiCaL (Sequential)",
         "SAT Glucose 4.2 (Product)",
         "CP-SAT (OR-Tools, 1w)",

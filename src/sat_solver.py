@@ -134,6 +134,11 @@ class NQueensSATSolver:
                 stats["solving_time"] = solve_t
                 stats["total_time"] = self.encoding_time + solve_t
 
+                try:
+                    stats["accum_stats"] = solver.accum_stats()
+                except Exception:
+                    stats["accum_stats"] = {}
+
                 if sat_res:
                     model = solver.get_model()
                     stats["status"] = "SAT"
