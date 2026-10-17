@@ -125,6 +125,26 @@ def generate_plots():
 
     # Vẽ đường Time Limit 300s
     ax.axhline(y=300.0, color='gray', linestyle=':', linewidth=1.5, label='Time limit (300s)')
+
+    # Đánh dấu các điểm Timeout (> 300s) bằng dấu ✕ trên đường 300s
+    to_points = [
+        (64, "ILP SCIP 9.0"), (128, "ILP SCIP 9.0"), (256, "ILP SCIP 9.0"), (500, "ILP SCIP 9.0"), (1000, "ILP SCIP 9.0"),
+        (256, "CP-SAT (OR-Tools, 1w)"), (500, "CP-SAT (OR-Tools, 1w)"), (1000, "CP-SAT (OR-Tools, 1w)"),
+        (256, "SAT Glucose 4.2 (Product)"), (500, "SAT Glucose 4.2 (Product)"), (1000, "SAT Glucose 4.2 (Product)"),
+        (500, "SAT CaDiCaL (Sequential)"), (1000, "SAT CaDiCaL (Sequential)")
+    ]
+    to_plotted = False
+    for n_to, s_name in to_points:
+        lbl = 'Timeout (≥ 300s)' if not to_plotted else None
+        ax.scatter(n_to, 300.0, marker='x', color=solv_colors[s_name], s=45, linewidth=1.5, zorder=5, label=lbl)
+        to_plotted = True
+
+    # Đánh dấu điểm OOM (Pairwise N=500, 1000) và Size Limit (Gurobi N=64)
+    ax.scatter([500, 1000], [300.0, 300.0], marker='s', facecolors='none', edgecolors='#d62728', s=55, linewidth=1.8, zorder=6, label='Pairwise OOM (> 16GB RAM)')
+    ax.scatter([64], [0.03], marker='*', color='#8c564b', s=90, zorder=6)
+    ax.annotate('Gurobi: Size Limit (2000 vars)', xy=(64, 0.03), xytext=(45, 0.003),
+                arrowprops=dict(arrowstyle="->", color='#8c564b', lw=1), fontsize=8, color='#8c564b')
+
     ax.set_xscale('log', base=2)
     ax.set_yscale('log')
     ax.set_xlabel('Kích thước bàn cờ N')
@@ -132,7 +152,7 @@ def generate_plots():
     ax.set_title('So sánh thời gian giải: SAT vs CP-SAT vs Gurobi vs SCIP')
     ax.grid(True, which="both", ls="--", alpha=0.5)
     # Đặt vị trí legend góc dưới bên phải để tránh đè lên đường dữ liệu ở góc trên
-    ax.legend(loc='lower right', frameon=True, framealpha=0.9)
+    ax.legend(loc='lower right', frameon=True, framealpha=0.9, fontsize=8)
     plt.tight_layout()
     plt.savefig(os.path.join(figs_dir, "fig_solver_runtime.png"), dpi=300)
     plt.savefig(os.path.join(figs_dir, "fig_solver_runtime.pdf"))

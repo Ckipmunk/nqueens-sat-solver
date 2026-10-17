@@ -475,7 +475,7 @@
         "status": "FEASIBLE"
       },
       "SAT CaDiCaL (Pairwise)": {
-        "time_s": 0.1245,
+        "time_s": 0.2714,
         "status": "SAT",
         "peak_ram": "45.3 MB"
       }
@@ -510,7 +510,7 @@
         "status": "TIMEOUT"
       },
       "SAT CaDiCaL (Pairwise)": {
-        "time_s": 0.9412,
+        "time_s": 0.6700,
         "status": "SAT",
         "peak_ram": "140.2 MB"
       }
@@ -545,7 +545,7 @@
         "status": "TIMEOUT"
       },
       "SAT CaDiCaL (Pairwise)": {
-        "time_s": 6.6263,
+        "time_s": 6.4767,
         "status": "SAT",
         "peak_ram": "580.4 MB"
       }
