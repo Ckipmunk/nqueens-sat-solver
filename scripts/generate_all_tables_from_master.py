@@ -41,6 +41,7 @@ def load_and_aggregate_master():
         props = [int(r["propagations"]) for r in runs]
         restarts = [int(r["restarts"]) for r in runs]
         hashes = [r["cnf_hash"] for r in runs]
+
         # For CDCL stats, take from run with median solving time or first solved run
         solved_runs = [r for r in runs if float(r["solving_time_s"]) < 300.0]
         rep_run = solved_runs[0] if solved_runs else runs[0]
@@ -147,61 +148,71 @@ def build_tables():
     t2.append(r"\caption{So sánh thực nghiệm toàn diện giữa 5 kỹ thuật mã hóa AMO trên CaDiCaL 1.9.5 ($N \in [8, 128]$). Giá trị thời gian giải là trung vị của 3 lần chạy lặp độc lập qua tiến trình riêng biệt (\texttt{subprocess}).}")
     t2.append(r"\label{tab:ablation_results}")
     t2.append(r"\centering")
+    t2.append(r"\renewcommand{\arraystretch}{1.22}")
     t2.append(r"\resizebox{\textwidth}{!}{%")
     t2.append(r"\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrr@{}}")
     t2.append(r"\toprule")
+    t2.append(r"\rowcolor{tableheader}")
     t2.append(r"\textbf{Phương pháp AMO} & $N=8$ & $N=16$ & $N=32$ & $N=64$ & $N=128$ & \textbf{Đặc điểm / Ghi chú} \\")
     t2.append(r"\midrule")
 
     # Clauses
-    t2.append(r"\multicolumn{7}{l}{\textbf{Tổng số mệnh đề CNF (Clauses)}} \\")
-    for name, key, compl, _, _ in methods_meta:
+    t2.append(r"\rowcolor{subheadbg}")
+    t2.append(r"\multicolumn{7}{l}{\textbf{1. Tổng số mệnh đề CNF (Clauses)}} \\")
+    for idx, (name, key, compl, _, _) in enumerate(methods_meta):
         c8 = f"{agg[8][key]['clauses']:,}".replace(",", "{,}")
         c16 = f"{agg[16][key]['clauses']:,}".replace(",", "{,}")
         c32 = f"{agg[32][key]['clauses']:,}".replace(",", "{,}")
         c64 = f"{agg[64][key]['clauses']:,}".replace(",", "{,}")
         c128 = f"{agg[128][key]['clauses']:,}".replace(",", "{,}")
-        t2.append(f"{name} & ${c8}$ & ${c16}$ & ${c32}$ & ${c64}$ & ${c128}$ & {compl} \\\\")
+        row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
+        t2.append(f"{row_prefix}{name} & ${c8}$ & ${c16}$ & ${c32}$ & ${c64}$ & ${c128}$ & {compl} \\\\")
     t2.append(r"\midrule")
 
     # Variables
-    t2.append(r"\multicolumn{7}{l}{\textbf{Tổng số biến logic (Variables)}} \\")
-    for name, key, _, var_note, _ in methods_meta:
+    t2.append(r"\rowcolor{subheadbg}")
+    t2.append(r"\multicolumn{7}{l}{\textbf{2. Tổng số biến logic (Variables)}} \\")
+    for idx, (name, key, _, var_note, _) in enumerate(methods_meta):
         v8 = f"{agg[8][key]['vars']:,}".replace(",", "{,}")
         v16 = f"{agg[16][key]['vars']:,}".replace(",", "{,}")
         v32 = f"{agg[32][key]['vars']:,}".replace(",", "{,}")
         v64 = f"{agg[64][key]['vars']:,}".replace(",", "{,}")
         v128 = f"{agg[128][key]['vars']:,}".replace(",", "{,}")
-        t2.append(f"{name} & ${v8}$ & ${v16}$ & ${v32}$ & ${v64}$ & ${v128}$ & {var_note} \\\\")
+        row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
+        t2.append(f"{row_prefix}{name} & ${v8}$ & ${v16}$ & ${v32}$ & ${v64}$ & ${v128}$ & {var_note} \\\\")
     t2.append(r"\midrule")
 
     # Encoding Time (ms)
-    t2.append(r"\multicolumn{7}{l}{\textbf{Thời gian mã hóa tạo mô hình CNF - Encoding Time (ms)}} \\")
-    for name, key, _, _, _ in methods_meta:
+    t2.append(r"\rowcolor{subheadbg}")
+    t2.append(r"\multicolumn{7}{l}{\textbf{3. Thời gian tạo mô hình CNF - Encoding Time (ms)}} \\")
+    for idx, (name, key, _, _, _) in enumerate(methods_meta):
         e8 = f"{agg[8][key]['enc_time_ms']:.2f}"
         e16 = f"{agg[16][key]['enc_time_ms']:.2f}"
         e32 = f"{agg[32][key]['enc_time_ms']:.2f}"
         e64 = f"{agg[64][key]['enc_time_ms']:.2f}"
         e128 = f"{agg[128][key]['enc_time_ms']:.2f}".replace(",", "{,}")
-        t2.append(f"{name} & ${e8}$ & ${e16}$ & ${e32}$ & ${e64}$ & ${e128}$ & Đo đạc tự động \\\\")
+        row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
+        t2.append(f"{row_prefix}{name} & ${e8}$ & ${e16}$ & ${e32}$ & ${e64}$ & ${e128}$ & Đo đạc tự động \\\\")
     t2.append(r"\midrule")
 
     # Solving Time (ms)
-    t2.append(r"\multicolumn{7}{l}{\textbf{Thời gian giải trung vị - Solving Time CaDiCaL 1.9.5 (ms)}} \\")
-    for name, key, _, _, note in methods_meta:
+    t2.append(r"\rowcolor{subheadbg}")
+    t2.append(r"\multicolumn{7}{l}{\textbf{4. Thời gian giải trung vị - Solving Time CaDiCaL 1.9.5 (ms)}} \\")
+    for idx, (name, key, _, _, note) in enumerate(methods_meta):
         s8 = f"{agg[8][key]['median_s']*1000.0:.2f}"
         s16 = f"{agg[16][key]['median_s']*1000.0:.2f}"
         s32 = f"{agg[32][key]['median_s']*1000.0:.2f}"
         s64 = f"{agg[64][key]['median_s']*1000.0:.2f}"
         s128 = f"{agg[128][key]['median_s']*1000.0:,.2f}".replace(",", "{,}")
+        row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
         
         # Only bold Commander for N in [16, 128], at N=8 Pairwise/Sequential are faster!
         if key == "commander":
-            t2.append(f"{name} & ${s8}$ & $\\mathbf{{{s16}}}$ & $\\mathbf{{{s32}}}$ & $\\mathbf{{{s64}}}$ & $\\mathbf{{{s128}}}$ & {note} \\\\")
+            t2.append(f"{row_prefix}{name} & ${s8}$ & $\\mathbf{{{s16}}}$ & $\\mathbf{{{s32}}}$ & $\\mathbf{{{s64}}}$ & $\\mathbf{{{s128}}}$ & {note} \\\\")
         elif key == "pairwise":
-            t2.append(f"{name} & $\\mathbf{{{s8}}}$ & ${s16}$ & ${s32}$ & ${s64}$ & ${s128}$ & {note} \\\\")
+            t2.append(f"{row_prefix}{name} & $\\mathbf{{{s8}}}$ & ${s16}$ & ${s32}$ & ${s64}$ & ${s128}$ & {note} \\\\")
         else:
-            t2.append(f"{name} & ${s8}$ & ${s16}$ & ${s32}$ & ${s64}$ & ${s128}$ & {note} \\\\")
+            t2.append(f"{row_prefix}{name} & ${s8}$ & ${s16}$ & ${s32}$ & ${s64}$ & ${s128}$ & {note} \\\\")
     t2.append(r"\bottomrule")
     t2.append(r"\end{tabular*}%")
     t2.append(r"}")
@@ -220,15 +231,19 @@ def build_tables():
     t3.append(r"\caption{Thống kê định lượng động cơ tìm kiếm CDCL của CaDiCaL 1.9.5 (trích xuất qua \texttt{solver.accum\_stats()}) trên các kỹ thuật AMO tại $N \in \{32, 64, 128, 256, 500, 1000\}$. Cả 3 lần chạy lặp độc lập đều ghi nhận số lượng xung đột và quyết định hoàn toàn giống nhau (3/3 lần giống nhau) trên mọi phép thử giải thành công, phản ánh tính tất định của solver trên cùng một công thức CNF.}")
     t3.append(r"\label{tab:cdcl_search_stats}")
     t3.append(r"\centering")
+    t3.append(r"\renewcommand{\arraystretch}{1.20}")
     t3.append(r"\resizebox{\textwidth}{!}{%")
     t3.append(r"\begin{tabular}{llr rrrr rrrr} ")
     t3.append(r"\toprule")
-    t3.append(r"\textbf{Phương pháp AMO} & $N$ & \textbf{CNF Hash} & \textbf{Biến phụ} & \textbf{Tổng mệnh đề} & \textbf{Xung đột (3/3 lần)} & \textbf{Quyết định} & \textbf{Lan truyền} & \textbf{Props/Conf} & \textbf{Props/Dec} & \textbf{Thời gian giải (s)} \\")
+    t3.append(r"\rowcolor{tableheader}")
+    t3.append(r"\textbf{Phương pháp AMO} & $N$ & \textbf{CNF Hash} & \textbf{Biến phụ} & \textbf{Tổng mệnh đề} & \textbf{Xung đột (3/3)} & \textbf{Quyết định} & \textbf{Lan truyền} & \textbf{Props/Conf} & \textbf{Props/Dec} & \textbf{Thời gian giải (s)} \\")
     t3.append(r"\midrule")
 
     # Group 1: Ablation N in [32, 64, 128]
+    t3.append(r"\rowcolor{subheadbg}")
+    t3.append(r"\multicolumn{11}{l}{\textbf{1. Nhóm khảo sát triệt tiêu (Ablation Study: $N \in \{32, 64, 128\}$)}} \\")
     for n in [32, 64, 128]:
-        for method_name, key, _, _, _ in methods_meta:
+        for idx, (method_name, key, _, _, _) in enumerate(methods_meta):
             d = agg[n][key]
             h = d["cnf_hash"]
             aux_vars = d["vars"] - n*n
@@ -241,22 +256,27 @@ def build_tables():
             p_conf = d["propagations"] / max(1, d["conflicts"])
             p_dec = d["propagations"] / max(1, d["decisions"])
             solv_s = f"{d['median_s']:.4f}"
+            row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
 
             short_name = method_name.split()[0]
             if key == "commander":
-                t3.append(f"{short_name} & {n} & \\texttt{{{h}}} & {aux_str} & {clauses_str} & \\textbf{{{conf_str}}} & \\textbf{{{dec_str}}} & \\textbf{{{prop_str}}} & {p_conf:.1f} & {p_dec:.1f} & \\textbf{{{solv_s}}} \\\\")
+                t3.append(f"{row_prefix}{short_name} & {n} & \\texttt{{{h}}} & {aux_str} & {clauses_str} & \\textbf{{{conf_str}}} & \\textbf{{{dec_str}}} & \\textbf{{{prop_str}}} & {p_conf:.1f} & {p_dec:.1f} & \\textbf{{{solv_s}}} \\\\")
             else:
-                t3.append(f"{short_name} & {n} & \\texttt{{{h}}} & {aux_str} & {clauses_str} & {conf_str} & {dec_str} & {prop_str} & {p_conf:.1f} & {p_dec:.1f} & {solv_s} \\\\")
+                t3.append(f"{row_prefix}{short_name} & {n} & \\texttt{{{h}}} & {aux_str} & {clauses_str} & {conf_str} & {dec_str} & {prop_str} & {p_conf:.1f} & {p_dec:.1f} & {solv_s} \\\\")
         t3.append(r"\midrule")
 
-    # Group 2: Scale N=256
+    # Group 2: Scale Evaluation (N >= 256)
+    t3.append(r"\rowcolor{subheadbg}")
+    t3.append(r"\multicolumn{11}{l}{\textbf{2. Nhóm khảo sát khả năng mở rộng quy mô lớn ($N \ge 256$)}} \\")
+    
+    # Scale N=256
     scale_methods_256 = [
         ("Commander", "commander"),
         ("Product", "product"),
         ("Sequential", "sequential"),
         ("Pairwise", "pairwise")
     ]
-    for short_name, key in scale_methods_256:
+    for idx, (short_name, key) in enumerate(scale_methods_256):
         d = agg[256][key]
         h = d["cnf_hash"]
         aux_vars = d["vars"] - 256*256
@@ -268,16 +288,17 @@ def build_tables():
         p_conf = d["propagations"] / max(1, d["conflicts"])
         p_dec = d["propagations"] / max(1, d["decisions"])
         solv_s = f"{d['median_s']:.4f}"
+        row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
         if key == "commander":
-            t3.append(f"{short_name} & 256 & \\texttt{{{h}}} & {aux_str} & {clauses_str} & \\textbf{{{conf_str}}} & \\textbf{{{dec_str}}} & \\textbf{{{prop_str}}} & {p_conf:.1f} & {p_dec:.1f} & {solv_s} \\\\")
+            t3.append(f"{row_prefix}{short_name} & 256 & \\texttt{{{h}}} & {aux_str} & {clauses_str} & \\textbf{{{conf_str}}} & \\textbf{{{dec_str}}} & \\textbf{{{prop_str}}} & {p_conf:.1f} & {p_dec:.1f} & {solv_s} \\\\")
         elif key == "product":
-            t3.append(f"{short_name} & 256 & \\texttt{{{h}}} & {aux_str} & {clauses_str} & {conf_str} & {dec_str} & {prop_str} & {p_conf:.1f} & {p_dec:.1f} & \\textbf{{{solv_s}}} \\\\")
+            t3.append(f"{row_prefix}{short_name} & 256 & \\texttt{{{h}}} & {aux_str} & {clauses_str} & {conf_str} & {dec_str} & {prop_str} & {p_conf:.1f} & {p_dec:.1f} & \\textbf{{{solv_s}}} \\\\")
         else:
-            t3.append(f"{short_name} & 256 & \\texttt{{{h}}} & {aux_str} & {clauses_str} & {conf_str} & {dec_str} & {prop_str} & {p_conf:.1f} & {p_dec:.1f} & {solv_s} \\\\")
+            t3.append(f"{row_prefix}{short_name} & 256 & \\texttt{{{h}}} & {aux_str} & {clauses_str} & {conf_str} & {dec_str} & {prop_str} & {p_conf:.1f} & {p_dec:.1f} & {solv_s} \\\\")
     t3.append(r"\midrule")
 
     # Group 3: Scale N=500
-    for short_name, key in [("Commander", "commander"), ("Product", "product")]:
+    for idx, (short_name, key) in enumerate([("Commander", "commander"), ("Product", "product")]):
         d = agg[500][key]
         h = d["cnf_hash"]
         aux_vars = d["vars"] - 500*500
@@ -289,10 +310,11 @@ def build_tables():
         p_conf = d["propagations"] / max(1, d["conflicts"])
         p_dec = d["propagations"] / max(1, d["decisions"])
         solv_s = f"{d['median_s']:.4f}"
+        row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
         if key == "commander":
-            t3.append(f"{short_name} & 500 & \\texttt{{{h}}} & {aux_str} & {clauses_str} & \\textbf{{{conf_str}}} & \\textbf{{{dec_str}}} & {prop_str} & {p_conf:.1f} & {p_dec:.1f} & \\textbf{{{solv_s}}} \\\\")
+            t3.append(f"{row_prefix}{short_name} & 500 & \\texttt{{{h}}} & {aux_str} & {clauses_str} & \\textbf{{{conf_str}}} & \\textbf{{{dec_str}}} & {prop_str} & {p_conf:.1f} & {p_dec:.1f} & \\textbf{{{solv_s}}} \\\\")
         else:
-            t3.append(f"{short_name} & 500 & \\texttt{{{h}}} & {aux_str} & {clauses_str} & {conf_str} & {dec_str} & \\textbf{{{prop_str}}} & {p_conf:.1f} & {p_dec:.1f} & {solv_s} \\\\")
+            t3.append(f"{row_prefix}{short_name} & 500 & \\texttt{{{h}}} & {aux_str} & {clauses_str} & {conf_str} & {dec_str} & \\textbf{{{prop_str}}} & {p_conf:.1f} & {p_dec:.1f} & {solv_s} \\\\")
     t3.append(r"\midrule")
 
     # Group 4: Scale N=1000
@@ -316,7 +338,7 @@ def build_tables():
     prop_pr = f"{d_pr['propagations']:,}".replace(",", "{,}")
     p_conf_pr = d_pr["propagations"] / max(1, d_pr["conflicts"])
     p_dec_pr = d_pr["propagations"] / max(1, d_pr["decisions"])
-    t3.append(f"Product & 1000 & \\texttt{{{d_pr['cnf_hash']}}} & {aux_pr} & {cl_pr} & {conf_pr} & {dec_pr} & {prop_pr} & {p_conf_pr:.1f} & {p_dec_pr:.1f} & {d_pr['median_s']:.4f}$^* \\\\")
+    t3.append(f"\\rowcolor{{tablerowalt}} Product & 1000 & \\texttt{{{d_pr['cnf_hash']}}} & {aux_pr} & {cl_pr} & {conf_pr} & {dec_pr} & {prop_pr} & {p_conf_pr:.1f} & {p_dec_pr:.1f} & {d_pr['median_s']:.4f}$^* \\\\")
 
     t3.append(r"\bottomrule")
     t3.append(r"\end{tabular}%")
@@ -331,7 +353,6 @@ def build_tables():
     # =========================================================================
     # TABLE 4: Solver Comparison (N in [8, 1000])
     # =========================================================================
-    # Compute medians for Gurobi, SCIP, CP-SAT, Glucose from ms_runs
     ms_medians = {}
     for r in ms_runs:
         ms_medians[(r["solver"], r["n"])] = r["median"]
@@ -341,33 +362,42 @@ def build_tables():
     t4.append(r"\caption{So sánh thời gian giải trung vị (giây) giữa các bộ giải SAT (CaDiCaL 1.9.5, Glucose 4.2), Google OR-Tools CP-SAT, Gurobi Optimizer 13.0 và ILP SCIP 9.0 (Time limit = 300.0s, đơn luồng, lặp 3 lần độc lập qua \texttt{subprocess} cho mọi $N$).}")
     t4.append(r"\label{tab:solver_comparison}")
     t4.append(r"\centering")
+    t4.append(r"\renewcommand{\arraystretch}{1.22}")
     t4.append(r"\resizebox{\textwidth}{!}{%")
     t4.append(r"\begin{tabular}{lrrrrrrrr}")
     t4.append(r"\toprule")
+    t4.append(r"\rowcolor{tableheader}")
     t4.append(r"\textbf{Bộ giải / Phương pháp} & $N=8$ & $N=16$ & $N=32$ & $N=64$ & $N=128$ & $N=256$ & $N=500$ & $N=1000$ \\")
     t4.append(r"\midrule")
 
-    # 1. Gurobi 13.0
+    # 1. ILP Paradigm
+    t4.append(r"\rowcolor{subheadbg}")
+    t4.append(r"\multicolumn{9}{l}{\textbf{1. Quy hoạch Tuyến tính Nguyên (Integer Linear Programming - ILP/MIP)}} \\")
     g8 = f"{ms_medians.get(('Gurobi 13.0', 8), 0.0002):.4f}"
     g16 = f"{ms_medians.get(('Gurobi 13.0', 16), 0.0084):.4f}"
     g32 = f"{ms_medians.get(('Gurobi 13.0', 32), 0.0272):.4f}"
     t4.append(f"Gurobi 13.0 (1 thread) & $\\mathbf{{{g8}}}$ & ${g16}$ & $\\mathbf{{{g32}}}$ & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) \\\\")
 
-    # 2. SCIP 9.0
     sc8 = f"{ms_medians.get(('ILP SCIP 9.0', 8), 0.0191):.4f}"
     sc16 = f"{ms_medians.get(('ILP SCIP 9.0', 16), 0.0190):.4f}"
     sc32 = f"{ms_medians.get(('ILP SCIP 9.0', 32), 3.1150):.4f}"
-    t4.append(f"ILP SCIP 9.0 (MIP) & ${sc8}$ & ${sc16}$ & ${sc32}$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\\\")
+    t4.append(f"\\rowcolor{{tablerowalt}} ILP SCIP 9.0 (MIP) & ${sc8}$ & ${sc16}$ & ${sc32}$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\\\")
+    t4.append(r"\midrule")
 
-    # 3. CP-SAT
+    # 2. CP Paradigm
+    t4.append(r"\rowcolor{subheadbg}")
+    t4.append(r"\multicolumn{9}{l}{\textbf{2. Lập trình Ràng buộc (Constraint Programming - CP)}} \\")
     cp8 = f"{ms_medians.get(('CP-SAT (OR-Tools)', 8), 0.0066):.4f}"
     cp16 = f"{ms_medians.get(('CP-SAT (OR-Tools)', 16), 0.0251):.4f}"
     cp32 = f"{ms_medians.get(('CP-SAT (OR-Tools)', 32), 0.1251):.4f}"
     cp64 = f"{ms_medians.get(('CP-SAT (OR-Tools)', 64), 0.5912):.4f}"
     cp128 = f"{ms_medians.get(('CP-SAT (OR-Tools)', 128), 3.4598):.4f}"
     t4.append(f"CP-SAT (OR-Tools, 1 worker) & ${cp8}$ & ${cp16}$ & ${cp32}$ & ${cp64}$ & ${cp128}$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\\\")
+    t4.append(r"\midrule")
 
-    # 4. Glucose 4.2
+    # 3. SAT Paradigm
+    t4.append(r"\rowcolor{subheadbg}")
+    t4.append(r"\multicolumn{9}{l}{\textbf{3. Bộ giải Mệnh đề Logic (SAT Solvers: CaDiCaL 1.9.5 \& Glucose 4.2)}} \\")
     gl8 = f"{ms_medians.get(('Glucose 4.2', 8), 0.0003):.4f}"
     gl16 = f"{ms_medians.get(('Glucose 4.2', 16), 0.1226):.4f}"
     gl32 = f"{ms_medians.get(('Glucose 4.2', 32), 20.7088):.4f}"
@@ -375,17 +405,14 @@ def build_tables():
     gl128 = f"{ms_medians.get(('Glucose 4.2', 128), 1.0650):.4f}"
     t4.append(f"Glucose 4.2 (Product) & ${gl8}$ & ${gl16}$ & ${gl32}$ & ${gl64}$ & ${gl128}$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\\\")
 
-    # 5. CaDiCaL variants
-    # Pairwise
     pw8 = f"{agg[8]['pairwise']['median_s']:.4f}"
     pw16 = f"{agg[16]['pairwise']['median_s']:.4f}"
     pw32 = f"{agg[32]['pairwise']['median_s']:.4f}"
     pw64 = f"{agg[64]['pairwise']['median_s']:.4f}"
     pw128 = f"{agg[128]['pairwise']['median_s']:.4f}"
     pw256 = f"{agg[256]['pairwise']['median_s']:.4f}"
-    t4.append(f"CaDiCaL (Pairwise) & ${pw8}$ & ${pw16}$ & ${pw32}$ & ${pw64}$ & ${pw128}$ & ${pw256}$ & OOM & Không chạy \\\\")
+    t4.append(f"\\rowcolor{{tablerowalt}} CaDiCaL (Pairwise) & ${pw8}$ & ${pw16}$ & ${pw32}$ & ${pw64}$ & ${pw128}$ & ${pw256}$ & OOM & Không chạy \\\\")
 
-    # Sequential
     sq8 = f"{agg[8]['sequential']['median_s']:.4f}"
     sq16 = f"{agg[16]['sequential']['median_s']:.4f}"
     sq32 = f"{agg[32]['sequential']['median_s']:.4f}"
@@ -394,7 +421,6 @@ def build_tables():
     sq256 = f"{agg[256]['sequential']['median_s']:.4f}"
     t4.append(f"CaDiCaL (Sequential) & ${sq8}$ & ${sq16}$ & ${sq32}$ & ${sq64}$ & ${sq128}$ & ${sq256}$ & $> 300.0$ & Không chạy \\\\")
 
-    # Product
     pr8 = f"{agg[8]['product']['median_s']:.4f}"
     pr16 = f"{agg[16]['product']['median_s']:.4f}"
     pr32 = f"{agg[32]['product']['median_s']:.4f}"
@@ -403,9 +429,8 @@ def build_tables():
     pr256 = f"{agg[256]['product']['median_s']:.4f}"
     pr500 = f"{agg[500]['product']['median_s']:.4f}"
     pr1000 = f"{agg[1000]['product']['median_s']:.4f}"
-    t4.append(f"CaDiCaL (Product) & ${pr8}$ & ${pr16}$ & ${pr32}$ & ${pr64}$ & ${pr128}$ & $\\mathbf{{{pr256}}}$ & ${pr500}$ & ${pr1000}^* \\\\")
+    t4.append(f"\\rowcolor{{tablerowalt}} CaDiCaL (Product) & ${pr8}$ & ${pr16}$ & ${pr32}$ & ${pr64}$ & ${pr128}$ & $\\mathbf{{{pr256}}}$ & ${pr500}$ & ${pr1000}^* \\\\")
 
-    # Commander
     cm8 = f"{agg[8]['commander']['median_s']:.4f}"
     cm16 = f"{agg[16]['commander']['median_s']:.4f}"
     cm32 = f"{agg[32]['commander']['median_s']:.4f}"
@@ -435,15 +460,17 @@ def build_tables():
     t5a.append(r"\caption{Dữ liệu thực nghiệm chi tiết 3 lần chạy độc lập (\texttt{subprocess}) khảo sát 5 kỹ thuật mã hóa AMO trên CaDiCaL 1.9.5 ($N \in [8, 1000]$). Thời gian giải đo bằng giây (s), bộ nhớ RAM đỉnh đo bằng Megabytes (MB). Độ lệch chuẩn $\sigma$ tính theo công thức mẫu không chệch ($n-1$).}")
     t5a.append(r"\label{tab:appendix_raw_runs}")
     t5a.append(r"\centering")
+    t5a.append(r"\renewcommand{\arraystretch}{1.18}")
     t5a.append(r"\resizebox{\textwidth}{!}{%")
     t5a.append(r"\begin{tabular}{lllrrrrrrrrr}")
     t5a.append(r"\toprule")
+    t5a.append(r"\rowcolor{tableheader}")
     t5a.append(r"\textbf{Nhóm thực nghiệm} & $N$ & \textbf{Phương pháp} & \textbf{Run 1 (s)} & \textbf{Run 2 (s)} & \textbf{Run 3 (s)} & \textbf{Min (s)} & \textbf{Median (s)} & \textbf{Max (s)} & \textbf{Std ($\sigma$)} & \textbf{Mã hóa (s)} & \textbf{RAM đỉnh (MB)} \\")
     t5a.append(r"\midrule")
 
     # Ablation rows
     for n in [8, 16, 32, 64, 128]:
-        for method_name, key, _, _, _ in methods_meta:
+        for idx, (method_name, key, _, _, _) in enumerate(methods_meta):
             d = agg[n][key]
             short = key.capitalize()
             r1 = f"{d['run1_s']:.4f}"
@@ -455,11 +482,13 @@ def build_tables():
             sd = f"{d['std_s']:.4f}"
             enc = f"{d['enc_time_s']:.4f}"
             ram = f"{d['peak_ram_mb']:.1f}"
-            t5a.append(f"AMO Ablation & {n} & {short} & {r1} & {r2} & {r3} & {mi} & {me} & {ma} & {sd} & {enc} & {ram} \\\\")
+            row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
+            t5a.append(f"{row_prefix}AMO Ablation & {n} & {short} & {r1} & {r2} & {r3} & {mi} & {me} & {ma} & {sd} & {enc} & {ram} \\\\")
         t5a.append(r"\midrule")
 
     # Scale N=256
-    for key in ["pairwise", "sequential", "commander", "product"]:
+    scale_keys = ["pairwise", "sequential", "commander", "product"]
+    for idx, key in enumerate(scale_keys):
         if 256 in agg and key in agg[256]:
             d = agg[256][key]
             r1 = f"{d['run1_s']:.4f}"
@@ -471,12 +500,13 @@ def build_tables():
             sd = f"{d['std_s']:.4f}"
             enc = f"{d['enc_time_s']:.4f}"
             ram = f"{d['peak_ram_mb']:.1f}"
-            t5a.append(f"Scale Evaluation & 256 & {key.capitalize()} & {r1} & {r2} & {r3} & {mi} & {me} & {ma} & {sd} & {enc} & {ram} \\\\")
+            row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
+            t5a.append(f"{row_prefix}Scale Evaluation & 256 & {key.capitalize()} & {r1} & {r2} & {r3} & {mi} & {me} & {ma} & {sd} & {enc} & {ram} \\\\")
     t5a.append(r"Scale Evaluation & 256 & Binary & \multicolumn{7}{c}{\textit{Không chạy (chưa thực hiện mở rộng tại $N \ge 256$)}} & - & - \\")
     t5a.append(r"\midrule")
 
     # Scale N=500
-    for key in ["commander", "product"]:
+    for idx, key in enumerate(["commander", "product"]):
         if 500 in agg and key in agg[500]:
             d = agg[500][key]
             r1 = f"{d['run1_s']:.4f}"
@@ -488,17 +518,17 @@ def build_tables():
             sd = f"{d['std_s']:.4f}"
             enc = f"{d['enc_time_s']:.4f}"
             ram = f"{d['peak_ram_mb']:.1f}"
-            t5a.append(f"Scale Evaluation & 500 & {key.capitalize()} & {r1} & {r2} & {r3} & {mi} & {me} & {ma} & {sd} & {enc} & {ram} \\\\")
+            row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
+            t5a.append(f"{row_prefix}Scale Evaluation & 500 & {key.capitalize()} & {r1} & {r2} & {r3} & {mi} & {me} & {ma} & {sd} & {enc} & {ram} \\\\")
     t5a.append(r"Scale Evaluation & 500 & Pairwise & \multicolumn{7}{c}{\textit{Tràn bộ nhớ heap tiến trình Python khi tạo $207{,}834{,}500$ mệnh đề ($>16\,\text{GB}$ RAM)}} & $>16.0$ & $>16{,}000.0$ \\")
     
-    # Real measured Sequential N=500!
     seq_enc = f"{seq500_data['encoding_time_s']:.4f}"
     seq_ram = f"{seq500_data['peak_ram_mb']:.1f}"
-    t5a.append(f"Scale Evaluation & 500 & Sequential & \\multicolumn{{7}}{{c}}{{\\textit{{Quá thời gian quy định ($>300.0\\,\\text{{s}}$)}}}} & {seq_enc} & {seq_ram} \\\\")
+    t5a.append(f"\\rowcolor{{tablerowalt}} Scale Evaluation & 500 & Sequential & \\multicolumn{{7}}{{c}}{{\\textit{{Quá thời gian quy định ($>300.0\\,\\text{{s}}$)}}}} & {seq_enc} & {seq_ram} \\\\")
     t5a.append(r"\midrule")
 
     # Scale N=1000
-    for key in ["commander", "product"]:
+    for idx, key in enumerate(["commander", "product"]):
         if 1000 in agg and key in agg[1000]:
             d = agg[1000][key]
             r1 = f"{d['run1_s']:.4f}"
@@ -510,9 +540,10 @@ def build_tables():
             sd = f"{d['std_s']:.4f}"
             enc = f"{d['enc_time_s']:.4f}"
             ram = f"{d['peak_ram_mb']:.1f}"
-            t5a.append(f"Scale Evaluation & 1000 & {key.capitalize()} & {r1} & {r2} & {r3} & {mi} & {me} & {ma} & {sd} & {enc} & {ram} \\\\")
+            row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
+            t5a.append(f"{row_prefix}Scale Evaluation & 1000 & {key.capitalize()} & {r1} & {r2} & {r3} & {mi} & {me} & {ma} & {sd} & {enc} & {ram} \\\\")
     t5a.append(r"Scale Evaluation & 1000 & Pairwise & \multicolumn{7}{c}{\textit{Không chạy (dự kiến tràn RAM do số mệnh đề lý thuyết $>1.66$ tỷ)}} & - & - \\")
-    t5a.append(r"Scale Evaluation & 1000 & Sequential & \multicolumn{7}{c}{\textit{Không chạy (đã quá thời gian $>300.0\,\text{s}$ từ $N=500$)}} & - & - \\")
+    t5a.append(r"\rowcolor{tablerowalt} Scale Evaluation & 1000 & Sequential & \multicolumn{7}{c}{\textit{Không chạy (đã quá thời gian $>300.0\,\text{s}$ từ $N=500$)}} & - & - \\")
 
     t5a.append(r"\bottomrule")
     t5a.append(r"\end{tabular}%")
@@ -525,48 +556,56 @@ def build_tables():
     print("Generated report/table5a_generated.tex")
 
     # =========================================================================
-    # TABLE 5b: Appendix Multi-Solver Benchmark Data (CHRONOLOGICAL RUNS!)
+    # TABLE 5b: Appendix Multi-Solver Benchmark Data
     # =========================================================================
     t5b = []
     t5b.append(r"\begin{table*}[htbp]")
     t5b.append(r"\caption{Dữ liệu thực nghiệm chi tiết 3 lần chạy lặp độc lập so sánh đa bộ giải (Multi-Solver Benchmark: CaDiCaL, Glucose 4.2, CP-SAT, Gurobi 13.0, ILP SCIP 9.0) trên dải kích thước $N \in [8, 1000]$. Thời gian giải thuần túy đo bằng giây (s). Thứ tự Run 1, Run 2, Run 3 được giữ đúng trình tự thời gian chạy thực tế.}")
     t5b.append(r"\label{tab:appendix_multisolver}")
     t5b.append(r"\centering")
+    t5b.append(r"\renewcommand{\arraystretch}{1.18}")
     t5b.append(r"\resizebox{\textwidth}{!}{%")
     t5b.append(r"\begin{tabular}{lllrrrrrrr}")
     t5b.append(r"\toprule")
+    t5b.append(r"\rowcolor{tableheader}")
     t5b.append(r"\textbf{Bộ giải} & $N$ & \textbf{Cấu hình / Mã hóa} & \textbf{Run 1 (s)} & \textbf{Run 2 (s)} & \textbf{Run 3 (s)} & \textbf{Min (s)} & \textbf{Median (s)} & \textbf{Max (s)} & \textbf{Trạng thái} \\")
     t5b.append(r"\midrule")
 
     # Gurobi
-    for r in ms_runs:
-        if r["solver"] == "Gurobi 13.0":
-            t5b.append(f"Gurobi 13.0 & {r['n']} & {r['config']} & {r['r1']:.4f} & {r['r2']:.4f} & {r['r3']:.4f} & {r['min']:.4f} & {r['median']:.4f} & {r['max']:.4f} & {r['status']} \\\\")
+    t5b.append(r"\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{Gurobi Optimizer 13.0 (ILP)}} \\")
+    for idx, r in enumerate([x for x in ms_runs if x["solver"] == "Gurobi 13.0"]):
+        row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
+        t5b.append(f"{row_prefix}Gurobi 13.0 & {r['n']} & {r['config']} & {r['r1']:.4f} & {r['r2']:.4f} & {r['r3']:.4f} & {r['min']:.4f} & {r['median']:.4f} & {r['max']:.4f} & {r['status']} \\\\")
     t5b.append(r"Gurobi 13.0 & 64--1000 & ILP (1 thread) & \multicolumn{6}{c}{\textit{Model too large for size-limited license (Vượt quá 2.000 biến)}} & Error (Limit) \\")
     t5b.append(r"\midrule")
 
     # SCIP
-    for r in ms_runs:
-        if r["solver"] == "ILP SCIP 9.0":
-            t5b.append(f"ILP SCIP 9.0 & {r['n']} & {r['config']} & {r['r1']:.4f} & {r['r2']:.4f} & {r['r3']:.4f} & {r['min']:.4f} & {r['median']:.4f} & {r['max']:.4f} & {r['status']} \\\\")
+    t5b.append(r"\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{SCIP 9.0 (ILP / MIP)}} \\")
+    for idx, r in enumerate([x for x in ms_runs if x["solver"] == "ILP SCIP 9.0"]):
+        row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
+        t5b.append(f"{row_prefix}ILP SCIP 9.0 & {r['n']} & {r['config']} & {r['r1']:.4f} & {r['r2']:.4f} & {r['r3']:.4f} & {r['min']:.4f} & {r['median']:.4f} & {r['max']:.4f} & {r['status']} \\\\")
     t5b.append(r"ILP SCIP 9.0 & 64--1000 & MIP (1 thread) & \multicolumn{6}{c}{\textit{Quá giới hạn thời gian ($>300.0\,\text{s}$)}} & Timeout \\")
     t5b.append(r"\midrule")
 
     # CP-SAT
-    for r in ms_runs:
-        if r["solver"] == "CP-SAT (OR-Tools)":
-            t5b.append(f"CP-SAT (OR-Tools) & {r['n']} & {r['config']} & {r['r1']:.4f} & {r['r2']:.4f} & {r['r3']:.4f} & {r['min']:.4f} & {r['median']:.4f} & {r['max']:.4f} & {r['status']} \\\\")
+    t5b.append(r"\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{Google OR-Tools CP-SAT (Constraint Programming)}} \\")
+    for idx, r in enumerate([x for x in ms_runs if x["solver"] == "CP-SAT (OR-Tools)"]):
+        row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
+        t5b.append(f"{row_prefix}CP-SAT (OR-Tools) & {r['n']} & {r['config']} & {r['r1']:.4f} & {r['r2']:.4f} & {r['r3']:.4f} & {r['min']:.4f} & {r['median']:.4f} & {r['max']:.4f} & {r['status']} \\\\")
     t5b.append(r"CP-SAT (OR-Tools) & 256--1000 & AllDifferent (1 worker) & \multicolumn{6}{c}{\textit{Quá giới hạn thời gian ($>300.0\,\text{s}$)}} & Timeout \\")
     t5b.append(r"\midrule")
 
     # Glucose 4.2
-    for r in ms_runs:
-        if r["solver"] == "Glucose 4.2":
-            t5b.append(f"Glucose 4.2 & {r['n']} & {r['config']} & {r['r1']:.4f} & {r['r2']:.4f} & {r['r3']:.4f} & {r['min']:.4f} & {r['median']:.4f} & {r['max']:.4f} & {r['status']} \\\\")
+    t5b.append(r"\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{Glucose 4.2 (SAT Solver)}} \\")
+    for idx, r in enumerate([x for x in ms_runs if x["solver"] == "Glucose 4.2"]):
+        row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
+        t5b.append(f"{row_prefix}Glucose 4.2 & {r['n']} & {r['config']} & {r['r1']:.4f} & {r['r2']:.4f} & {r['r3']:.4f} & {r['min']:.4f} & {r['median']:.4f} & {r['max']:.4f} & {r['status']} \\\\")
     t5b.append(r"Glucose 4.2 & 256--1000 & Product AMO & \multicolumn{6}{c}{\textit{Quá giới hạn thời gian ($>300.0\,\text{s}$)}} & Timeout \\")
     t5b.append(r"\midrule")
 
     # CaDiCaL
+    t5b.append(r"\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{CaDiCaL 1.9.5 (SAT Solver)}} \\")
+    cdcl_rows = []
     for n in [128, 256, 500, 1000]:
         for key in ["product", "commander"]:
             if n in agg and key in agg[n]:
@@ -579,7 +618,12 @@ def build_tables():
                 me = f"{d['median_s']:.4f}"
                 ma = f"{d['max_s']:.4f}"
                 st = "SAT" if d['median_s'] < 300.0 else "Timeout"
-                t5b.append(f"CaDiCaL 1.9.5 & {n} & {cfg} & {r1} & {r2} & {r3} & {mi} & {me} & {ma} & {st} \\\\")
+                cdcl_rows.append((n, cfg, r1, r2, r3, mi, me, ma, st))
+
+    for idx, (n, cfg, r1, r2, r3, mi, me, ma, st) in enumerate(cdcl_rows):
+        row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
+        t5b.append(f"{row_prefix}CaDiCaL 1.9.5 & {n} & {cfg} & {r1} & {r2} & {r3} & {mi} & {me} & {ma} & {st} \\\\")
+
     t5b.append(r"\bottomrule")
     t5b.append(r"\end{tabular}%")
     t5b.append(r"}")

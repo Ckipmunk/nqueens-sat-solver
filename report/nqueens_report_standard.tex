@@ -87,12 +87,19 @@ Trọng tâm của tiếp cận SAT nằm ở việc chuyển đổi các ràng 
 \section{Cơ sở lý thuyết và Mô hình hóa (Background \& Formulations)}
 
 \subsection{Phát biểu bài toán N-Queens}
+\begin{tcolorbox}[
+    colback=boxbg, colframe=boxborder, arc=2mm, boxrule=0.75pt,
+    left=10pt, right=10pt, top=7pt, bottom=7pt,
+    title=\textbf{\color{primaryblue}Định nghĩa 1 (Bài toán $N$-Queens tiêu chuẩn)},
+    coltitle=primaryblue
+]
 Cho bàn cờ vuông kích thước $N \times N$, tập tọa độ các ô cờ là $\mathcal{H}_N = \{(r, c) \mid 0 \le r, c < N\}$, trong đó $r$ là chỉ số hàng và $c$ là chỉ số cột. Bài toán yêu cầu đặt $N$ quân hậu vào tập vị trí $\mathcal{Q} \subset \mathcal{H}_N$ thỏa mãn:
 \begin{align}
     &|\mathcal{Q}| = N, \\
     &\forall (r_1, c_1), (r_2, c_2) \in \mathcal{Q}, \; (r_1, c_1) \neq (r_2, c_2) \implies \nonumber\\
     &\quad r_1 \neq r_2 \quad \land \quad c_1 \neq c_2 \quad \land \quad |r_1 - r_2| \neq |c_1 - c_2|.
 \end{align}
+\end{tcolorbox}
 
 \subsection{Các nghiên cứu liên quan (Related Work)}
 Nghiên cứu về $N$-Queens đã trải qua hơn 170 năm với nhiều bước tiến lý thuyết và thực nghiệm. Bell và Stevens~\cite{bell2009survey} đã tổng hợp toàn diện các kết quả giải tích, chỉ ra rằng với mọi $N \ge 4$, luôn tồn tại ít nhất một nghiệm hợp lệ, và có thể xây dựng trực tiếp nghiệm bằng các công thức tường minh dựa trên số học modular. Về phương diện giải thuật heuristic, Minton et al.~\cite{minton1992solving} đề xuất thuật toán Min-Conflicts, có thể tìm ra một nghiệm cho $N$ rất lớn trong thời gian ngắn.
@@ -189,15 +196,17 @@ Số biến phụ $p + q = \mathcal{O}(\sqrt{k})$, số mệnh đề $\mathcal{O
 \caption{So sánh lý thuyết độ phức tạp của 5 kỹ thuật mã hóa AMO cho một nhóm $k$ biến và toàn bàn cờ $N \times N$.}
 \label{tab:amo_complexity}
 \centering
+\renewcommand{\arraystretch}{1.22}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lllc p{6.5cm}}
 \toprule
+\rowcolor{tableheader}
 \textbf{Kỹ thuật mã hóa} & \textbf{Biến phụ (nhóm $k$)} & \textbf{Mệnh đề (nhóm $k$)} & \textbf{Mệnh đề toàn bàn cờ} & \textbf{Đặc điểm triển khai} \\
 \midrule
 Pairwise (Direct) & $0$ & $\mathcal{O}(k^2)$ & $\mathcal{O}(N^3)$ (Bùng nổ) & Sẵn có trong PySAT CardEnc; tốn RAM lớn ở $N \ge 256$ \\
-Sequential Counter & $\mathcal{O}(k)$ & $\mathcal{O}(k)$ & $\mathcal{O}(N^2)$ (Gọn) & Sẵn có trong PySAT CardEnc; chuỗi suy diễn dài \\
+\rowcolor{tablerowalt} Sequential Counter & $\mathcal{O}(k)$ & $\mathcal{O}(k)$ & $\mathcal{O}(N^2)$ (Gọn) & Sẵn có trong PySAT CardEnc; chuỗi suy diễn dài \\
 Commander Variable & $\mathcal{O}(k)$ & $\mathcal{O}(k)$ & $\mathcal{O}(N^2)$ (Gọn) & Tự cài đặt theo Klieber \& Kwon~\cite{klieber2007efficient}; cấu trúc cây $g=3$ \\
-Binary (Bitwise) & $\mathcal{O}(\log k)$ & $\mathcal{O}(k \log k)$ & $\mathcal{O}(N^2 \log N)$ & Sẵn có trong PySAT CardEnc; ít biến phụ nhất \\
+\rowcolor{tablerowalt} Binary (Bitwise) & $\mathcal{O}(\log k)$ & $\mathcal{O}(k \log k)$ & $\mathcal{O}(N^2 \log N)$ & Sẵn có trong PySAT CardEnc; ít biến phụ nhất \\
 Product (2D Grid) & $\mathcal{O}(\sqrt{k})$ & $\mathcal{O}(k)$ & $\mathcal{O}(N^2)$ (Gọn) & Tự cài đặt theo Chen~\cite{chen2010product}; lưới $p \times q$ tối ưu \\
 \bottomrule
 \end{tabular}%
@@ -251,6 +260,20 @@ Vậy $\tau$ là phép gán thỏa mãn toàn bộ công thức $\mathcal{F}_{\t
 
 \section{Kết quả Thực nghiệm và Thảo luận (Computational Experiments)}
 
+\begin{tcolorbox}[
+    colback=boxbg, colframe=boxborder, arc=2mm, boxrule=0.85pt,
+    left=12pt, right=12pt, top=8pt, bottom=8pt,
+    title=\textbf{\color{primaryblue}Tóm tắt các Phát hiện Thực nghiệm Cốt lõi (Key Experimental Takeaways)},
+    coltitle=primaryblue
+]
+\begin{itemize}[leftmargin=1.5em, itemsep=0.25em, topsep=0.2em]
+    \item \textbf{Khả năng mở rộng quy mô cực đại ($N \ge 256$):} SAT Solving (CaDiCaL kết hợp Commander Variable và Product Encoding) là hướng tiếp cận duy nhất giải quyết thành công bàn cờ kích thước $N=500$ ($32.11$s) và $N=1000$ ($100.92$s với một triệu ô cờ). Trong khi đó, các bộ giải CP-SAT và ILP SCIP đều chạm ngưỡng giới hạn thời gian ($>300.0$s) từ $N=256$.
+    \item \textbf{Hiệu năng ở quy mô nhỏ ($N \le 32$):} Gurobi 13.0 dẫn đầu về tốc độ ở $N=8$ ($0.0002$s) và $N=32$ ($0.0272$s) nhờ các thuật toán cắt mặt phẳng tiên tiến; CaDiCaL Commander đạt thời gian giải tốt nhất ở $N=16$ ($0.0077$s). Từ $N \ge 64$, Gurobi dừng do hạn mức license gói pip (tối đa 2.000 biến).
+    \item \textbf{Cơ chế suy thoái của Sequential Counter ở $N=128$:} Mặc dù số mệnh đề rất gọn ($\mathcal{O}(N^2)$), thời gian giải tăng vọt lên $24.85$s (chậm hơn Commander 33 lần) do bùng nổ $68\times$ số xung đột CDCL ($62{,}360$ so với $916$), kéo theo $42.89$ triệu lượt lan truyền đơn vị trên cây suy diễn.
+    \item \textbf{Hạn chế bộ nhớ của Pairwise Encoding:} Do số mệnh đề tăng theo bậc ba $\mathcal{O}(N^3)$, Pairwise tiêu tốn đỉnh điểm $7{,}679.4$ MB RAM ở $N=256$ ($27.8$ triệu mệnh đề) và cạn kiệt bộ nhớ (\texttt{MemoryError}) ở $N=500$ khi khởi tạo $207.8$ triệu đối tượng mệnh đề trong danh sách liên tục của Python.
+\end{itemize}
+\end{tcolorbox}
+
 \subsection{Thiết lập Môi trường Thực nghiệm}
 Toàn bộ các thí nghiệm được triển khai và đo lường trên máy trạm có cấu hình:
 \begin{itemize}
@@ -276,37 +299,43 @@ Bảng~\ref{tab:ablation_results} và Hình~\ref{fig:clauses_scaling} thống k�
 \caption{So sánh thực nghiệm toàn diện giữa 5 kỹ thuật mã hóa AMO trên CaDiCaL 1.9.5 ($N \in [8, 128]$). Giá trị thời gian giải là trung vị của 3 lần chạy lặp độc lập qua tiến trình riêng biệt (\texttt{subprocess}).}
 \label{tab:ablation_results}
 \centering
+\renewcommand{\arraystretch}{1.22}
 \resizebox{\textwidth}{!}{%
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrr@{}}
 \toprule
+\rowcolor{tableheader}
 \textbf{Phương pháp AMO} & $N=8$ & $N=16$ & $N=32$ & $N=64$ & $N=128$ & \textbf{Đặc điểm / Ghi chú} \\
 \midrule
-\multicolumn{7}{l}{\textbf{Tổng số mệnh đề CNF (Clauses)}} \\
+\rowcolor{subheadbg}
+\multicolumn{7}{l}{\textbf{1. Tổng số mệnh đề CNF (Clauses)}} \\
 Pairwise (Direct) & $744$ & $6{,}352$ & $52{,}640$ & $428{,}864$ & $3{,}462{,}784$ & $\mathcal{O}(N^3)$ (Bùng nổ) \\
-Sequential Counter & $600$ & $2{,}728$ & $11{,}592$ & $47{,}752$ & $193{,}800$ & $\mathcal{O}(N^2)$ (Gọn) \\
+\rowcolor{tablerowalt} Sequential Counter & $600$ & $2{,}728$ & $11{,}592$ & $47{,}752$ & $193{,}800$ & $\mathcal{O}(N^2)$ (Gọn) \\
 Commander Variable & $634$ & $3{,}176$ & $13{,}606$ & $55{,}990$ & $227{,}010$ & $\mathcal{O}(N^2)$ (Gọn) \\
-Binary (Bitwise) & $724$ & $3{,}924$ & $19{,}796$ & $95{,}572$ & $447{,}828$ & $\mathcal{O}(N^2 \log N)$ \\
+\rowcolor{tablerowalt} Binary (Bitwise) & $724$ & $3{,}924$ & $19{,}796$ & $95{,}572$ & $447{,}828$ & $\mathcal{O}(N^2 \log N)$ \\
 Product (2D Grid) & $690$ & $2{,}840$ & $11{,}998$ & $47{,}520$ & $193{,}122$ & $\mathcal{O}(N^2)$ (Gọn) \\
 \midrule
-\multicolumn{7}{l}{\textbf{Tổng số biến logic (Variables)}} \\
+\rowcolor{subheadbg}
+\multicolumn{7}{l}{\textbf{2. Tổng số biến logic (Variables)}} \\
 Pairwise (Direct) & $64$ & $256$ & $1{,}024$ & $4{,}096$ & $16{,}384$ & Không biến phụ ($N^2$) \\
-Sequential Counter & $270$ & $1{,}182$ & $4{,}926$ & $20{,}094$ & $81{,}150$ & Biến phụ $\mathcal{O}(N^2)$ \\
+\rowcolor{tablerowalt} Sequential Counter & $270$ & $1{,}182$ & $4{,}926$ & $20{,}094$ & $81{,}150$ & Biến phụ $\mathcal{O}(N^2)$ \\
 Commander Variable & $154$ & $744$ & $3{,}114$ & $12{,}442$ & $49{,}674$ & Biến phụ $\mathcal{O}(N^2)$ \\
-Binary (Bitwise) & $170$ & $568$ & $1{,}846$ & $6{,}132$ & $21{,}234$ & Biến phụ $\mathcal{O}(N \log N)$ \\
+\rowcolor{tablerowalt} Binary (Bitwise) & $170$ & $568$ & $1{,}846$ & $6{,}132$ & $21{,}234$ & Biến phụ $\mathcal{O}(N \log N)$ \\
 Product (2D Grid) & $252$ & $836$ & $2{,}768$ & $8{,}940$ & $30{,}182$ & Biến phụ $\mathcal{O}(N\sqrt{N})$ \\
 \midrule
-\multicolumn{7}{l}{\textbf{Thời gian mã hóa tạo mô hình CNF - Encoding Time (ms)}} \\
+\rowcolor{subheadbg}
+\multicolumn{7}{l}{\textbf{3. Thời gian tạo mô hình CNF - Encoding Time (ms)}} \\
 Pairwise (Direct) & $0.40$ & $5.10$ & $19.00$ & $148.80$ & $1798.30$ & Đo đạc tự động \\
-Sequential Counter & $0.30$ & $3.60$ & $7.10$ & $18.80$ & $72.70$ & Đo đạc tự động \\
+\rowcolor{tablerowalt} Sequential Counter & $0.30$ & $3.60$ & $7.10$ & $18.80$ & $72.70$ & Đo đạc tự động \\
 Commander Variable & $0.50$ & $4.90$ & $11.50$ & $33.90$ & $123.50$ & Đo đạc tự động \\
-Binary (Bitwise) & $0.40$ & $4.70$ & $13.70$ & $41.20$ & $208.70$ & Đo đạc tự động \\
+\rowcolor{tablerowalt} Binary (Bitwise) & $0.40$ & $4.70$ & $13.70$ & $41.20$ & $208.70$ & Đo đạc tự động \\
 Product (2D Grid) & $0.50$ & $4.00$ & $8.60$ & $22.30$ & $76.20$ & Đo đạc tự động \\
 \midrule
-\multicolumn{7}{l}{\textbf{Thời gian giải trung vị - Solving Time CaDiCaL 1.9.5 (ms)}} \\
+\rowcolor{subheadbg}
+\multicolumn{7}{l}{\textbf{4. Thời gian giải trung vị - Solving Time CaDiCaL 1.9.5 (ms)}} \\
 Pairwise (Direct) & $\mathbf{1.40}$ & $17.00$ & $297.60$ & $735.10$ & $6{,}296.00$ & Bùng nổ $\mathcal{O}(N^3)$, không biến phụ \\
-Sequential Counter & $1.40$ & $39.10$ & $244.50$ & $1719.30$ & $24{,}845.10$ & Mệnh đề $\mathcal{O}(N^2)$, suy thoái tại $N \ge 128$ \\
+\rowcolor{tablerowalt} Sequential Counter & $1.40$ & $39.10$ & $244.50$ & $1719.30$ & $24{,}845.10$ & Mệnh đề $\mathcal{O}(N^2)$, suy thoái tại $N \ge 128$ \\
 Commander Variable & $1.60$ & $\mathbf{7.70}$ & $\mathbf{37.50}$ & $\mathbf{187.00}$ & $\mathbf{756.90}$ & Mệnh đề $\mathcal{O}(N^2)$, nhanh nhất trên $N \in [16, 128]$ \\
-Binary (Bitwise) & $1.70$ & $17.10$ & $202.40$ & $471.40$ & $1{,}415.10$ & Mệnh đề $\mathcal{O}(N^2\log N)$, biến phụ $\mathcal{O}(N\log N)$ \\
+\rowcolor{tablerowalt} Binary (Bitwise) & $1.70$ & $17.10$ & $202.40$ & $471.40$ & $1{,}415.10$ & Mệnh đề $\mathcal{O}(N^2\log N)$, biến phụ $\mathcal{O}(N\log N)$ \\
 Product (2D Grid) & $1.80$ & $17.90$ & $85.70$ & $421.10$ & $1{,}486.30$ & Mệnh đề $\mathcal{O}(N^2)$, biến phụ $\mathcal{O}(N\sqrt{N})$, rất ổn định \\
 \bottomrule
 \end{tabular*}%
@@ -330,39 +359,45 @@ Product (2D Grid) & $1.80$ & $17.90$ & $85.70$ & $421.10$ & $1{,}486.30$ & Mện
 \caption{Thống kê định lượng động cơ tìm kiếm CDCL của CaDiCaL 1.9.5 (trích xuất qua \texttt{solver.accum\_stats()}) trên các kỹ thuật AMO tại $N \in \{32, 64, 128, 256, 500, 1000\}$. Cả 3 lần chạy lặp độc lập đều ghi nhận số lượng xung đột và quyết định hoàn toàn giống nhau (3/3 lần giống nhau) trên mọi phép thử giải thành công, phản ánh tính tất định của solver trên cùng một công thức CNF.}
 \label{tab:cdcl_search_stats}
 \centering
+\renewcommand{\arraystretch}{1.20}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{llr rrrr rrrr} 
 \toprule
-\textbf{Phương pháp AMO} & $N$ & \textbf{CNF Hash} & \textbf{Biến phụ} & \textbf{Tổng mệnh đề} & \textbf{Xung đột (3/3 lần)} & \textbf{Quyết định} & \textbf{Lan truyền} & \textbf{Props/Conf} & \textbf{Props/Dec} & \textbf{Thời gian giải (s)} \\
+\rowcolor{tableheader}
+\textbf{Phương pháp AMO} & $N$ & \textbf{CNF Hash} & \textbf{Biến phụ} & \textbf{Tổng mệnh đề} & \textbf{Xung đột (3/3)} & \textbf{Quyết định} & \textbf{Lan truyền} & \textbf{Props/Conf} & \textbf{Props/Dec} & \textbf{Thời gian giải (s)} \\
 \midrule
+\rowcolor{subheadbg}
+\multicolumn{11}{l}{\textbf{1. Nhóm khảo sát triệt tiêu (Ablation Study: $N \in \{32, 64, 128\}$)}} \\
 Pairwise & 32 & \texttt{4c85bc53} & 0 & 52{,}640 & 6{,}008 & 6{,}917 & 340{,}480 & 56.7 & 49.2 & 0.2976 \\
-Sequential & 32 & \texttt{8b1dd622} & 3{,}902 & 11{,}592 & 1{,}983 & 3{,}504 & 578{,}470 & 291.7 & 165.1 & 0.2445 \\
+\rowcolor{tablerowalt} Sequential & 32 & \texttt{8b1dd622} & 3{,}902 & 11{,}592 & 1{,}983 & 3{,}504 & 578{,}470 & 291.7 & 165.1 & 0.2445 \\
 Commander & 32 & \texttt{2ffbf5e9} & 2{,}090 & 13{,}606 & \textbf{213} & \textbf{556} & \textbf{36{,}537} & 171.5 & 65.7 & \textbf{0.0375} \\
-Binary & 32 & \texttt{a1fb0e60} & 822 & 19{,}796 & 3{,}012 & 3{,}922 & 361{,}576 & 120.0 & 92.2 & 0.2024 \\
+\rowcolor{tablerowalt} Binary & 32 & \texttt{a1fb0e60} & 822 & 19{,}796 & 3{,}012 & 3{,}922 & 361{,}576 & 120.0 & 92.2 & 0.2024 \\
 Product & 32 & \texttt{697756bc} & 1{,}744 & 11{,}998 & 1{,}051 & 1{,}757 & 224{,}938 & 214.0 & 128.0 & 0.0857 \\
 \midrule
 Pairwise & 64 & \texttt{5e1aa9fb} & 0 & 428{,}864 & 3{,}045 & 3{,}968 & 241{,}457 & 79.3 & 60.9 & 0.7351 \\
-Sequential & 64 & \texttt{bf9fc874} & 15{,}998 & 47{,}752 & 7{,}079 & 12{,}828 & 4{,}598{,}243 & 649.6 & 358.5 & 1.7193 \\
+\rowcolor{tablerowalt} Sequential & 64 & \texttt{bf9fc874} & 15{,}998 & 47{,}752 & 7{,}079 & 12{,}828 & 4{,}598{,}243 & 649.6 & 358.5 & 1.7193 \\
 Commander & 64 & \texttt{04eec852} & 8{,}346 & 55{,}990 & \textbf{629} & \textbf{1{,}699} & \textbf{197{,}463} & 313.9 & 116.2 & \textbf{0.1870} \\
-Binary & 64 & \texttt{bd631316} & 2{,}036 & 95{,}572 & 3{,}387 & 6{,}599 & 727{,}372 & 214.8 & 110.2 & 0.4714 \\
+\rowcolor{tablerowalt} Binary & 64 & \texttt{bd631316} & 2{,}036 & 95{,}572 & 3{,}387 & 6{,}599 & 727{,}372 & 214.8 & 110.2 & 0.4714 \\
 Product & 64 & \texttt{92c734f2} & 4{,}844 & 47{,}520 & 3{,}246 & 5{,}886 & 991{,}917 & 305.6 & 168.5 & 0.4211 \\
 \midrule
 Pairwise & 128 & \texttt{32a14679} & 0 & 3{,}462{,}784 & 6{,}037 & 7{,}373 & 1{,}997{,}918 & 330.9 & 271.0 & 6.2960 \\
-Sequential & 128 & \texttt{e86ef7e5} & 64{,}766 & 193{,}800 & 62{,}360 & 107{,}733 & 42{,}890{,}432 & 687.8 & 398.1 & 24.8451 \\
+\rowcolor{tablerowalt} Sequential & 128 & \texttt{e86ef7e5} & 64{,}766 & 193{,}800 & 62{,}360 & 107{,}733 & 42{,}890{,}432 & 687.8 & 398.1 & 24.8451 \\
 Commander & 128 & \texttt{7db3eb0a} & 33{,}290 & 227{,}010 & \textbf{916} & \textbf{4{,}159} & \textbf{738{,}169} & 805.9 & 177.5 & \textbf{0.7569} \\
-Binary & 128 & \texttt{1c62b54c} & 4{,}850 & 447{,}828 & 3{,}094 & 11{,}061 & 1{,}566{,}393 & 506.3 & 141.6 & 1.4151 \\
+\rowcolor{tablerowalt} Binary & 128 & \texttt{1c62b54c} & 4{,}850 & 447{,}828 & 3{,}094 & 11{,}061 & 1{,}566{,}393 & 506.3 & 141.6 & 1.4151 \\
 Product & 128 & \texttt{04d29c2e} & 13{,}798 & 193{,}122 & 4{,}551 & 13{,}978 & 2{,}813{,}735 & 618.3 & 201.3 & 1.4863 \\
 \midrule
+\rowcolor{subheadbg}
+\multicolumn{11}{l}{\textbf{2. Nhóm khảo sát khả năng mở rộng quy mô lớn ($N \ge 256$)}} \\
 Commander & 256 & \texttt{645bb446} & 133{,}250 & 914{,}898 & \textbf{5{,}132} & \textbf{24{,}415} & \textbf{9{,}424{,}670} & 1836.5 & 386.0 & 8.4583 \\
-Product & 256 & \texttt{49264410} & 38{,}652 & 773{,}232 & 6{,}607 & 58{,}105 & 10{,}648{,}532 & 1611.7 & 183.3 & \textbf{7.9877} \\
+\rowcolor{tablerowalt} Product & 256 & \texttt{49264410} & 38{,}652 & 773{,}232 & 6{,}607 & 58{,}105 & 10{,}648{,}532 & 1611.7 & 183.3 & \textbf{7.9877} \\
 Sequential & 256 & \texttt{b21de137} & 260{,}606 & 780{,}808 & 120{,}089 & 247{,}047 & 114{,}669{,}929 & 954.9 & 464.2 & 85.6734 \\
-Pairwise & 256 & \texttt{b4c05fc3} & 0 & 27{,}831{,}552 & 6{,}174 & 11{,}257 & 3{,}679{,}804 & 596.0 & 326.9 & 83.4554 \\
+\rowcolor{tablerowalt} Pairwise & 256 & \texttt{b4c05fc3} & 0 & 27{,}831{,}552 & 6{,}174 & 11{,}257 & 3{,}679{,}804 & 596.0 & 326.9 & 83.4554 \\
 \midrule
 Commander & 500 & \texttt{0bfd6f34} & 504{,}084 & 3{,}493{,}508 & \textbf{5{,}096} & \textbf{73{,}810} & 26{,}921{,}009 & 5282.8 & 364.7 & \textbf{32.1096} \\
-Product & 500 & \texttt{fdd37fbb} & 105{,}526 & 2{,}970{,}184 & 7{,}798 & 249{,}500 & \textbf{25{,}962{,}075} & 3329.3 & 104.1 & 32.2573 \\
+\rowcolor{tablerowalt} Product & 500 & \texttt{fdd37fbb} & 105{,}526 & 2{,}970{,}184 & 7{,}798 & 249{,}500 & \textbf{25{,}962{,}075} & 3329.3 & 104.1 & 32.2573 \\
 \midrule
 Commander & 1000 & \texttt{5241a3b2} & 2{,}013{,}684 & 13{,}999{,}546 & \textbf{943} & \textbf{368{,}056} & 198{,}969{,}973 & 210996.8 & 540.6 & \textbf{100.9182} \\
-Product & 1000 & \texttt{a6b63c2f} & 298{,}524 & 11{,}946{,}066 & 13{,}397 & 1{,}657{,}256 & 102{,}709{,}189 & 7666.6 & 62.0 & 200.3552$^* \\
+\rowcolor{tablerowalt} Product & 1000 & \texttt{a6b63c2f} & 298{,}524 & 11{,}946{,}066 & 13{,}397 & 1{,}657{,}256 & 102{,}709{,}189 & 7666.6 & 62.0 & 200.3552$^* \\
 \bottomrule
 \end{tabular}%
 }
@@ -387,18 +422,28 @@ Bảng~\ref{tab:solver_comparison} và Hình~\ref{fig:solver_runtime} trình bà
 \caption{So sánh thời gian giải trung vị (giây) giữa các bộ giải SAT (CaDiCaL 1.9.5, Glucose 4.2), Google OR-Tools CP-SAT, Gurobi Optimizer 13.0 và ILP SCIP 9.0 (Time limit = 300.0s, đơn luồng, lặp 3 lần độc lập qua \texttt{subprocess} cho mọi $N$).}
 \label{tab:solver_comparison}
 \centering
+\renewcommand{\arraystretch}{1.22}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lrrrrrrrr}
 \toprule
+\rowcolor{tableheader}
 \textbf{Bộ giải / Phương pháp} & $N=8$ & $N=16$ & $N=32$ & $N=64$ & $N=128$ & $N=256$ & $N=500$ & $N=1000$ \\
 \midrule
+\rowcolor{subheadbg}
+\multicolumn{9}{l}{\textbf{1. Quy hoạch Tuyến tính Nguyên (Integer Linear Programming - ILP/MIP)}} \\
 Gurobi 13.0 (1 thread) & $\mathbf{0.0002}$ & $0.0084$ & $\mathbf{0.0272}$ & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) \\
-ILP SCIP 9.0 (MIP) & $0.0191$ & $0.0190$ & $3.1150$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
+\rowcolor{tablerowalt} ILP SCIP 9.0 (MIP) & $0.0191$ & $0.0190$ & $3.1150$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
+\midrule
+\rowcolor{subheadbg}
+\multicolumn{9}{l}{\textbf{2. Lập trình Ràng buộc (Constraint Programming - CP)}} \\
 CP-SAT (OR-Tools, 1 worker) & $0.0066$ & $0.0251$ & $0.1251$ & $0.5912$ & $3.4598$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
+\midrule
+\rowcolor{subheadbg}
+\multicolumn{9}{l}{\textbf{3. Bộ giải Mệnh đề Logic (SAT Solvers: CaDiCaL 1.9.5 \& Glucose 4.2)}} \\
 Glucose 4.2 (Product) & $0.0003$ & $0.1226$ & $20.7088$ & $36.5604$ & $1.0650$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
-CaDiCaL (Pairwise) & $0.0014$ & $0.0170$ & $0.2976$ & $0.7351$ & $6.2960$ & $83.4554$ & OOM & Không chạy \\
+\rowcolor{tablerowalt} CaDiCaL (Pairwise) & $0.0014$ & $0.0170$ & $0.2976$ & $0.7351$ & $6.2960$ & $83.4554$ & OOM & Không chạy \\
 CaDiCaL (Sequential) & $0.0014$ & $0.0391$ & $0.2445$ & $1.7193$ & $24.8451$ & $85.6734$ & $> 300.0$ & Không chạy \\
-CaDiCaL (Product) & $0.0018$ & $0.0179$ & $0.0857$ & $0.4211$ & $1.4863$ & $\mathbf{7.9877}$ & $32.2573$ & $200.3552^* \\
+\rowcolor{tablerowalt} CaDiCaL (Product) & $0.0018$ & $0.0179$ & $0.0857$ & $0.4211$ & $1.4863$ & $\mathbf{7.9877}$ & $32.2573$ & $200.3552^* \\
 CaDiCaL (Commander) & $0.0016$ & $\mathbf{0.0077}$ & $0.0375$ & $\mathbf{0.1870}$ & $\mathbf{0.7569}$ & $8.4583$ & $\mathbf{32.1096}$ & $\mathbf{100.9182}$ \\
 \bottomrule
 \multicolumn{9}{l}{\footnotesize $^*$ CaDiCaL (Product) tại $N=1000$: 2/3 lần giải thành công ($199.47$s và $200.36$s), 1 lần chạm giới hạn thời gian ($300.0$s). Giá trị $200.3552$s là trung vị của 3 lần thử nghiệm.} \\
@@ -483,56 +528,58 @@ Phụ lục này cung cấp toàn bộ dữ liệu thực nghiệm thô đo đ�
 \caption{Dữ liệu thực nghiệm chi tiết 3 lần chạy độc lập (\texttt{subprocess}) khảo sát 5 kỹ thuật mã hóa AMO trên CaDiCaL 1.9.5 ($N \in [8, 1000]$). Thời gian giải đo bằng giây (s), bộ nhớ RAM đỉnh đo bằng Megabytes (MB). Độ lệch chuẩn $\sigma$ tính theo công thức mẫu không chệch ($n-1$).}
 \label{tab:appendix_raw_runs}
 \centering
+\renewcommand{\arraystretch}{1.18}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lllrrrrrrrrr}
 \toprule
+\rowcolor{tableheader}
 \textbf{Nhóm thực nghiệm} & $N$ & \textbf{Phương pháp} & \textbf{Run 1 (s)} & \textbf{Run 2 (s)} & \textbf{Run 3 (s)} & \textbf{Min (s)} & \textbf{Median (s)} & \textbf{Max (s)} & \textbf{Std ($\sigma$)} & \textbf{Mã hóa (s)} & \textbf{RAM đỉnh (MB)} \\
 \midrule
 AMO Ablation & 8 & Pairwise & 0.0014 & 0.0014 & 0.0014 & 0.0014 & 0.0014 & 0.0014 & 0.0000 & 0.0004 & 25.0 \\
-AMO Ablation & 8 & Sequential & 0.0013 & 0.0014 & 0.0014 & 0.0013 & 0.0014 & 0.0014 & 0.0001 & 0.0003 & 24.8 \\
+\rowcolor{tablerowalt} AMO Ablation & 8 & Sequential & 0.0013 & 0.0014 & 0.0014 & 0.0013 & 0.0014 & 0.0014 & 0.0001 & 0.0003 & 24.8 \\
 AMO Ablation & 8 & Commander & 0.0014 & 0.0020 & 0.0016 & 0.0014 & 0.0016 & 0.0020 & 0.0003 & 0.0005 & 24.9 \\
-AMO Ablation & 8 & Binary & 0.0016 & 0.0017 & 0.0022 & 0.0016 & 0.0017 & 0.0022 & 0.0003 & 0.0004 & 25.0 \\
+\rowcolor{tablerowalt} AMO Ablation & 8 & Binary & 0.0016 & 0.0017 & 0.0022 & 0.0016 & 0.0017 & 0.0022 & 0.0003 & 0.0004 & 25.0 \\
 AMO Ablation & 8 & Product & 0.0019 & 0.0018 & 0.0017 & 0.0017 & 0.0018 & 0.0019 & 0.0001 & 0.0005 & 25.0 \\
 \midrule
 AMO Ablation & 16 & Pairwise & 0.0170 & 0.0178 & 0.0170 & 0.0170 & 0.0170 & 0.0178 & 0.0005 & 0.0051 & 27.2 \\
-AMO Ablation & 16 & Sequential & 0.0386 & 0.0431 & 0.0391 & 0.0386 & 0.0391 & 0.0431 & 0.0025 & 0.0036 & 26.4 \\
+\rowcolor{tablerowalt} AMO Ablation & 16 & Sequential & 0.0386 & 0.0431 & 0.0391 & 0.0386 & 0.0391 & 0.0431 & 0.0025 & 0.0036 & 26.4 \\
 AMO Ablation & 16 & Commander & 0.0074 & 0.0079 & 0.0077 & 0.0074 & 0.0077 & 0.0079 & 0.0003 & 0.0049 & 25.7 \\
-AMO Ablation & 16 & Binary & 0.0162 & 0.0171 & 0.0172 & 0.0162 & 0.0171 & 0.0172 & 0.0006 & 0.0047 & 26.2 \\
+\rowcolor{tablerowalt} AMO Ablation & 16 & Binary & 0.0162 & 0.0171 & 0.0172 & 0.0162 & 0.0171 & 0.0172 & 0.0006 & 0.0047 & 26.2 \\
 AMO Ablation & 16 & Product & 0.0174 & 0.0198 & 0.0179 & 0.0174 & 0.0179 & 0.0198 & 0.0013 & 0.0040 & 25.9 \\
 \midrule
 AMO Ablation & 32 & Pairwise & 0.2829 & 0.3015 & 0.2976 & 0.2829 & 0.2976 & 0.3015 & 0.0098 & 0.0190 & 45.5 \\
-AMO Ablation & 32 & Sequential & 0.2445 & 0.2580 & 0.2440 & 0.2440 & 0.2445 & 0.2580 & 0.0079 & 0.0071 & 31.8 \\
+\rowcolor{tablerowalt} AMO Ablation & 32 & Sequential & 0.2445 & 0.2580 & 0.2440 & 0.2440 & 0.2445 & 0.2580 & 0.0079 & 0.0071 & 31.8 \\
 AMO Ablation & 32 & Commander & 0.0375 & 0.0404 & 0.0366 & 0.0366 & 0.0375 & 0.0404 & 0.0020 & 0.0115 & 30.0 \\
-AMO Ablation & 32 & Binary & 0.2024 & 0.1955 & 0.2108 & 0.1955 & 0.2024 & 0.2108 & 0.0077 & 0.0137 & 33.4 \\
+\rowcolor{tablerowalt} AMO Ablation & 32 & Binary & 0.2024 & 0.1955 & 0.2108 & 0.1955 & 0.2024 & 0.2108 & 0.0077 & 0.0137 & 33.4 \\
 AMO Ablation & 32 & Product & 0.0821 & 0.0857 & 0.0865 & 0.0821 & 0.0857 & 0.0865 & 0.0023 & 0.0086 & 30.3 \\
 \midrule
 AMO Ablation & 64 & Pairwise & 0.7339 & 0.7554 & 0.7351 & 0.7339 & 0.7351 & 0.7554 & 0.0121 & 0.1488 & 171.3 \\
-AMO Ablation & 64 & Sequential & 1.7914 & 1.7185 & 1.7193 & 1.7185 & 1.7193 & 1.7914 & 0.0419 & 0.0188 & 53.3 \\
+\rowcolor{tablerowalt} AMO Ablation & 64 & Sequential & 1.7914 & 1.7185 & 1.7193 & 1.7185 & 1.7193 & 1.7914 & 0.0419 & 0.0188 & 53.3 \\
 AMO Ablation & 64 & Commander & 0.1995 & 0.1870 & 0.1845 & 0.1845 & 0.1870 & 0.1995 & 0.0080 & 0.0339 & 48.3 \\
-AMO Ablation & 64 & Binary & 0.4930 & 0.4714 & 0.4698 & 0.4698 & 0.4714 & 0.4930 & 0.0130 & 0.0412 & 60.6 \\
+\rowcolor{tablerowalt} AMO Ablation & 64 & Binary & 0.4930 & 0.4714 & 0.4698 & 0.4698 & 0.4714 & 0.4930 & 0.0130 & 0.0412 & 60.6 \\
 AMO Ablation & 64 & Product & 0.4601 & 0.4190 & 0.4211 & 0.4190 & 0.4211 & 0.4601 & 0.0231 & 0.0223 & 47.3 \\
 \midrule
 AMO Ablation & 128 & Pairwise & 6.2634 & 6.4221 & 6.2960 & 6.2634 & 6.2960 & 6.4221 & 0.0838 & 1.7983 & 991.0 \\
-AMO Ablation & 128 & Sequential & 24.9994 & 24.5072 & 24.8451 & 24.5072 & 24.8451 & 24.9994 & 0.2517 & 0.0727 & 128.0 \\
+\rowcolor{tablerowalt} AMO Ablation & 128 & Sequential & 24.9994 & 24.5072 & 24.8451 & 24.5072 & 24.8451 & 24.9994 & 0.2517 & 0.0727 & 128.0 \\
 AMO Ablation & 128 & Commander & 0.7303 & 0.7569 & 0.7747 & 0.7303 & 0.7569 & 0.7747 & 0.0223 & 0.1235 & 104.2 \\
-AMO Ablation & 128 & Binary & 1.4151 & 1.3613 & 1.4384 & 1.3613 & 1.4151 & 1.4384 & 0.0395 & 0.2087 & 166.0 \\
+\rowcolor{tablerowalt} AMO Ablation & 128 & Binary & 1.4151 & 1.3613 & 1.4384 & 1.3613 & 1.4151 & 1.4384 & 0.0395 & 0.2087 & 166.0 \\
 AMO Ablation & 128 & Product & 1.5033 & 1.4108 & 1.4863 & 1.4108 & 1.4863 & 1.5033 & 0.0492 & 0.0762 & 97.5 \\
 \midrule
 Scale Evaluation & 256 & Pairwise & 88.7974 & 81.0261 & 83.4554 & 81.0261 & 83.4554 & 88.7974 & 3.9756 & 14.7420 & 7679.4 \\
-Scale Evaluation & 256 & Sequential & 85.6734 & 86.0543 & 84.4672 & 84.4672 & 85.6734 & 86.0543 & 0.8285 & 0.3939 & 459.6 \\
+\rowcolor{tablerowalt} Scale Evaluation & 256 & Sequential & 85.6734 & 86.0543 & 84.4672 & 84.4672 & 85.6734 & 86.0543 & 0.8285 & 0.3939 & 459.6 \\
 Scale Evaluation & 256 & Commander & 8.4583 & 8.5779 & 8.1205 & 8.1205 & 8.4583 & 8.5779 & 0.2372 & 0.6163 & 393.6 \\
-Scale Evaluation & 256 & Product & 8.0495 & 7.9877 & 7.6735 & 7.6735 & 7.9877 & 8.0495 & 0.2016 & 0.3494 & 283.7 \\
+\rowcolor{tablerowalt} Scale Evaluation & 256 & Product & 8.0495 & 7.9877 & 7.6735 & 7.6735 & 7.9877 & 8.0495 & 0.2016 & 0.3494 & 283.7 \\
 Scale Evaluation & 256 & Binary & \multicolumn{7}{c}{\textit{Không chạy (chưa thực hiện mở rộng tại $N \ge 256$)}} & - & - \\
 \midrule
 Scale Evaluation & 500 & Commander & 32.1096 & 31.9378 & 32.6404 & 31.9378 & 32.1096 & 32.6404 & 0.3663 & 2.8333 & 1389.9 \\
-Scale Evaluation & 500 & Product & 32.3227 & 32.2573 & 31.7545 & 31.7545 & 32.2573 & 32.3227 & 0.3109 & 1.7912 & 983.1 \\
+\rowcolor{tablerowalt} Scale Evaluation & 500 & Product & 32.3227 & 32.2573 & 31.7545 & 31.7545 & 32.2573 & 32.3227 & 0.3109 & 1.7912 & 983.1 \\
 Scale Evaluation & 500 & Pairwise & \multicolumn{7}{c}{\textit{Tràn bộ nhớ heap tiến trình Python khi tạo $207{,}834{,}500$ mệnh đề ($>16\,\text{GB}$ RAM)}} & $>16.0$ & $>16{,}000.0$ \\
-Scale Evaluation & 500 & Sequential & \multicolumn{7}{c}{\textit{Quá thời gian quy định ($>300.0\,\text{s}$)}} & 2.0126 & 564.6 \\
+\rowcolor{tablerowalt} Scale Evaluation & 500 & Sequential & \multicolumn{7}{c}{\textit{Quá thời gian quy định ($>300.0\,\text{s}$)}} & 2.0126 & 564.6 \\
 \midrule
 Scale Evaluation & 1000 & Commander & 105.4045 & 100.9182 & 99.2912 & 99.2912 & 100.9182 & 105.4045 & 3.1661 & 11.3817 & 4410.8 \\
-Scale Evaluation & 1000 & Product & 300.0000 & 199.4701 & 200.3552 & 199.4701 & 200.3552 & 300.0000 & 57.7872 & 7.5685 & 3832.5 \\
+\rowcolor{tablerowalt} Scale Evaluation & 1000 & Product & 300.0000 & 199.4701 & 200.3552 & 199.4701 & 200.3552 & 300.0000 & 57.7872 & 7.5685 & 3832.5 \\
 Scale Evaluation & 1000 & Pairwise & \multicolumn{7}{c}{\textit{Không chạy (dự kiến tràn RAM do số mệnh đề lý thuyết $>1.66$ tỷ)}} & - & - \\
-Scale Evaluation & 1000 & Sequential & \multicolumn{7}{c}{\textit{Không chạy (đã quá thời gian $>300.0\,\text{s}$ từ $N=500$)}} & - & - \\
+\rowcolor{tablerowalt} Scale Evaluation & 1000 & Sequential & \multicolumn{7}{c}{\textit{Không chạy (đã quá thời gian $>300.0\,\text{s}$ từ $N=500$)}} & - & - \\
 \bottomrule
 \end{tabular}%
 }
@@ -542,43 +589,50 @@ Scale Evaluation & 1000 & Sequential & \multicolumn{7}{c}{\textit{Không chạy 
 \caption{Dữ liệu thực nghiệm chi tiết 3 lần chạy lặp độc lập so sánh đa bộ giải (Multi-Solver Benchmark: CaDiCaL, Glucose 4.2, CP-SAT, Gurobi 13.0, ILP SCIP 9.0) trên dải kích thước $N \in [8, 1000]$. Thời gian giải thuần túy đo bằng giây (s). Thứ tự Run 1, Run 2, Run 3 được giữ đúng trình tự thời gian chạy thực tế.}
 \label{tab:appendix_multisolver}
 \centering
+\renewcommand{\arraystretch}{1.18}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lllrrrrrrr}
 \toprule
+\rowcolor{tableheader}
 \textbf{Bộ giải} & $N$ & \textbf{Cấu hình / Mã hóa} & \textbf{Run 1 (s)} & \textbf{Run 2 (s)} & \textbf{Run 3 (s)} & \textbf{Min (s)} & \textbf{Median (s)} & \textbf{Max (s)} & \textbf{Trạng thái} \\
 \midrule
+\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{Gurobi Optimizer 13.0 (ILP)}} \\
 Gurobi 13.0 & 8 & ILP (1 thread) & 0.0006 & 0.0002 & 0.0002 & 0.0002 & 0.0002 & 0.0006 & Optimal \\
-Gurobi 13.0 & 16 & ILP (1 thread) & 0.0112 & 0.0084 & 0.0074 & 0.0074 & 0.0084 & 0.0112 & Optimal \\
+\rowcolor{tablerowalt} Gurobi 13.0 & 16 & ILP (1 thread) & 0.0112 & 0.0084 & 0.0074 & 0.0074 & 0.0084 & 0.0112 & Optimal \\
 Gurobi 13.0 & 32 & ILP (1 thread) & 0.0272 & 0.0290 & 0.0264 & 0.0264 & 0.0272 & 0.0290 & Optimal \\
 Gurobi 13.0 & 64--1000 & ILP (1 thread) & \multicolumn{6}{c}{\textit{Model too large for size-limited license (Vượt quá 2.000 biến)}} & Error (Limit) \\
 \midrule
+\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{SCIP 9.0 (ILP / MIP)}} \\
 ILP SCIP 9.0 & 8 & MIP (1 thread) & 0.0264 & 0.0191 & 0.0174 & 0.0174 & 0.0191 & 0.0264 & Optimal \\
-ILP SCIP 9.0 & 16 & MIP (1 thread) & 0.0194 & 0.0190 & 0.0189 & 0.0189 & 0.0190 & 0.0194 & Optimal \\
+\rowcolor{tablerowalt} ILP SCIP 9.0 & 16 & MIP (1 thread) & 0.0194 & 0.0190 & 0.0189 & 0.0189 & 0.0190 & 0.0194 & Optimal \\
 ILP SCIP 9.0 & 32 & MIP (1 thread) & 3.1494 & 3.1147 & 3.1150 & 3.1147 & 3.1150 & 3.1494 & Optimal \\
 ILP SCIP 9.0 & 64--1000 & MIP (1 thread) & \multicolumn{6}{c}{\textit{Quá giới hạn thời gian ($>300.0\,\text{s}$)}} & Timeout \\
 \midrule
+\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{Google OR-Tools CP-SAT (Constraint Programming)}} \\
 CP-SAT (OR-Tools) & 8 & AllDifferent (1 worker) & 0.0166 & 0.0066 & 0.0064 & 0.0064 & 0.0066 & 0.0166 & Feasible \\
-CP-SAT (OR-Tools) & 16 & AllDifferent (1 worker) & 0.0254 & 0.0251 & 0.0246 & 0.0246 & 0.0251 & 0.0254 & Feasible \\
+\rowcolor{tablerowalt} CP-SAT (OR-Tools) & 16 & AllDifferent (1 worker) & 0.0254 & 0.0251 & 0.0246 & 0.0246 & 0.0251 & 0.0254 & Feasible \\
 CP-SAT (OR-Tools) & 32 & AllDifferent (1 worker) & 0.1251 & 0.1318 & 0.1123 & 0.1123 & 0.1251 & 0.1318 & Feasible \\
-CP-SAT (OR-Tools) & 64 & AllDifferent (1 worker) & 0.5912 & 0.6117 & 0.5848 & 0.5848 & 0.5912 & 0.6117 & Feasible \\
+\rowcolor{tablerowalt} CP-SAT (OR-Tools) & 64 & AllDifferent (1 worker) & 0.5912 & 0.6117 & 0.5848 & 0.5848 & 0.5912 & 0.6117 & Feasible \\
 CP-SAT (OR-Tools) & 128 & AllDifferent (1 worker) & 3.5502 & 3.4598 & 3.4195 & 3.4195 & 3.4598 & 3.5502 & Feasible \\
 CP-SAT (OR-Tools) & 256--1000 & AllDifferent (1 worker) & \multicolumn{6}{c}{\textit{Quá giới hạn thời gian ($>300.0\,\text{s}$)}} & Timeout \\
 \midrule
+\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{Glucose 4.2 (SAT Solver)}} \\
 Glucose 4.2 & 8 & Product AMO & 0.0008 & 0.0003 & 0.0003 & 0.0003 & 0.0003 & 0.0008 & SAT \\
-Glucose 4.2 & 16 & Product AMO & 0.1213 & 0.1323 & 0.1226 & 0.1213 & 0.1226 & 0.1323 & SAT \\
+\rowcolor{tablerowalt} Glucose 4.2 & 16 & Product AMO & 0.1213 & 0.1323 & 0.1226 & 0.1213 & 0.1226 & 0.1323 & SAT \\
 Glucose 4.2 & 32 & Product AMO & 20.7088 & 20.6239 & 21.6802 & 20.6239 & 20.7088 & 21.6802 & SAT \\
-Glucose 4.2 & 64 & Product AMO & 36.4078 & 36.5604 & 36.9764 & 36.4078 & 36.5604 & 36.9764 & SAT \\
+\rowcolor{tablerowalt} Glucose 4.2 & 64 & Product AMO & 36.4078 & 36.5604 & 36.9764 & 36.4078 & 36.5604 & 36.9764 & SAT \\
 Glucose 4.2 & 128 & Product AMO & 1.0808 & 1.0650 & 1.0590 & 1.0590 & 1.0650 & 1.0808 & SAT \\
 Glucose 4.2 & 256--1000 & Product AMO & \multicolumn{6}{c}{\textit{Quá giới hạn thời gian ($>300.0\,\text{s}$)}} & Timeout \\
 \midrule
+\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{CaDiCaL 1.9.5 (SAT Solver)}} \\
 CaDiCaL 1.9.5 & 128 & Product AMO & 1.5033 & 1.4108 & 1.4863 & 1.4108 & 1.4863 & 1.5033 & SAT \\
-CaDiCaL 1.9.5 & 128 & Commander AMO & 0.7303 & 0.7569 & 0.7747 & 0.7303 & 0.7569 & 0.7747 & SAT \\
+\rowcolor{tablerowalt} CaDiCaL 1.9.5 & 128 & Commander AMO & 0.7303 & 0.7569 & 0.7747 & 0.7303 & 0.7569 & 0.7747 & SAT \\
 CaDiCaL 1.9.5 & 256 & Product AMO & 8.0495 & 7.9877 & 7.6735 & 7.6735 & 7.9877 & 8.0495 & SAT \\
-CaDiCaL 1.9.5 & 256 & Commander AMO & 8.4583 & 8.5779 & 8.1205 & 8.1205 & 8.4583 & 8.5779 & SAT \\
+\rowcolor{tablerowalt} CaDiCaL 1.9.5 & 256 & Commander AMO & 8.4583 & 8.5779 & 8.1205 & 8.1205 & 8.4583 & 8.5779 & SAT \\
 CaDiCaL 1.9.5 & 500 & Product AMO & 32.3227 & 32.2573 & 31.7545 & 31.7545 & 32.2573 & 32.3227 & SAT \\
-CaDiCaL 1.9.5 & 500 & Commander AMO & 32.1096 & 31.9378 & 32.6404 & 31.9378 & 32.1096 & 32.6404 & SAT \\
+\rowcolor{tablerowalt} CaDiCaL 1.9.5 & 500 & Commander AMO & 32.1096 & 31.9378 & 32.6404 & 31.9378 & 32.1096 & 32.6404 & SAT \\
 CaDiCaL 1.9.5 & 1000 & Product AMO & 300.0000 & 199.4701 & 200.3552 & 199.4701 & 200.3552 & 300.0000 & SAT \\
-CaDiCaL 1.9.5 & 1000 & Commander AMO & 105.4045 & 100.9182 & 99.2912 & 99.2912 & 100.9182 & 105.4045 & SAT \\
+\rowcolor{tablerowalt} CaDiCaL 1.9.5 & 1000 & Commander AMO & 105.4045 & 100.9182 & 99.2912 & 99.2912 & 100.9182 & 105.4045 & SAT \\
 \bottomrule
 \end{tabular}%
 }

@@ -13,79 +13,123 @@ def write_file(path, content):
         f.write(content)
 
 def update_content(content):
-    # 1. Preamble: hypersetup and printorcid suppression
-    old_hyp = r"\hypersetup{pdfauthor={Pham Khanh Duy, To Van Khanh}, pdftitle={Nghien cuu cac Ky thuat Ma hoa SAT cho Bai toan N-Queens}, colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}"
-    new_hyp = (
-        r"\hypersetup{pdfauthor={Pham Khanh Duy, To Van Khanh}, pdftitle={Nghien cuu cac Ky thuat Ma hoa SAT cho Bai toan N-Queens}, colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}" "\n"
-        r"\let\printorcid\relax"
+    # 1. Preamble visual improvements
+    preamble_target = r"\usepackage{listings}"
+    preamble_repl = (
+        r"\usepackage{listings}" "\n"
+        r"\usepackage{enumitem}" "\n"
+        r"\usepackage[most]{tcolorbox}" "\n\n"
+        r"% ==========================================================================" "\n"
+        r"% BẢNG MÀU VÀ ĐỊNH DẠNG HỌC THUẬT NÂNG CAO (ACADEMIC STYLING)" "\n"
+        r"% ==========================================================================" "\n"
+        r"\definecolor{primaryblue}{RGB}{16, 78, 139}       % Xanh navy chuẩn học thuật" "\n"
+        r"\definecolor{accentteal}{RGB}{0, 115, 115}         % Xanh ngọc điểm nhấn" "\n"
+        r"\definecolor{tableheader}{RGB}{232, 238, 246}      % Nền tiêu đề bảng" "\n"
+        r"\definecolor{subheadbg}{RGB}{238, 242, 248}        % Nền phân nhóm trong bảng" "\n"
+        r"\definecolor{tablerowalt}{RGB}{249, 250, 253}      % Nền dòng so le nhẹ nhàng" "\n"
+        r"\definecolor{boxbg}{RGB}{247, 249, 253}            % Nền hộp ghi chú" "\n"
+        r"\definecolor{boxborder}{RGB}{185, 205, 230}        % Viền hộp ghi chú" "\n\n"
+        r"% Cải thiện độ thoáng và độ dễ đọc cho văn bản tiếng Việt" "\n"
+        r"\linespread{1.07}" "\n"
+        r"\setlength{\parskip}{0.35em plus 0.1em minus 0.1em}" "\n"
+        r"\setlength{\parindent}{1.2em}" "\n"
+        r"\setlist[itemize]{leftmargin=1.8em, itemsep=0.25em, topsep=0.3em}" "\n"
+        r"\setlist[enumerate]{leftmargin=1.8em, itemsep=0.25em, topsep=0.3em}"
     )
-    if r"\let\printorcid\relax" not in content:
-        if old_hyp in content:
-            content = content.replace(old_hyp, new_hyp)
-        else:
-            content = content.replace(r"\begin{document}", r"\let\printorcid\relax" "\n" r"\begin{document}")
+    if "primaryblue" not in content:
+        content = content.replace(preamble_target, preamble_repl)
 
-    # 2. Author: remove \corref{cor1} from inside \author[1]{...}
+    # 2. Suppress empty orcid
+    if r"\let\printorcid\relax" not in content:
+        content = content.replace(r"\begin{document}", r"\let\printorcid\relax" "\n" r"\begin{document}")
+
+    # 3. Clean Author metadata (no cor1 in name)
     content = content.replace(
         r"\author[1]{Phạm Khánh Duy\corref{cor1}}[role=Học viên thực hiện]",
         r"\author[1]{Phạm Khánh Duy}[role=Học viên thực hiện]"
     )
 
-    # 3. Section 1 RAM text: 7.7 GB
-    content = content.replace(
-        r"tiêu tốn đỉnh điểm khoảng 4 GB RAM ($4{,}073.8$ MB, $\approx 3.98$ GiB)",
-        r"tiêu tốn đỉnh điểm khoảng 7.7 GB RAM ($7{,}679.4$ MB, $\approx 7.50$ GiB)"
+    # 4. Definition 1 inside styled tcolorbox
+    def1_target = (
+        r"\subsection{Phát biểu bài toán N-Queens}" "\n"
+        r"Cho bàn cờ vuông kích thước $N \times N$, tập tọa độ các ô cờ là $\mathcal{H}_N = \{(r, c) \mid 0 \le r, c < N\}$, trong đó $r$ là chỉ số hàng và $c$ là chỉ số cột. Bài toán yêu cầu đặt $N$ quân hậu vào tập vị trí $\mathcal{Q} \subset \mathcal{H}_N$ thỏa mãn:" "\n"
+        r"\begin{align}" "\n"
+        r"    &|\mathcal{Q}| = N, \\" "\n"
+        r"    &\forall (r_1, c_1), (r_2, c_2) \in \mathcal{Q}, \; (r_1, c_1) \neq (r_2, c_2) \implies \nonumber\\" "\n"
+        r"    &\quad r_1 \neq r_2 \quad \land \quad c_1 \neq c_2 \quad \land \quad |r_1 - r_2| \neq |c_1 - c_2|." "\n"
+        r"\end{align}"
     )
-
-    # 4. Section 1: "lặp đúng 3 lần cho mọi N in [8, 1000]" -> nói chính xác
-    content = content.replace(
-        r"lặp lại đúng 3 lần cho mọi kích thước $N \in [8, 1000]$ trong từng tiến trình con độc lập",
-        r"lặp lại đúng 3 lần cho mọi kích thước $N$ được khảo sát của từng kỹ thuật (lên tới $N=1000$ đối với Commander và Product) trong từng tiến trình con độc lập"
+    def1_styled = (
+        r"\subsection{Phát biểu bài toán N-Queens}" "\n"
+        r"\begin{tcolorbox}[" "\n"
+        r"    colback=boxbg, colframe=boxborder, arc=2mm, boxrule=0.75pt," "\n"
+        r"    left=10pt, right=10pt, top=7pt, bottom=7pt," "\n"
+        r"    title=\textbf{\color{primaryblue}Định nghĩa 1 (Bài toán $N$-Queens tiêu chuẩn)}," "\n"
+        r"    coltitle=primaryblue" "\n"
+        r"]" "\n"
+        r"Cho bàn cờ vuông kích thước $N \times N$, tập tọa độ các ô cờ là $\mathcal{H}_N = \{(r, c) \mid 0 \le r, c < N\}$, trong đó $r$ là chỉ số hàng và $c$ là chỉ số cột. Bài toán yêu cầu đặt $N$ quân hậu vào tập vị trí $\mathcal{Q} \subset \mathcal{H}_N$ thỏa mãn:" "\n"
+        r"\begin{align}" "\n"
+        r"    &|\mathcal{Q}| = N, \\" "\n"
+        r"    &\forall (r_1, c_1), (r_2, c_2) \in \mathcal{Q}, \; (r_1, c_1) \neq (r_2, c_2) \implies \nonumber\\" "\n"
+        r"    &\quad r_1 \neq r_2 \quad \land \quad c_1 \neq c_2 \quad \land \quad |r_1 - r_2| \neq |c_1 - c_2|." "\n"
+        r"\end{align}" "\n"
+        r"\end{tcolorbox}"
     )
+    if "Định nghĩa 1 (Bài toán $N$-Queens tiêu chuẩn)" not in content:
+        content = content.replace(def1_target, def1_styled)
 
-    # 5. Section 4.1: Gurobi license wording
-    content = content.replace(
-        r"phiên bản học thuật dùng thử đi kèm thư viện Python có giới hạn 2,000 biến",
-        r"license đi kèm gói pip có giới hạn 2,000 biến"
+    # 5. Table 1 styling: arraystretch & colors
+    t1_regex = r"\\begin\{table\*\}\[htbp\]\s*\\caption\{So sánh lý thuyết độ phức tạp của 5 kỹ thuật mã hóa AMO.*?\\label\{tab:amo_complexity\}.*?\\end\{table\*\}"
+    t1_styled = (
+        r"\begin{table*}[htbp]" "\n"
+        r"\caption{So sánh lý thuyết độ phức tạp của 5 kỹ thuật mã hóa AMO cho một nhóm $k$ biến và toàn bàn cờ $N \times N$.}" "\n"
+        r"\label{tab:amo_complexity}" "\n"
+        r"\centering" "\n"
+        r"\renewcommand{\arraystretch}{1.22}" "\n"
+        r"\resizebox{\textwidth}{!}{%" "\n"
+        r"\begin{tabular}{lllc p{6.5cm}}" "\n"
+        r"\toprule" "\n"
+        r"\rowcolor{tableheader}" "\n"
+        r"\textbf{Kỹ thuật mã hóa} & \textbf{Biến phụ (nhóm $k$)} & \textbf{Mệnh đề (nhóm $k$)} & \textbf{Mệnh đề toàn bàn cờ} & \textbf{Đặc điểm triển khai} \\" "\n"
+        r"\midrule" "\n"
+        r"Pairwise (Direct) & $0$ & $\mathcal{O}(k^2)$ & $\mathcal{O}(N^3)$ (Bùng nổ) & Sẵn có trong PySAT CardEnc; tốn RAM lớn ở $N \ge 256$ \\" "\n"
+        r"\rowcolor{tablerowalt} Sequential Counter & $\mathcal{O}(k)$ & $\mathcal{O}(k)$ & $\mathcal{O}(N^2)$ (Gọn) & Sẵn có trong PySAT CardEnc; chuỗi suy diễn dài \\" "\n"
+        r"Commander Variable & $\mathcal{O}(k)$ & $\mathcal{O}(k)$ & $\mathcal{O}(N^2)$ (Gọn) & Tự cài đặt theo Klieber \& Kwon~\cite{klieber2007efficient}; cấu trúc cây $g=3$ \\" "\n"
+        r"\rowcolor{tablerowalt} Binary (Bitwise) & $\mathcal{O}(\log k)$ & $\mathcal{O}(k \log k)$ & $\mathcal{O}(N^2 \log N)$ & Sẵn có trong PySAT CardEnc; ít biến phụ nhất \\" "\n"
+        r"Product (2D Grid) & $\mathcal{O}(\sqrt{k})$ & $\mathcal{O}(k)$ & $\mathcal{O}(N^2)$ (Gọn) & Tự cài đặt theo Chen~\cite{chen2010product}; lưới $p \times q$ tối ưu \\" "\n"
+        r"\bottomrule" "\n"
+        r"\end{tabular}%" "\n"
+        r"}" "\n"
+        r"\end{table*}"
     )
+    content = re.sub(t1_regex, lambda m: t1_styled, content, flags=re.DOTALL)
 
-    # 6. Section 4.3 discussion numbers & Gurobi N=16
-    content = content.replace(r"($0.0002$s ở $N=8$ và $0.0254$s ở $N=32$)", r"($0.0002$s ở $N=8$ và $0.0272$s ở $N=32$)")
-    content = content.replace(r"tăng vọt từ $0.0182$s ($N=16$) lên $3.0327$s ($N=32$)", r"tăng vọt từ $0.0190$s ($N=16$) lên $3.1150$s ($N=32$)")
-    content = content.replace(r"($N=128$ giải trong $2.80$s)", r"($N=128$ giải trong $3.46$s)")
-    content = content.replace(r"nhanh gấp khoảng $3.0$ lần CP-SAT với $0.5643$s", r"nhanh gấp khoảng $3.2$ lần CP-SAT với $0.5912$s")
-    content = content.replace(r"tuy nhiên ở $N=32$, Glucose mất tới $19.45$s", r"tuy nhiên ở $N=32$, Glucose mất tới $20.71$s")
-    content = content.replace(r"chậm hơn khoảng $227$ lần: $19.4494 / 0.0857 \approx 227$", r"chậm hơn khoảng $242$ lần: $20.7088 / 0.0857 \approx 242$")
-    content = content.replace(r"Ở $N=64$, Glucose cũng mất tới $22.93$s", r"Ở $N=64$, Glucose cũng mất tới $36.56$s")
-    content = content.replace(r"chậm hơn khoảng 54 lần", r"chậm hơn khoảng 87 lần: $36.5604 / 0.4211 \approx 87$")
-
-    # 7. Section 4.3 text: "thực nghiệm khẳng định... tất định" -> "quan sát thấy"
-    content = content.replace(
-        r"Về bản chất tìm kiếm, thực nghiệm khẳng định solver CaDiCaL vận hành mang tính tất định:",
-        r"Về bản chất tìm kiếm, thực nghiệm quan sát thấy solver CaDiCaL vận hành mang tính tất định:"
+    # 6. Executive Key Takeaways Box at start of Section 4
+    sec4_target = (
+        r"\section{Kết quả Thực nghiệm và Thảo luận (Computational Experiments)}" "\n\n"
+        r"\subsection{Thiết lập Môi trường Thực nghiệm}"
     )
-
-    # 8. Conclusion: Gurobi N=16 correction
-    content = content.replace(
-        r"Gurobi thể hiện tốc độ nhanh nhất ở quy mô nhỏ $N \le 32$ nhưng dừng ở $N \ge 64$ do giới hạn kích thước license đi kèm gói pip (2.000 biến).",
-        r"Gurobi thể hiện tốc độ nhanh nhất ở $N = 8$ và $N = 32$ (trong khi CaDiCaL Commander nhanh nhất ở $N = 16$), nhưng dừng ở $N \ge 64$ do giới hạn kích thước license đi kèm gói pip (2.000 biến)."
+    sec4_styled = (
+        r"\section{Kết quả Thực nghiệm và Thảo luận (Computational Experiments)}" "\n\n"
+        r"\begin{tcolorbox}[" "\n"
+        r"    colback=boxbg, colframe=boxborder, arc=2mm, boxrule=0.85pt," "\n"
+        r"    left=12pt, right=12pt, top=8pt, bottom=8pt," "\n"
+        r"    title=\textbf{\color{primaryblue}Tóm tắt các Phát hiện Thực nghiệm Cốt lõi (Key Experimental Takeaways)}," "\n"
+        r"    coltitle=primaryblue" "\n"
+        r"]" "\n"
+        r"\begin{itemize}[leftmargin=1.5em, itemsep=0.25em, topsep=0.2em]" "\n"
+        r"    \item \textbf{Khả năng mở rộng quy mô cực đại ($N \ge 256$):} SAT Solving (CaDiCaL kết hợp Commander Variable và Product Encoding) là hướng tiếp cận duy nhất giải quyết thành công bàn cờ kích thước $N=500$ ($32.11$s) và $N=1000$ ($100.92$s với một triệu ô cờ). Trong khi đó, các bộ giải CP-SAT và ILP SCIP đều chạm ngưỡng giới hạn thời gian ($>300.0$s) từ $N=256$." "\n"
+        r"    \item \textbf{Hiệu năng ở quy mô nhỏ ($N \le 32$):} Gurobi 13.0 dẫn đầu về tốc độ ở $N=8$ ($0.0002$s) và $N=32$ ($0.0272$s) nhờ các thuật toán cắt mặt phẳng tiên tiến; CaDiCaL Commander đạt thời gian giải tốt nhất ở $N=16$ ($0.0077$s). Từ $N \ge 64$, Gurobi dừng do hạn mức license gói pip (tối đa 2.000 biến)." "\n"
+        r"    \item \textbf{Cơ chế suy thoái của Sequential Counter ở $N=128$:} Mặc dù số mệnh đề rất gọn ($\mathcal{O}(N^2)$), thời gian giải tăng vọt lên $24.85$s (chậm hơn Commander 33 lần) do bùng nổ $68\times$ số xung đột CDCL ($62{,}360$ so với $916$), kéo theo $42.89$ triệu lượt lan truyền đơn vị trên cây suy diễn." "\n"
+        r"    \item \textbf{Hạn chế bộ nhớ của Pairwise Encoding:} Do số mệnh đề tăng theo bậc ba $\mathcal{O}(N^3)$, Pairwise tiêu tốn đỉnh điểm $7{,}679.4$ MB RAM ở $N=256$ ($27.8$ triệu mệnh đề) và cạn kiệt bộ nhớ (\texttt{MemoryError}) ở $N=500$ khi khởi tạo $207.8$ triệu đối tượng mệnh đề trong danh sách liên tục của Python." "\n"
+        r"\end{itemize}" "\n"
+        r"\end{tcolorbox}" "\n\n"
+        r"\subsection{Thiết lập Môi trường Thực nghiệm}"
     )
+    if "Tóm tắt các Phát hiện Thực nghiệm Cốt lõi" not in content:
+        content = content.replace(sec4_target, sec4_styled)
 
-    # 9. Data Availability: Clean itemize formatting to eliminate margin overflow completely
-    old_data_avail_pattern = r"\\section\*\{Tính khả dụng của dữ liệu và mã nguồn \(Data Availability\)\}.*?\\url\{https://github\.com/vnu-uet-khmt/nqueens-sat-solver\}\s*\\end\{center\}"
-    new_data_avail = (
-        r"\section*{Tính khả dụng của dữ liệu và mã nguồn (Data Availability)}" "\n"
-        r"Toàn bộ mã nguồn cài đặt 5 kỹ thuật mã hóa AMO, các bộ giải SAT (PySAT), CP-SAT, Gurobi, SCIP và dữ liệu thực nghiệm được cung cấp đầy đủ trong gói dự án đính kèm và lưu trữ công khai trên GitHub repository:" "\n"
-        r"\begin{itemize}" "\n"
-        r"    \item \textbf{Mã nguồn thực nghiệm:} \path{scripts/isolated_run_worker.py}, \path{scripts/run_isolated_master_benchmark.py}, \path{scripts/run_multisolver_benchmark.py}." "\n"
-        r"    \item \textbf{Tự động sinh bảng biểu:} \path{scripts/generate_all_tables_from_master.py}, \path{scripts/sync_data_files.py}." "\n"
-        r"    \item \textbf{Dữ liệu thực nghiệm gốc:} \path{data/master_cadical_runs.csv}, \path{data/master_multisolver_runs.csv}, \path{data/benchmark_execution.log}." "\n"
-        r"    \item \textbf{Kho lưu trữ GitHub:} \url{https://github.com/vnu-uet-khmt/nqueens-sat-solver}" "\n"
-        r"\end{itemize}"
-    )
-    content = re.sub(old_data_avail_pattern, lambda m: new_data_avail, content, flags=re.DOTALL)
-
-    # 10. Replace Tables
+    # 7. Replace Tables 2, 3, 4, 5a, 5b with newly generated visual versions
     t2_gen = read_file(os.path.join(report_dir, "table2_generated.tex"))
     t2_regex = r"\\begin\{table\*\}\[htbp\]\s*\\caption\{So sánh thực nghiệm toàn diện giữa 5 kỹ thuật mã hóa AMO.*?\\label\{tab:ablation_results\}.*?\\end\{table\*\}"
     content = re.sub(t2_regex, lambda m: t2_gen, content, flags=re.DOTALL)

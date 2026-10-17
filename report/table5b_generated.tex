@@ -2,43 +2,50 @@
 \caption{Dữ liệu thực nghiệm chi tiết 3 lần chạy lặp độc lập so sánh đa bộ giải (Multi-Solver Benchmark: CaDiCaL, Glucose 4.2, CP-SAT, Gurobi 13.0, ILP SCIP 9.0) trên dải kích thước $N \in [8, 1000]$. Thời gian giải thuần túy đo bằng giây (s). Thứ tự Run 1, Run 2, Run 3 được giữ đúng trình tự thời gian chạy thực tế.}
 \label{tab:appendix_multisolver}
 \centering
+\renewcommand{\arraystretch}{1.18}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lllrrrrrrr}
 \toprule
+\rowcolor{tableheader}
 \textbf{Bộ giải} & $N$ & \textbf{Cấu hình / Mã hóa} & \textbf{Run 1 (s)} & \textbf{Run 2 (s)} & \textbf{Run 3 (s)} & \textbf{Min (s)} & \textbf{Median (s)} & \textbf{Max (s)} & \textbf{Trạng thái} \\
 \midrule
+\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{Gurobi Optimizer 13.0 (ILP)}} \\
 Gurobi 13.0 & 8 & ILP (1 thread) & 0.0006 & 0.0002 & 0.0002 & 0.0002 & 0.0002 & 0.0006 & Optimal \\
-Gurobi 13.0 & 16 & ILP (1 thread) & 0.0112 & 0.0084 & 0.0074 & 0.0074 & 0.0084 & 0.0112 & Optimal \\
+\rowcolor{tablerowalt} Gurobi 13.0 & 16 & ILP (1 thread) & 0.0112 & 0.0084 & 0.0074 & 0.0074 & 0.0084 & 0.0112 & Optimal \\
 Gurobi 13.0 & 32 & ILP (1 thread) & 0.0272 & 0.0290 & 0.0264 & 0.0264 & 0.0272 & 0.0290 & Optimal \\
 Gurobi 13.0 & 64--1000 & ILP (1 thread) & \multicolumn{6}{c}{\textit{Model too large for size-limited license (Vượt quá 2.000 biến)}} & Error (Limit) \\
 \midrule
+\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{SCIP 9.0 (ILP / MIP)}} \\
 ILP SCIP 9.0 & 8 & MIP (1 thread) & 0.0264 & 0.0191 & 0.0174 & 0.0174 & 0.0191 & 0.0264 & Optimal \\
-ILP SCIP 9.0 & 16 & MIP (1 thread) & 0.0194 & 0.0190 & 0.0189 & 0.0189 & 0.0190 & 0.0194 & Optimal \\
+\rowcolor{tablerowalt} ILP SCIP 9.0 & 16 & MIP (1 thread) & 0.0194 & 0.0190 & 0.0189 & 0.0189 & 0.0190 & 0.0194 & Optimal \\
 ILP SCIP 9.0 & 32 & MIP (1 thread) & 3.1494 & 3.1147 & 3.1150 & 3.1147 & 3.1150 & 3.1494 & Optimal \\
 ILP SCIP 9.0 & 64--1000 & MIP (1 thread) & \multicolumn{6}{c}{\textit{Quá giới hạn thời gian ($>300.0\,\text{s}$)}} & Timeout \\
 \midrule
+\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{Google OR-Tools CP-SAT (Constraint Programming)}} \\
 CP-SAT (OR-Tools) & 8 & AllDifferent (1 worker) & 0.0166 & 0.0066 & 0.0064 & 0.0064 & 0.0066 & 0.0166 & Feasible \\
-CP-SAT (OR-Tools) & 16 & AllDifferent (1 worker) & 0.0254 & 0.0251 & 0.0246 & 0.0246 & 0.0251 & 0.0254 & Feasible \\
+\rowcolor{tablerowalt} CP-SAT (OR-Tools) & 16 & AllDifferent (1 worker) & 0.0254 & 0.0251 & 0.0246 & 0.0246 & 0.0251 & 0.0254 & Feasible \\
 CP-SAT (OR-Tools) & 32 & AllDifferent (1 worker) & 0.1251 & 0.1318 & 0.1123 & 0.1123 & 0.1251 & 0.1318 & Feasible \\
-CP-SAT (OR-Tools) & 64 & AllDifferent (1 worker) & 0.5912 & 0.6117 & 0.5848 & 0.5848 & 0.5912 & 0.6117 & Feasible \\
+\rowcolor{tablerowalt} CP-SAT (OR-Tools) & 64 & AllDifferent (1 worker) & 0.5912 & 0.6117 & 0.5848 & 0.5848 & 0.5912 & 0.6117 & Feasible \\
 CP-SAT (OR-Tools) & 128 & AllDifferent (1 worker) & 3.5502 & 3.4598 & 3.4195 & 3.4195 & 3.4598 & 3.5502 & Feasible \\
 CP-SAT (OR-Tools) & 256--1000 & AllDifferent (1 worker) & \multicolumn{6}{c}{\textit{Quá giới hạn thời gian ($>300.0\,\text{s}$)}} & Timeout \\
 \midrule
+\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{Glucose 4.2 (SAT Solver)}} \\
 Glucose 4.2 & 8 & Product AMO & 0.0008 & 0.0003 & 0.0003 & 0.0003 & 0.0003 & 0.0008 & SAT \\
-Glucose 4.2 & 16 & Product AMO & 0.1213 & 0.1323 & 0.1226 & 0.1213 & 0.1226 & 0.1323 & SAT \\
+\rowcolor{tablerowalt} Glucose 4.2 & 16 & Product AMO & 0.1213 & 0.1323 & 0.1226 & 0.1213 & 0.1226 & 0.1323 & SAT \\
 Glucose 4.2 & 32 & Product AMO & 20.7088 & 20.6239 & 21.6802 & 20.6239 & 20.7088 & 21.6802 & SAT \\
-Glucose 4.2 & 64 & Product AMO & 36.4078 & 36.5604 & 36.9764 & 36.4078 & 36.5604 & 36.9764 & SAT \\
+\rowcolor{tablerowalt} Glucose 4.2 & 64 & Product AMO & 36.4078 & 36.5604 & 36.9764 & 36.4078 & 36.5604 & 36.9764 & SAT \\
 Glucose 4.2 & 128 & Product AMO & 1.0808 & 1.0650 & 1.0590 & 1.0590 & 1.0650 & 1.0808 & SAT \\
 Glucose 4.2 & 256--1000 & Product AMO & \multicolumn{6}{c}{\textit{Quá giới hạn thời gian ($>300.0\,\text{s}$)}} & Timeout \\
 \midrule
+\rowcolor{subheadbg} \multicolumn{10}{l}{\textbf{CaDiCaL 1.9.5 (SAT Solver)}} \\
 CaDiCaL 1.9.5 & 128 & Product AMO & 1.5033 & 1.4108 & 1.4863 & 1.4108 & 1.4863 & 1.5033 & SAT \\
-CaDiCaL 1.9.5 & 128 & Commander AMO & 0.7303 & 0.7569 & 0.7747 & 0.7303 & 0.7569 & 0.7747 & SAT \\
+\rowcolor{tablerowalt} CaDiCaL 1.9.5 & 128 & Commander AMO & 0.7303 & 0.7569 & 0.7747 & 0.7303 & 0.7569 & 0.7747 & SAT \\
 CaDiCaL 1.9.5 & 256 & Product AMO & 8.0495 & 7.9877 & 7.6735 & 7.6735 & 7.9877 & 8.0495 & SAT \\
-CaDiCaL 1.9.5 & 256 & Commander AMO & 8.4583 & 8.5779 & 8.1205 & 8.1205 & 8.4583 & 8.5779 & SAT \\
+\rowcolor{tablerowalt} CaDiCaL 1.9.5 & 256 & Commander AMO & 8.4583 & 8.5779 & 8.1205 & 8.1205 & 8.4583 & 8.5779 & SAT \\
 CaDiCaL 1.9.5 & 500 & Product AMO & 32.3227 & 32.2573 & 31.7545 & 31.7545 & 32.2573 & 32.3227 & SAT \\
-CaDiCaL 1.9.5 & 500 & Commander AMO & 32.1096 & 31.9378 & 32.6404 & 31.9378 & 32.1096 & 32.6404 & SAT \\
+\rowcolor{tablerowalt} CaDiCaL 1.9.5 & 500 & Commander AMO & 32.1096 & 31.9378 & 32.6404 & 31.9378 & 32.1096 & 32.6404 & SAT \\
 CaDiCaL 1.9.5 & 1000 & Product AMO & 300.0000 & 199.4701 & 200.3552 & 199.4701 & 200.3552 & 300.0000 & SAT \\
-CaDiCaL 1.9.5 & 1000 & Commander AMO & 105.4045 & 100.9182 & 99.2912 & 99.2912 & 100.9182 & 105.4045 & SAT \\
+\rowcolor{tablerowalt} CaDiCaL 1.9.5 & 1000 & Commander AMO & 105.4045 & 100.9182 & 99.2912 & 99.2912 & 100.9182 & 105.4045 & SAT \\
 \bottomrule
 \end{tabular}%
 }
