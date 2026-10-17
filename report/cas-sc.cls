@@ -72,15 +72,17 @@
 \hypersetup{%
   pdfcreator={LaTeX3; cas-sc.cls; hyperref.sty},
   pdfproducer={pdfTeX;},
+  pdfauthor={Pham Khanh Duy, To Van Khanh},
+  pdftitle={Nghien cuu cac Ky thuat Ma hoa SAT cho Bai toan N-Queens},
   linkcolor={hscolor},
   urlcolor={hscolor},
   citecolor={hscolor},
   filecolor={hscolor},
   menucolor={hscolor},
 }
-% \AtEndDocument{\hypersetup
-%   {pdftitle={\csuse{__short_title:}},
-%   pdfauthor={\csuse{__short_authors:}}}}
+\AtEndDocument{\hypersetup
+  {pdftitle={Nghien cuu cac Ky thuat Ma hoa SAT cho Bai toan N-Queens},
+  pdfauthor={Pham Khanh Duy, To Van Khanh}}}
  
  \let\comma\@empty
 \let\tnotesep\@empty
@@ -133,8 +135,8 @@
   \normalcolor \normalfont
   \setcounter{footnote}{\int_use:N \g_stm_fnote_int}
   \renewcommand\thefootnote{\arabic{footnote}}
-  \gdef\@pdfauthor{\infoauthors}
-  \gdef\@pdfsubject{Complex ~STM ~Content}
+  \gdef\@pdfauthor{Pham Khanh Duy, To Van Khanh}
+  \gdef\@pdfsubject{N-Queens SAT Solver}
   \ifbool{casreviewlayout}{\doublespacing}{}
 }
 

@@ -351,7 +351,7 @@ def build_tables():
     g8 = f"{ms_medians.get(('Gurobi 13.0', 8), 0.0002):.4f}"
     g16 = f"{ms_medians.get(('Gurobi 13.0', 16), 0.0084):.4f}"
     g32 = f"{ms_medians.get(('Gurobi 13.0', 32), 0.0272):.4f}"
-    t4.append(f"Gurobi 13.0 (1 thread) & $\\mathbf{{{g8}}}$ & $\\mathbf{{{g16}}}$ & $\\mathbf{{{g32}}}$ & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) \\\\")
+    t4.append(f"Gurobi 13.0 (1 thread) & $\\mathbf{{{g8}}}$ & ${g16}$ & $\\mathbf{{{g32}}}$ & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) \\\\")
 
     # 2. SCIP 9.0
     sc8 = f"{ms_medians.get(('ILP SCIP 9.0', 8), 0.0191):.4f}"
@@ -414,7 +414,7 @@ def build_tables():
     cm256 = f"{agg[256]['commander']['median_s']:.4f}"
     cm500 = f"{agg[500]['commander']['median_s']:.4f}"
     cm1000 = f"{agg[1000]['commander']['median_s']:.4f}"
-    t4.append(f"CaDiCaL (Commander) & ${cm8}$ & ${cm16}$ & ${cm32}$ & $\\mathbf{{{cm64}}}$ & $\\mathbf{{{cm128}}}$ & ${cm256}$ & $\\mathbf{{{cm500}}}$ & $\\mathbf{{{cm1000}}}$ \\\\")
+    t4.append(f"CaDiCaL (Commander) & ${cm8}$ & $\\mathbf{{{cm16}}}$ & ${cm32}$ & $\\mathbf{{{cm64}}}$ & $\\mathbf{{{cm128}}}$ & ${cm256}$ & $\\mathbf{{{cm500}}}$ & $\\mathbf{{{cm1000}}}$ \\\\")
 
     t4.append(r"\bottomrule")
     t4.append(r"\multicolumn{9}{l}{\footnotesize $^*$ CaDiCaL (Product) tại $N=1000$: 2/3 lần giải thành công ($199.47$s và $200.36$s), 1 lần chạm giới hạn thời gian ($300.0$s). Giá trị $200.3552$s là trung vị của 3 lần thử nghiệm.} \\")

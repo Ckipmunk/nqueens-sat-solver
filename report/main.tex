@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \hypersetup{pdfauthor={Pham Khanh Duy, To Van Khanh}, pdftitle={Nghien cuu cac Ky thuat Ma hoa SAT cho Bai toan N-Queens}, colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+\let\printorcid\relax
 \usepackage{microtype}
 \usepackage{listings}
 \usepackage{xcolor}
@@ -43,7 +44,7 @@
 
 % Thông tin tác giả (Sinh viên cập nhật thông tin chính xác tại đây)
 % Ghi chú: Ký hiệu [1] trong \author[1] là nhãn tham chiếu đơn vị công tác (\address[1]), hiển thị dạng chỉ số trên trong PDF.
-\author[1]{Phạm Khánh Duy\corref{cor1}}[role=Học viên thực hiện]
+\author[1]{Phạm Khánh Duy}[role=Học viên thực hiện]
 \cormark[1]
 \ead{24021452@vnu.edu.vn}
 
@@ -84,7 +85,7 @@ Trọng tâm của tiếp cận SAT nằm ở việc chuyển đổi các ràng 
 \begin{itemize}
     \item Nghiên cứu, cài đặt và phân tích so sánh lý thuyết lẫn thực nghiệm 5 kỹ thuật mã hóa AMO: Pairwise, Sequential Counter~\cite{sinz2005towards}, Commander Variable~\cite{klieber2007efficient}, Binary Encoding~\cite{prestwich2009cnf,frisch2010sat} và Product Encoding~\cite{chen2010product}. Phân định rõ giữa các hàm PySAT CardEnc có sẵn và các thuật toán tự cài đặt độc lập.
     \item Triển khai hoàn chỉnh bộ giải $N$-Queens Solver trên nền tảng PySAT~\cite{ignatiev2018pysat}, tích hợp solver CaDiCaL 1.9.5 và Glucose 4.2.
-    \item Thiết lập giao thức đo lường chuẩn hóa: lặp lại đúng 3 lần cho mọi kích thước $N \in [8, 1000]$ trong từng tiến trình con độc lập (\texttt{subprocess}) cách ly bộ nhớ hoàn toàn, đo RAM đỉnh thực tế cho từng lần chạy qua \texttt{psutil}, áp dụng cùng Time Limit 300.0 giây, chạy đơn luồng (1 worker / 1 thread) cho tất cả các solver.
+    \item Thiết lập giao thức đo lường chuẩn hóa: lặp lại đúng 3 lần cho mọi kích thước $N$ được khảo sát của từng kỹ thuật (lên tới $N=1000$ đối với Commander và Product) trong từng tiến trình con độc lập (\texttt{subprocess}) cách ly bộ nhớ hoàn toàn, đo RAM đỉnh thực tế cho từng lần chạy qua \texttt{psutil}, áp dụng cùng Time Limit 300.0 giây, chạy đơn luồng (1 worker / 1 thread) cho tất cả các solver.
     \item Thu thập dữ liệu thực nghiệm vi mô giải thích động lực tìm kiếm CDCL (\textit{search dynamics}): trích xuất thông số nội tại (\texttt{accum\_stats()}) và tính mã băm SHA-256 của từng công thức CNF qua 3 lần chạy lặp. Kết quả thực nghiệm 3 lần chạy lặp độc lập quan sát thấy tính tất định của CaDiCaL trên cùng một CNF với số lượng xung đột và quyết định hoàn toàn đồng nhất ($3/3$ lần trùng khớp), đồng thời chỉ ra sự suy thoái hiệu năng của Sequential Counter ở $N=128$ ($24.85$s, chậm hơn Commander 33 lần) bị dẫn dắt bởi sự tăng vọt $68\times$ số xung đột ($62{,}360$ so với $916$) và $26\times$ số quyết định ($107{,}733$ so với $4{,}159$), kéo theo $42.89$ triệu lượt lan truyền đơn vị. Phân tích thực nghiệm cũng làm rõ mối quan hệ phi tuyến: số lượng biến phụ không quyết định trực tiếp số xung đột (Commander có $33{,}290$ biến phụ, nhiều hơn $2.4\times$ so với Product, nhưng lại có số xung đột thấp nhất chỉ $916$).
     \item So sánh đối chứng toàn diện giữa SAT Solving với Google OR-Tools CP-SAT, Gurobi Optimizer 13.0 và SCIP 9.0 (ILP MIP) trên dải kích thước bàn cờ từ $N = 8$ đến $N = 1000$.
     \item Kết quả thực nghiệm cho thấy cả Commander Variable và Product Encoding cho phép CaDiCaL 1.9.5 giải quyết thành công bàn cờ kích thước cực lớn $N = 500$ ($32.11$s và $32.26$s) và $N = 1000$ ($1{,}000{,}000$ ô cờ; $100.92$s và $200.36$s), trong khi CP-SAT và SCIP đều dừng do hết thời gian (timeout) ở $N \ge 256$, còn Gurobi dừng ở $N \ge 64$ do giới hạn kích thước license đi kèm gói pip (2.000 biến).
@@ -289,7 +290,7 @@ Toàn bộ các thí nghiệm được triển khai và đo lường trên máy 
           \item \textbf{Thời gian đo và Quy ước Time Limit:} Báo cáo tách biệt giữa thời gian mã hóa (Encoding Time) và thời gian giải của solver (Solving Time) dựa trên đồng hồ thời gian thực (wall-clock time). Giới hạn thời gian (Time Limit) 300.0 giây được áp dụng thuần túy cho thời gian giải (Solving Time) của solver.
           \item \textbf{Cấu hình luồng (Thread fairness):} Để so sánh công bằng với các SAT solver chạy đơn luồng (CaDiCaL 1.9.5 và Glucose 4.2), CP-SAT được cấu hình tường minh \texttt{num\_workers = 1} (thay vì tìm kiếm song song đa luồng), và Gurobi được cấu hình \texttt{Threads = 1}.
           \item \textbf{Giới hạn thời gian (Time Limit):} Áp dụng cùng một ngưỡng thống nhất 300.0 giây (5 phút) cho tất cả các solver. Trường hợp vượt quá ngưỡng này được đánh dấu là \texttt{> 300.0s (TO)}.
-          \item \textbf{Ghi chú về bản quyền thương mại (CPLEX và Gurobi):} IBM ILOG CPLEX Community Edition bị giới hạn cứng ở 1,000 biến, không thể chạy bài toán $N$-Queens với $N \ge 32$ ($32^2 = 1,024$ biến) nên không đưa vào bảng thực nghiệm. Đối với Gurobi Optimizer 13.0, phiên bản học thuật dùng thử đi kèm thư viện Python có giới hạn 2,000 biến, giải quyết bình thường cho $N \le 32$ ($32^2 = 1,024 \le 2000$), nhưng từ $N = 64$ ($64^2 = 4,096$ biến) bộ giải dừng với thông báo kích thước vượt hạn mức bản quyền (\texttt{SIZE LIMIT EXCEEDED}). Do đó, kết quả của Gurobi từ $N \ge 64$ được ghi nhận chính xác là \texttt{-(LIMIT)} thay vì lỗi hết giờ.
+          \item \textbf{Ghi chú về bản quyền thương mại (CPLEX và Gurobi):} IBM ILOG CPLEX Community Edition bị giới hạn cứng ở 1,000 biến, không thể chạy bài toán $N$-Queens với $N \ge 32$ ($32^2 = 1,024$ biến) nên không đưa vào bảng thực nghiệm. Đối với Gurobi Optimizer 13.0, license đi kèm gói pip có giới hạn 2,000 biến, giải quyết bình thường cho $N \le 32$ ($32^2 = 1,024 \le 2000$), nhưng từ $N = 64$ ($64^2 = 4,096$ biến) bộ giải dừng với thông báo kích thước vượt hạn mức bản quyền (\texttt{SIZE LIMIT EXCEEDED}). Do đó, kết quả của Gurobi từ $N \ge 64$ được ghi nhận chính xác là \texttt{-(LIMIT)} thay vì lỗi hết giờ.
       \end{itemize}
 \end{itemize}
 
@@ -416,14 +417,14 @@ Bảng~\ref{tab:solver_comparison} và Hình~\ref{fig:solver_runtime} trình bà
 \toprule
 \textbf{Bộ giải / Phương pháp} & $N=8$ & $N=16$ & $N=32$ & $N=64$ & $N=128$ & $N=256$ & $N=500$ & $N=1000$ \\
 \midrule
-Gurobi 13.0 (1 thread) & $\mathbf{0.0002}$ & $\mathbf{0.0084}$ & $\mathbf{0.0272}$ & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) \\
+Gurobi 13.0 (1 thread) & $\mathbf{0.0002}$ & $0.0084$ & $\mathbf{0.0272}$ & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) \\
 ILP SCIP 9.0 (MIP) & $0.0191$ & $0.0190$ & $3.1150$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
 CP-SAT (OR-Tools, 1 worker) & $0.0066$ & $0.0251$ & $0.1251$ & $0.5912$ & $3.4598$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
 Glucose 4.2 (Product) & $0.0003$ & $0.1226$ & $20.7088$ & $36.5604$ & $1.0650$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
 CaDiCaL (Pairwise) & $0.0014$ & $0.0170$ & $0.2976$ & $0.7351$ & $6.2960$ & $83.4554$ & OOM & Không chạy \\
 CaDiCaL (Sequential) & $0.0014$ & $0.0391$ & $0.2445$ & $1.7193$ & $24.8451$ & $85.6734$ & $> 300.0$ & Không chạy \\
 CaDiCaL (Product) & $0.0018$ & $0.0179$ & $0.0857$ & $0.4211$ & $1.4863$ & $\mathbf{7.9877}$ & $32.2573$ & $200.3552^* \\
-CaDiCaL (Commander) & $0.0016$ & $0.0077$ & $0.0375$ & $\mathbf{0.1870}$ & $\mathbf{0.7569}$ & $8.4583$ & $\mathbf{32.1096}$ & $\mathbf{100.9182}$ \\
+CaDiCaL (Commander) & $0.0016$ & $\mathbf{0.0077}$ & $0.0375$ & $\mathbf{0.1870}$ & $\mathbf{0.7569}$ & $8.4583$ & $\mathbf{32.1096}$ & $\mathbf{100.9182}$ \\
 \bottomrule
 \multicolumn{9}{l}{\footnotesize $^*$ CaDiCaL (Product) tại $N=1000$: 2/3 lần giải thành công ($199.47$s và $200.36$s), 1 lần chạm giới hạn thời gian ($300.0$s). Giá trị $200.3552$s là trung vị của 3 lần thử nghiệm.} \\
 \end{tabular}%
@@ -457,7 +458,7 @@ CaDiCaL (Commander) & $0.0016$ & $0.0077$ & $0.0375$ & $\mathbf{0.1870}$ & $\mat
         \item Ở $N=500$, khi được đo lường trong từng tiến trình độc lập, cả Commander và Product đều giải quyết thành công bàn cờ với thời gian tương đương nhau: Commander đạt trung vị $32.11$s (dải $[31.94, 32.64]$s, $\sigma = 0.37$s), Product đạt trung vị $32.26$s (dải $[31.75, 32.32]$s, $\sigma = 0.31$s). Pairwise ở kích thước này dừng do ngoại lệ \texttt{MemoryError} khi tiến trình Python cố gắng khởi tạo $207{,}834{,}500$ đối tượng mệnh đề trong danh sách liên tục.
         \item Ở kích thước cực đại $N=1000$ ($1{,}000{,}000$ ô cờ), Commander giải thành công cả 3 lần với trung vị $100.92$s (dải $[99.29, 105.40]$s, $\sigma = 3.17$s, RAM đỉnh $4{,}410.8$ MB). Product giải thành công 2 trong 3 lần chạy với thời gian $\approx 199.47$s và $200.36$s (1 lần chạm giới hạn thời gian $300.0$s), RAM đỉnh $3{,}832.5$ MB. Nếu tính cả thời gian tạo mệnh đề (Commander: 11.38s, Product: 7.57s), tổng thời gian thực thi (wall-clock time) lần lượt là $\approx 112.30$s và $\approx 207.93$s.
     \end{itemize}
-    Về bản chất tìm kiếm, thực nghiệm khẳng định solver CaDiCaL vận hành mang tính tất định: trên cùng một công thức CNF và thứ tự mệnh đề cố định, solver luôn ghi nhận chính xác cùng số lượng xung đột và quyết định giữa các lần chạy độc lập (như kiểm chứng trong Bảng~\ref{tab:cdcl_search_stats}). Đối với sự dao động thời gian giữa các lần chạy ở quy mô lớn (đặc biệt ở $N=1000$ khi Product có lần chạm trần 300s), các yếu tố như nhiệt độ CPU kích hoạt điều tiết xung nhịp (Thermal Throttling), cạnh tranh bộ nhớ đệm L3 và cơ chế điều phối tiến trình nền của hệ điều hành Windows được nhìn nhận dưới dạng các giả thuyết thực nghiệm cần được kiểm chứng vi mô sâu hơn.
+    Về bản chất tìm kiếm, thực nghiệm quan sát thấy solver CaDiCaL vận hành mang tính tất định: trên cùng một công thức CNF và thứ tự mệnh đề cố định, solver luôn ghi nhận chính xác cùng số lượng xung đột và quyết định giữa các lần chạy độc lập (như kiểm chứng trong Bảng~\ref{tab:cdcl_search_stats}). Đối với sự dao động thời gian giữa các lần chạy ở quy mô lớn (đặc biệt ở $N=1000$ khi Product có lần chạm trần 300s), các yếu tố như nhiệt độ CPU kích hoạt điều tiết xung nhịp (Thermal Throttling), cạnh tranh bộ nhớ đệm L3 và cơ chế điều phối tiến trình nền của hệ điều hành Windows được nhìn nhận dưới dạng các giả thuyết thực nghiệm cần được kiểm chứng vi mô sâu hơn.
 \end{enumerate}
 
 ---
@@ -468,7 +469,7 @@ Bài báo đã nghiên cứu, cài đặt và đánh giá toàn diện phương 
     \item Mã hóa Pairwise bùng nổ đa thức bậc ba $\mathcal{O}(N^3)$ mệnh đề trên toàn bàn cờ. Thực nghiệm đo đạc ghi nhận Pairwise tiêu tốn $7{,}679.4$ MB RAM đỉnh tại $N=256$ ($\approx 7.50$ GiB cho $27{,}831{,}552$ mệnh đề, giải trong $83.46$s) và dừng do ngoại lệ \texttt{MemoryError} tại $N=500$ khi khởi tạo $207{,}834{,}500$ mệnh đề trong danh sách đối tượng Python.
     \item Sequential Counter tuy giảm số mệnh đề xuống $\mathcal{O}(N^2)$ nhưng sinh ra số lượng xung đột ($62{,}360$) và quyết định ($107{,}733$) vượt trội ở $N=128$, kéo theo $42.89$ triệu lượt lan truyền đơn vị khiến thời gian giải suy giảm nghiêm trọng ($24.85$s, chậm hơn Commander khoảng 33 lần). Tuy nhiên, số lượng biến phụ không quyết định trực tiếp số xung đột (Commander có nhiều biến phụ gấp $2.4\times$ Product nhưng có ít xung đột nhất), cho thấy cấu trúc đồ thị lan truyền cục bộ đóng vai trò quyết định tới hành vi phân nhánh CDCL.
     \item Commander Variable và Product Encoding là hai kỹ thuật mã hóa có năng lực mở rộng tốt nhất. Commander Variable giúp solver CaDiCaL đạt tốc độ giải nhanh nhất trên dải $N \in [16, 128]$ (chỉ $0.76$s ở $N=128$). Ở quy mô cực đại $N \ge 256$, cả Commander Variable và Product Encoding đều mở rộng thành công lên tới $N=500$ ($32.11$s và $32.26$s) và $N = 1000$ ($100.92$s và $200.36$s, trong đó Product giải thành công 2/3 lần trong giới hạn 300s). Product Encoding đạt quy mô mệnh đề tương đương Sequential ở $N \ge 64$ ($47{,}520$ clauses ở $N=64$ và $193{,}122$ clauses ở $N=128$), trong khi Sequential Counter có ít mệnh đề hơn ở $N \le 32$.
-    \item So sánh đối chứng thực nghiệm cho thấy SAT Solving (đặc biệt là CaDiCaL 1.9.5) vượt trội rõ rệt so với SCIP và CP-SAT về khả năng mở rộng ở các kích thước $N \ge 256$. Gurobi thể hiện tốc độ nhanh nhất ở quy mô nhỏ $N \le 32$ nhưng dừng ở $N \ge 64$ do giới hạn kích thước license đi kèm gói pip (2.000 biến).
+    \item So sánh đối chứng thực nghiệm cho thấy SAT Solving (đặc biệt là CaDiCaL 1.9.5) vượt trội rõ rệt so với SCIP và CP-SAT về khả năng mở rộng ở các kích thước $N \ge 256$. Gurobi thể hiện tốc độ nhanh nhất ở $N = 8$ và $N = 32$ (trong khi CaDiCaL Commander nhanh nhất ở $N = 16$), nhưng dừng ở $N \ge 64$ do giới hạn kích thước license đi kèm gói pip (2.000 biến).
 \end{itemize}
 
 \textbf{Thảo luận về Hạn chế (Limitations):}\\
@@ -491,10 +492,13 @@ Các tác giả tuyên bố không có bất kỳ xung đột lợi ích tài ch
 Trong quá trình chuẩn bị bài báo này, tác giả đã sử dụng công cụ hỗ trợ lập trình Google Antigravity (dựa trên mô hình ngôn ngữ lớn Claude 3.5 Sonnet và Gemini Pro) với các mục đích cụ thể: (1) hỗ trợ viết các đoạn mã script tự động hóa đo đạc thực nghiệm độc lập và trích xuất bảng biểu LaTeX từ tệp CSV gốc; (2) kiểm tra tính nhất quán toán học giữa các bảng số liệu; và (3) rà soát cú pháp và tối ưu hóa định dạng hiển thị theo quy chuẩn Elsevier. Toàn bộ các kết quả thực nghiệm, dữ liệu đo lường và các phân tích khoa học đều được tác giả trực tiếp kiểm chứng trên máy trạm thực tế và tác giả chịu hoàn toàn trách nhiệm về tính trung thực, độ chính xác và tính học thuật của bài báo.
 
 \section*{Tính khả dụng của dữ liệu và mã nguồn (Data Availability)}
-Toàn bộ mã nguồn cài đặt 5 kỹ thuật mã hóa AMO, các bộ giải SAT (PySAT), CP-SAT, Gurobi, SCIP, các script chạy thực nghiệm tự động đo lường độc lập (\texttt{scripts/isolated\_run\_worker.py}, \texttt{scripts/run\_isolated\_master\_benchmark.py}), script tự động sinh bảng biểu LaTeX (\texttt{scripts/generate\_all\_tables\_from\_master.py}), tệp dữ liệu thô chi tiết cả 3 lần chạy (\texttt{data/master\_cadical\_runs.csv}) và nhật ký thực thi đầy đủ (\texttt{data/benchmark\_execution.log}) được cung cấp đầy đủ trong gói dự án đính kèm và lưu trữ công khai trên GitHub repository tại địa chỉ:
-\begin{center}
-\url{https://github.com/vnu-uet-khmt/nqueens-sat-solver}
-\end{center}
+Toàn bộ mã nguồn cài đặt 5 kỹ thuật mã hóa AMO, các bộ giải SAT (PySAT), CP-SAT, Gurobi, SCIP và dữ liệu thực nghiệm được cung cấp đầy đủ trong gói dự án đính kèm và lưu trữ công khai trên GitHub repository:
+\begin{itemize}
+    \item \textbf{Mã nguồn thực nghiệm:} \path{scripts/isolated_run_worker.py}, \path{scripts/run_isolated_master_benchmark.py}, \path{scripts/run_multisolver_benchmark.py}.
+    \item \textbf{Tự động sinh bảng biểu:} \path{scripts/generate_all_tables_from_master.py}, \path{scripts/sync_data_files.py}.
+    \item \textbf{Dữ liệu thực nghiệm gốc:} \path{data/master_cadical_runs.csv}, \path{data/master_multisolver_runs.csv}, \path{data/benchmark_execution.log}.
+    \item \textbf{Kho lưu trữ GitHub:} \url{https://github.com/vnu-uet-khmt/nqueens-sat-solver}
+\end{itemize}
 
 \appendix
 \section{Bảng Dữ liệu Thực nghiệm Chi tiết 3 Lần Lặp Độc lập (Appendix: Full 3-Run Benchmark Data)}

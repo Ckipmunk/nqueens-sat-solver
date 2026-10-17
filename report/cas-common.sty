@@ -424,14 +424,17 @@
 
 \NewDocumentCommand \printorcid { }
 {
-  \group_begin:
-    \tex_let:D \thefootnote \relax \footnotetext
-    {
-      \raggedright
-      \textsc{orcid}(s):\c_space_token 
-      \seq_use:Nn \g_stm_orcid_seq { ;~ }
-    }
-  \group_end:
+  \seq_if_empty:NF \g_stm_orcid_seq
+  {
+    \group_begin:
+      \tex_let:D \thefootnote \relax \footnotetext
+      {
+        \raggedright
+        \textsc{orcid}(s):\c_space_token 
+        \seq_use:Nn \g_stm_orcid_seq { ;~ }
+      }
+    \group_end:
+  }
 }
 
 %
@@ -1964,10 +1967,10 @@
 \def\dst[#1]{\vrule height0pt depth#1 width 0pt}
 \def\xst[#1][#2]{\vrule height#1 depth #2 width\z@}
 
-\def\lastpage{100}
+\def\lastpage{16}
 
 \AtEndDocument{%
-%   \clearpage
+   \clearpage
    \immediate\write\@auxout{\string\csxdef{lastpage}{\thepage}}
 }
 
