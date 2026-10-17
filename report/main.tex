@@ -6,7 +6,7 @@
 \usepackage{multirow}
 \usepackage{graphicx}
 \usepackage{hyperref}
-\hypersetup{pdfauthor={Nguyễn Văn A}, pdftitle={Nghiên cứu các Kỹ thuật Mã hóa SAT cho Bài toán N-Queens}}
+\hypersetup{pdfauthor={Phạm Khánh Duy}, pdftitle={Nghiên cứu các Kỹ thuật Mã hóa SAT cho Bài toán N-Queens}}
 \usepackage{microtype}
 \usepackage{listings}
 \usepackage{xcolor}
@@ -36,23 +36,23 @@
 
 % Header tiêu đề và tác giả
 \shorttitle{Nghiên cứu các Kỹ thuật Mã hóa SAT cho Bài toán N-Queens}
-\shortauthors{Nguyễn Văn A}
+\shortauthors{Phạm Khánh Duy}
 
 % Tiêu đề chính
 \title [mode = title]{Nghiên cứu các Kỹ thuật Mã hóa SAT cho Bài toán N-Queens và So sánh Thực nghiệm với Quy hoạch Tuyến tính Nguyên (ILP) và Lập trình Ràng buộc (CP)}
 
 % Thông tin tác giả (Sinh viên cập nhật thông tin chính xác tại đây)
 % Ghi chú: Ký hiệu [1] trong \author[1] là nhãn tham chiếu đơn vị công tác (\address[1]), hiển thị dạng chỉ số trên trong PDF.
-\author[1]{Nguyễn Văn A\corref{cor1}}[role=Học viên thực hiện]
+\author[1]{Phạm Khánh Duy\corref{cor1}}[role=Học viên thực hiện]
 \cormark[1]
-\ead{24020000@vnu.edu.vn}
+\ead{24021452@vnu.edu.vn}
 
-\author[1]{TS. Trần Trọng Hiếu}[role=Giảng viên hướng dẫn]
-\ead{hieutt@vnu.edu.vn}
+\author[1]{TS. Tô Văn Khánh}[role=Giảng viên hướng dẫn]
+\ead{khanhtv@vnu.edu.vn}
 
 \address[1]{Khoa Công nghệ Thông tin, Trường Đại học Công nghệ, Đại học Quốc gia Hà Nội (VNU-UET), 144 Xuân Thủy, Cầu Giấy, Hà Nội, Việt Nam}
 
-\cortext[cor1]{Tác giả liên hệ chính: Nguyễn Văn A (Học viên thực hiện, MSSV: 24020000, Email: \texttt{24020000@vnu.edu.vn}). Giảng viên hướng dẫn: TS. Trần Trọng Hiếu.}
+\cortext[cor1]{Tác giả liên hệ chính: Phạm Khánh Duy (Học viên thực hiện, MSSV: 24021452, Email: \texttt{24021452@vnu.edu.vn}). Giảng viên hướng dẫn: TS. Tô Văn Khánh.}
 
 \begin{abstract}
 Bài toán $N$-Queens là bài toán kinh điển trong khoa học máy tính và tối ưu tổ hợp rời rạc, yêu cầu sắp xếp $N$ quân hậu trên bàn cờ $N \times N$ không tấn công lẫn nhau. Khi kích thước $N$ gia tăng, không gian tìm kiếm bùng nổ theo giai thừa $\mathcal{O}(N!)$, tạo ra thách thức lớn cho các bộ giải chính xác. Bài báo này nghiên cứu tiếp cận giải chính xác $N$-Queens bằng SAT Solving qua thư viện PySAT. Trọng tâm nghiên cứu là phân tích lý thuyết và đánh giá thực nghiệm 5 kỹ thuật mã hóa At-Most-One (AMO): Pairwise, Sequential Counter, Commander Variable, Binary (Prestwich, 2009; Frisch \& Giannaros, 2010) và Product Encoding. Kết quả cho thấy Pairwise bùng nổ $\mathcal{O}(N^3)$ mệnh đề, tiêu tốn khoảng 4 GB RAM đỉnh tại $N=256$ ($4{,}073.8$ MB) và làm tràn bộ nhớ heap tiến trình Python ($>16$ GB) tại $N=500$ ($207.8$ triệu mệnh đề). Ngược lại, Sequential, Product và Commander duy trì bậc $\mathcal{O}(N^2)$ mệnh đề. Về hiệu năng giải bằng CaDiCaL 1.9.5, Commander Variable đạt tốc độ nhanh nhất trên dải $N \in [16, 128]$ (chỉ mất $0.43$s ở $N=128$, nhanh hơn Sequential khoảng 55 lần). Ở quy mô cực đại $N \ge 256$, Commander và Product mở rộng thành công lên tới $N=500$ ($35.22$s và $36.02$s) và $N=1000$ ($138.15$s và $263.82$s). Solver CaDiCaL được chứng minh hoạt động tất định khi sinh cùng số lượng xung đột và quyết định giữa các lần chạy trên cùng một công thức CNF; sự biến thiên thời gian giải xuất phát từ nhiễu môi trường phần cứng máy tính. So sánh đối chứng đơn luồng (Time Limit 300.0s) với CP-SAT (Google OR-Tools), Gurobi 13.0 và SCIP 9.0 cho thấy SAT Solving thể hiện ưu thế vượt trội về tính mở rộng ở $N \ge 256$, trong khi Gurobi dừng ở $N \ge 64$ do giới hạn kích thước của license đi kèm gói pip (tối đa 2.000 biến).
@@ -468,9 +468,9 @@ Mở rộng mô hình SAT cho các biến thể $N$-Queens có chướng ngại 
 ---
 
 \section*{Đóng góp của tác giả (CRediT authorship contribution statement)}
-\textbf{Nguyễn Văn A:} Ý tưởng nghiên cứu (Conceptualization), Phương pháp luận (Methodology), Xây dựng phần mềm và lập trình thực nghiệm (Software, Validation), Phân tích kết quả thực nghiệm (Formal analysis), Viết bản thảo bài báo khoa học và hiệu đính (Writing - original draft, Writing - review \& editing).
+\textbf{Phạm Khánh Duy:} Ý tưởng nghiên cứu (Conceptualization), Phương pháp luận (Methodology), Xây dựng phần mềm và lập trình thực nghiệm (Software, Validation), Phân tích kết quả thực nghiệm (Formal analysis), Viết bản thảo bài báo khoa học và hiệu đính (Writing - original draft, Writing - review \& editing).
 
-\textbf{TS. Trần Trọng Hiếu:} Định hướng nghiên cứu (Supervision), Góp ý ý tưởng và phản biện học thuật (Conceptualization, Writing - review \& editing).
+\textbf{TS. Tô Văn Khánh:} Định hướng nghiên cứu (Supervision), Góp ý ý tưởng và phản biện học thuật (Conceptualization, Writing - review \& editing).
 
 \section*{Tuyên bố về quyền lợi (Declaration of competing interest)}
 Các tác giả tuyên bố không có bất kỳ xung đột lợi ích tài chính hoặc mối quan hệ cá nhân nào ảnh hưởng đến nội dung và kết quả công bố trong nghiên cứu này.
