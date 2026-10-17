@@ -1,5 +1,5 @@
 \begin{table*}[htbp]
-\caption{So sánh thực nghiệm toàn diện giữa 5 kỹ thuật mã hóa AMO trên CaDiCaL 1.9.5 ($N \in [8, 128]$). Giá trị thời gian là trung vị của 3 lần chạy lặp độc lập qua tiến trình riêng biệt (`subprocess`).}
+\caption{So sánh thực nghiệm toàn diện giữa 5 kỹ thuật mã hóa AMO trên CaDiCaL 1.9.5 ($N \in [8, 128]$). Giá trị thời gian giải là trung vị của 3 lần chạy lặp độc lập qua tiến trình riêng biệt (\texttt{subprocess}).}
 \label{tab:ablation_results}
 \centering
 \resizebox{\textwidth}{!}{%
@@ -9,31 +9,31 @@
 \midrule
 \multicolumn{7}{l}{\textbf{Tổng số mệnh đề CNF (Clauses)}} \\
 Pairwise (Direct) & $744$ & $6{,}352$ & $52{,}640$ & $428{,}864$ & $3{,}462{,}784$ & $\mathcal{O}(N^3)$ (Bùng nổ) \\
-Sequential Counter & $600$ & $2{,}728$ & $11{,}368$ & $47{,}752$ & $193{,}800$ & $\mathcal{O}(N^2)$ (Gọn) \\
-Commander Variable & $634$ & $3{,}176$ & $13{,}426$ & $55{,}990$ & $227{,}010$ & $\mathcal{O}(N^2)$ (Gọn) \\
-Binary (Bitwise) & $724$ & $3{,}924$ & $19{,}888$ & $95{,}572$ & $447{,}828$ & $\mathcal{O}(N^2 \log N)$ \\
-Product (2D Grid) & $690$ & $3{,}336$ & $11{,}546$ & $47{,}520$ & $193{,}122$ & $\mathcal{O}(N^2)$ (Gọn) \\
+Sequential Counter & $600$ & $2{,}728$ & $11{,}592$ & $47{,}752$ & $193{,}800$ & $\mathcal{O}(N^2)$ (Gọn) \\
+Commander Variable & $634$ & $3{,}176$ & $13{,}606$ & $55{,}990$ & $227{,}010$ & $\mathcal{O}(N^2)$ (Gọn) \\
+Binary (Bitwise) & $724$ & $3{,}924$ & $19{,}796$ & $95{,}572$ & $447{,}828$ & $\mathcal{O}(N^2 \log N)$ \\
+Product (2D Grid) & $690$ & $2{,}840$ & $11{,}998$ & $47{,}520$ & $193{,}122$ & $\mathcal{O}(N^2)$ (Gọn) \\
 \midrule
 \multicolumn{7}{l}{\textbf{Tổng số biến logic (Variables)}} \\
 Pairwise (Direct) & $64$ & $256$ & $1{,}024$ & $4{,}096$ & $16{,}384$ & Không biến phụ ($N^2$) \\
-Sequential Counter & $270$ & $1{,}182$ & $4{,}990$ & $20{,}094$ & $81{,}150$ & Biến phụ $\mathcal{O}(N^2)$ \\
-Commander Variable & $154$ & $744$ & $3{,}218$ & $12{,}442$ & $49{,}674$ & Biến phụ $\mathcal{O}(N^2)$ \\
-Binary (Bitwise) & $170$ & $568$ & $1{,}728$ & $6{,}132$ & $21{,}234$ & Biến phụ $\mathcal{O}(N \log N)$ \\
-Product (2D Grid) & $252$ & $856$ & $2{,}696$ & $8{,}940$ & $30{,}182$ & Biến phụ $\mathcal{O}(N\sqrt{N})$ \\
+Sequential Counter & $270$ & $1{,}182$ & $4{,}926$ & $20{,}094$ & $81{,}150$ & Biến phụ $\mathcal{O}(N^2)$ \\
+Commander Variable & $154$ & $744$ & $3{,}114$ & $12{,}442$ & $49{,}674$ & Biến phụ $\mathcal{O}(N^2)$ \\
+Binary (Bitwise) & $170$ & $568$ & $1{,}846$ & $6{,}132$ & $21{,}234$ & Biến phụ $\mathcal{O}(N \log N)$ \\
+Product (2D Grid) & $252$ & $836$ & $2{,}768$ & $8{,}940$ & $30{,}182$ & Biến phụ $\mathcal{O}(N\sqrt{N})$ \\
 \midrule
 \multicolumn{7}{l}{\textbf{Thời gian mã hóa tạo mô hình CNF - Encoding Time (ms)}} \\
-Pairwise (Direct) & $0.30$ & $1.80$ & $16.30$ & $180.50$ & $1980.40$ & Đo đạc tự động \\
-Sequential Counter & $0.20$ & $0.80$ & $4.20$ & $21.00$ & $115.00$ & Đo đạc tự động \\
-Commander Variable & $0.50$ & $1.60$ & $7.80$ & $38.00$ & $185.00$ & Đo đạc tự động \\
-Binary (Bitwise) & $0.40$ & $1.70$ & $8.20$ & $41.00$ & $210.00$ & Đo đạc tự động \\
-Product (2D Grid) & $0.30$ & $1.50$ & $7.50$ & $36.00$ & $175.00$ & Đo đạc tự động \\
+Pairwise (Direct) & $0.34$ & $2.31$ & $19.72$ & $185.02$ & $1978.76$ & Đo đạc tự động \\
+Sequential Counter & $0.24$ & $1.17$ & $5.36$ & $19.60$ & $93.63$ & Đo đạc tự động \\
+Commander Variable & $0.39$ & $2.52$ & $10.53$ & $39.81$ & $184.36$ & Đo đạc tự động \\
+Binary (Bitwise) & $0.39$ & $2.33$ & $10.03$ & $55.84$ & $284.62$ & Đo đạc tự động \\
+Product (2D Grid) & $0.52$ & $1.60$ & $6.78$ & $26.08$ & $101.55$ & Đo đạc tự động \\
 \midrule
 \multicolumn{7}{l}{\textbf{Thời gian giải trung vị - Solving Time CaDiCaL 1.9.5 (ms)}} \\
-Pairwise (Direct) & $1.90$ & $16.90$ & $271.40$ & $670.00$ & $6{,}476.70$ & Chậm dần ở $N$ lớn \\
-Sequential Counter & $1.30$ & $41.30$ & $245.80$ & $1606.50$ & $22{,}654.80$ & Rất chậm ở $N=128$ do nhiều biến \\
-Commander Variable & $\mathbf{1.20}$ & $\mathbf{7.10}$ & $\mathbf{35.40}$ & $\mathbf{174.10}$ & $\mathbf{725.00}$ & Nhanh nhất trên dải $N \in [16, 128]$ \\
-Binary (Bitwise) & $1.70$ & $16.70$ & $141.50$ & $505.00$ & $1{,}450.00$ & Hiệu năng khá tốt \\
-Product (2D Grid) & $1.60$ & $18.00$ & $80.90$ & $397.20$ & $1{,}420.00$ & Rất ổn định và cân bằng \\
+Pairwise (Direct) & $0.05$ & $11.42$ & $235.30$ & $308.64$ & $3{,}026.69$ & Chậm dần ở $N$ lớn \\
+Sequential Counter & $0.06$ & $39.81$ & $238.16$ & $1669.31$ & $23{,}699.21$ & Chậm ở $N=128$ do bùng nổ số xung đột CDCL \\
+Commander Variable & $\mathbf{0.07}$ & $\mathbf{3.51}$ & $\mathbf{20.01}$ & $\mathbf{125.93}$ & $\mathbf{427.65}$ & Nhanh nhất trên dải $N \in [16, 128]$ \\
+Binary (Bitwise) & $0.13$ & $11.35$ & $171.28$ & $385.51$ & $901.48$ & Hiệu năng khá tốt \\
+Product (2D Grid) & $0.42$ & $14.24$ & $65.95$ & $387.93$ & $1{,}218.62$ & Tương đương Sequential ở $N \ge 64$, rất ổn định \\
 \bottomrule
 \end{tabular*}%
 }
