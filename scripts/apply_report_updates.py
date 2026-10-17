@@ -150,6 +150,12 @@ def update_content(content):
     t5b_regex = r"\\begin\{table\*\}\[htbp\]\s*\\caption\{Dữ liệu thực nghiệm chi tiết 3 lần chạy lặp độc lập so sánh đa bộ giải.*?\\label\{tab:appendix_multisolver\}.*?\\end\{table\*\}"
     content = re.sub(t5b_regex, lambda m: t5b_gen, content, flags=re.DOTALL)
 
+    try:
+        from add_bold_headings import enhance_bold_headings
+        content = enhance_bold_headings(content)
+    except Exception as e:
+        print(f"Warning: could not run enhance_bold_headings: {e}")
+
     return content
 
 def main():

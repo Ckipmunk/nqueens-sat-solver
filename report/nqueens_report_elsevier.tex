@@ -30,6 +30,13 @@
 \setlength{\parindent}{1.2em}
 \setlist[itemize]{leftmargin=1.8em, itemsep=0.25em, topsep=0.3em}
 \setlist[enumerate]{leftmargin=1.8em, itemsep=0.25em, topsep=0.3em}
+% Cấu hình các cấp đề mục tiêu đề in đậm rõ nét (Bold Heading Typography)
+\makeatletter
+\def\sectionfont{\rmfamily\fontsize{12pt}{14pt}\bfseries\boldmath}
+\def\ssectionfont{\rmfamily\fontsize{11pt}{13pt}\bfseries\boldmath}
+\def\sssectionfont{\rmfamily\fontsize{10.5pt}{12pt}\bfseries\boldmath\upshape}
+\makeatother
+
 \usepackage{xcolor}
 
 % Cấu hình hỗ trợ tiếng Việt đa nền tảng
@@ -86,10 +93,14 @@ $N$-Queens \sep SAT Solving \sep PySAT \sep CaDiCaL \sep At-Most-One (AMO) \sep 
 \maketitle
 
 \section{Giới thiệu (Introduction)}
+
+\noindent\textbf{1. Bối cảnh lịch sử và Định nghĩa bài toán:}\\
 Bài toán $N$-Queens (xếp $N$ quân hậu) được nhà nghiên cứu Max Bezzel khởi xướng vào năm 1848 dưới dạng bài toán 8 quân hậu trên bàn cờ vua tiêu chuẩn, và nhanh chóng thu hút sự chú ý của các nhà toán học lừng danh, tiêu biểu là Carl Friedrich Gauss~\cite{bell2009survey}. Về mặt hình thức, bài toán yêu cầu đặt $N$ quân hậu lên một bàn cờ kích thước $N \times N$ sao cho không có bất kỳ hai quân hậu nào có thể tấn công lẫn nhau. Theo luật cờ vua, điều này đồng nghĩa với việc không có hai quân hậu nào nằm trên cùng một hàng, cùng một cột, hoặc cùng một đường chéo (chính hoặc phụ).
 
+\noindent\textbf{2. Ý nghĩa lý thuyết và Ứng dụng thực tiễn:}\\
 Mặc dù có cấu trúc phát biểu trực quan và đơn giản, $N$-Queens là bài toán chuẩn mực (standard benchmark) để kiểm tra năng lực của các thuật toán tìm kiếm tổ hợp, kỹ thuật thỏa mãn ràng buộc (CSP - Constraint Satisfaction Problem), giải thuật heuristic và các bộ giải suy diễn logic~\cite{rossi2006handbook}. Ngoài ý nghĩa lý thuyết, các biến thể của bài toán $N$-Queens xuất hiện trong nhiều ứng dụng công nghiệp thực tiễn quan trọng như: thiết kế bố trí vi mạch tích hợp cỡ lớn (VLSI design), định tuyến thông tin trong mạng truyền thông đa xử lý song song, lập lịch tài nguyên không xung đột, và xây dựng các khối mã kiểm tra sửa lỗi trong mật mã học~\cite{bell2009survey}.
 
+\noindent\textbf{3. Các hướng tiếp cận giải quyết bài toán:}\\
 Để giải quyết bài toán $N$-Queens, cộng đồng khoa học đã phát triển nhiều hướng tiếp cận khác nhau:
 \begin{enumerate}
     \item \textbf{Tìm kiếm vét cạn và Quay lui (Backtracking):} Là phương pháp cổ điển, tuy nhiên chi phí tính toán tăng giai thừa khiến thuật toán quay lui thuần túy gặp khó khăn lớn khi $N$ tăng.
@@ -99,9 +110,10 @@ Mặc dù có cấu trúc phát biểu trực quan và đơn giản, $N$-Queens 
     \item \textbf{Mã hóa SAT (SAT Encoding \& Solving):} Chuyển đổi toàn bộ các điều kiện của bài toán thành dạng chuẩn hội (Conjunctive Normal Form - CNF) và sử dụng các bộ giải SAT hiện đại dựa trên kiến trúc CDCL (Conflict-Driven Clause Learning) như CaDiCaL~\cite{biere2024cadical}, Glucose~\cite{audemard2018glucose}. Bộ giải CaDiCaL được tác giả Armin Biere và cộng sự phát triển~\cite{biere2024cadical}, trong đó bản phát hành 1.9.5 được tích hợp sẵn qua cổng giao tiếp C++ của thư viện PySAT~\cite{ignatiev2018pysat}.
 \end{enumerate}
 
+\noindent\textbf{4. Thách thức bùng nổ mệnh đề trong tiếp cận SAT:}\\
 Trọng tâm của tiếp cận SAT nằm ở việc chuyển đổi các ràng buộc số lượng, cụ thể là ràng buộc \textit{Exactly-One} (Đúng một) và \textit{At-Most-One} (Tối đa một - AMO) thành các mệnh đề logic (clauses). Cách mã hóa cặp trực tiếp (Pairwise) dẫn tới bùng nổ đa thức bậc ba $\mathcal{O}(N^3)$ mệnh đề trên toàn bàn cờ; thực nghiệm của chúng tôi ghi nhận ở $N=256$, Pairwise đòi hỏi tới $27{,}831{,}552$ mệnh đề và tiêu tốn đỉnh điểm khoảng 7.7 GB RAM ($7{,}679.4$ MB, $\approx 7.50$ GiB), và đến $N=500$ mô hình chạm mốc $207{,}834{,}500$ mệnh đề (xấp xỉ $207.8$ triệu), dẫn đến hiện tượng cạn kiệt bộ nhớ (OOM) khi khởi tạo danh sách đối tượng trong Python trên hệ thống 32 GB RAM.
 
-\textbf{Đóng góp chính của bài báo:}
+\noindent\textbf{5. Đóng góp khoa học cốt lõi của bài báo:}
 \begin{itemize}
     \item Nghiên cứu, cài đặt và phân tích so sánh lý thuyết lẫn thực nghiệm 5 kỹ thuật mã hóa AMO: Pairwise, Sequential Counter~\cite{sinz2005towards}, Commander Variable~\cite{klieber2007efficient}, Binary Encoding~\cite{prestwich2009cnf,frisch2010sat} và Product Encoding~\cite{chen2010product}. Phân định rõ giữa các hàm PySAT CardEnc có sẵn và các thuật toán tự cài đặt độc lập.
     \item Triển khai hoàn chỉnh bộ giải $N$-Queens Solver trên nền tảng PySAT~\cite{ignatiev2018pysat}, tích hợp solver CaDiCaL 1.9.5 và Glucose 4.2.
@@ -111,6 +123,7 @@ Trọng tâm của tiếp cận SAT nằm ở việc chuyển đổi các ràng 
     \item Kết quả thực nghiệm cho thấy cả Commander Variable và Product Encoding cho phép CaDiCaL 1.9.5 giải quyết thành công bàn cờ kích thước cực lớn $N = 500$ ($32.11$s và $32.26$s) và $N = 1000$ ($1{,}000{,}000$ ô cờ; $100.92$s và $200.36$s), trong khi CP-SAT và SCIP đều dừng do hết thời gian (timeout) ở $N \ge 256$, còn Gurobi dừng ở $N \ge 64$ do giới hạn kích thước license đi kèm gói pip (2.000 biến).
 \end{itemize}
 
+\noindent\textbf{6. Cấu trúc tổ chức của bài báo:}\\
 Cấu trúc các phần tiếp theo của bài báo: Phần 2 trình bày cơ sở lý thuyết, các nghiên cứu liên quan và mô hình toán học ILP, CP. Phần 3 mô tả chi tiết tiếp cận SAT, 5 kỹ thuật mã hóa AMO, kỹ thuật phá vỡ đối xứng và chứng minh tính đúng đắn. Phần 4 báo cáo kết quả thực nghiệm và thảo luận chuyên sâu. Phần 5 kết luận bài báo, nêu rõ các hạn chế và định hướng phát triển.
 
 ---
@@ -133,13 +146,19 @@ Cho bàn cờ vuông kích thước $N \times N$, tập tọa độ các ô cờ
 \end{tcolorbox}
 
 \subsection{Các nghiên cứu liên quan (Related Work)}
+
+\noindent\textbf{Tiến trình nghiên cứu và Kết quả giải tích:}\\
 Nghiên cứu về $N$-Queens đã trải qua hơn 170 năm với nhiều bước tiến lý thuyết và thực nghiệm. Bell và Stevens~\cite{bell2009survey} đã tổng hợp toàn diện các kết quả giải tích, chỉ ra rằng với mọi $N \ge 4$, luôn tồn tại ít nhất một nghiệm hợp lệ, và có thể xây dựng trực tiếp nghiệm bằng các công thức tường minh dựa trên số học modular. Về phương diện giải thuật heuristic, Minton et al.~\cite{minton1992solving} đề xuất thuật toán Min-Conflicts, có thể tìm ra một nghiệm cho $N$ rất lớn trong thời gian ngắn.
 
+\noindent\textbf{Giới hạn của Heuristic và Nhu cầu về Bộ giải chính xác:}\\
 Tuy nhiên, các thuật toán heuristic và công thức giải tích chỉ giải quyết bài toán đặt hậu tiêu chuẩn mà không thể khái quát hóa cho các bài toán mở rộng như đếm số lượng nghiệm (\#SAT / Model Counting), hoặc bài toán $N$-Queens có chướng ngại vật ($N$-Queens Completion) vốn đã được Gent et al.~\cite{gent2017complexity} chứng minh là NP-đầy đủ. Do đó, việc nghiên cứu $N$-Queens dưới góc độ các hệ giải quyết ràng buộc chính xác tổng quát (General Exact Solvers) như SAT, CP và ILP giữ vai trò học thuật cốt lõi~\cite{rossi2006handbook,biere2021handbook}. 
 
+\noindent\textbf{Các nghiên cứu nền tảng về kỹ thuật mã hóa AMO trong SAT:}\\
 Trong lĩnh vực SAT Solving, việc mã hóa các ràng buộc số lượng At-Most-One (AMO) và Cardinality Constraints là bài toán nền tảng. Sinz~\cite{sinz2005towards} đề xuất kỹ thuật Sequential Counter cho phép mã hóa với số mệnh đề tuyến tính và duy trì tính lan truyền đơn vị (unit propagation). Klieber và Kwon~\cite{klieber2007efficient} phát triển kỹ thuật biến chỉ huy (Commander Variable) áp dụng phân hoạch tập biến thành các nhóm nhỏ. Chen~\cite{chen2010product} giới thiệu Product Encoding, ánh xạ biến lên lưới 2D để giảm số biến phụ xuống $\mathcal{O}(\sqrt{k})$. Frisch \& Giannaros~\cite{frisch2010sat} và Prestwich~\cite{prestwich2009cnf} hệ thống hóa các kỹ thuật mã hóa nhị phân (Binary Encoding) và phân tích tính chất duy trì tính nhất quán cung (generalized arc consistency).
 
 \subsection{Mô hình Quy hoạch Tuyến tính Nguyên (ILP Formulation)}
+
+\noindent\textbf{Không gian biến quyết định nhị phân:}\\
 Trong mô hình ILP 0-1, ta định nghĩa biến nhị phân $x_{r,c} \in \{0, 1\}$ với mọi $0 \le r, c < N$:
 \begin{equation}
     x_{r,c} = \begin{cases}
@@ -148,6 +167,7 @@ Trong mô hình ILP 0-1, ta định nghĩa biến nhị phân $x_{r,c} \in \{0, 
     \end{cases}
 \end{equation}
 
+\noindent\textbf{Hệ phương trình và bất phương trình ràng buộc ILP:}\\
 Mô hình ILP được thiết lập như sau:
 \begin{align}
     \min \quad & 0 \label{eq:ilp-obj}\\
@@ -158,11 +178,15 @@ Mô hình ILP được thiết lập như sau:
     & \sum_{\substack{0 \le r, c < N \\ r + c = k}} x_{r,c} \le 1, \quad \forall k \in \{1, \dots, 2N-3\}, \label{eq:ilp-diag2}\\
     & x_{r,c} \in \{0, 1\}, \quad \forall 0 \le r, c < N. \label{eq:ilp-domain}
 \end{align}
+\noindent\textbf{Ý nghĩa ràng buộc và Thách thức nới lỏng tuyến tính (LP Relaxation):}\\
 Phương trình \eqref{eq:ilp-row} và \eqref{eq:ilp-col} đảm bảo mỗi hàng và mỗi cột có đúng 1 quân hậu. Bất phương trình \eqref{eq:ilp-diag1} và \eqref{eq:ilp-diag2} đảm bảo mỗi đường chéo chính và phụ chỉ chứa tối đa 1 quân hậu.
 
 \subsection{Mô hình Lập trình Ràng buộc (CP Formulation)}
+
+\noindent\textbf{Biểu diễn biến chỉ số và miền giá trị nguyên:}\\
 Tiếp cận Lập trình Ràng buộc (CP) biểu diễn bài toán bằng $N$ biến số nguyên $q_0, q_1, \dots, q_{N-1}$. Trong đó $q_r \in \{0, \dots, N-1\}$ biểu thị vị trí cột của quân hậu nằm tại hàng $r$.
 
+\noindent\textbf{Hệ ràng buộc toàn cục AllDifferent:}\\
 Mô hình CP tương ứng:
 \begin{align}
     &q_r \in \{0, 1, \dots, N-1\}, \quad \forall r \in \{0, \dots, N-1\}, \\
@@ -170,6 +194,7 @@ Mô hình CP tương ứng:
     &\text{AllDifferent}(q_0 + 0, q_1 + 1, \dots, q_{N-1} + (N-1)), \label{eq:cp-diag1}\\
     &\text{AllDifferent}(q_0 - 0, q_1 - 1, \dots, q_{N-1} - (N-1)). \label{eq:cp-diag2}
 \end{align}
+\noindent\textbf{Cơ chế suy diễn và Hạn chế cấu hình đơn luồng:}\\
 Toán tử toàn cục \texttt{AllDifferent} cho phép bộ giải áp dụng thuật toán lọc miền giá trị dựa trên cặp ghép cực đại đồ thị hai phía~\cite{rossi2006handbook}.
 
 ---
@@ -177,8 +202,11 @@ Toán tử toàn cục \texttt{AllDifferent} cho phép bộ giải áp dụng th
 \section{Phương pháp Giải chính xác bằng SAT (SAT-Based Approach)}
 
 \subsection{Không gian biến logic và Phân rã Ràng buộc}
+
+\noindent\textbf{Định nghĩa không gian biến mệnh đề cơ sở:}\\
 Ta khai báo $N^2$ biến logic cơ sở $X_{r,c}$ với $0 \le r, c < N$, mang giá trị \texttt{True} nếu có quân hậu tại ô $(r, c)$ và \texttt{False} nếu ngược lại. Biến $X_{r,c}$ được định danh bằng số nguyên $1 + r \times N + c$.
 
+\noindent\textbf{Nguyên lý phân rã ràng buộc Đúng-Một (Exactly-One):}\\
 Nguyên lý phân rã ràng buộc \textit{Exactly-One} (EO) thành hai thành phần cơ bản:
 \begin{equation}
     \text{EO}(X_1, \dots, X_k) \iff \text{ALO}(X_1, \dots, X_k) \land \text{AMO}(X_1, \dots, X_k).
@@ -189,52 +217,65 @@ Trong đó:
     \item \textbf{At-Most-One (AMO):} Tối đa một biến nhận giá trị \texttt{True}.
 \end{itemize}
 
+\noindent\textbf{Quy tắc ràng buộc trên các đường chéo:}\\
 Các đường chéo (chính và phụ) có độ dài $\ge 2$ chỉ yêu cầu ràng buộc AMO.
 
 \subsection{Chi tiết 5 Kỹ thuật Mã hóa Ràng buộc AMO}
 Giả sử cần áp dụng ràng buộc AMO lên tập $k$ biến logic $\{x_1, x_2, \dots, x_k\}$.
 
 \subsubsection{1. Pairwise Encoding (Mã hóa Cặp trực tiếp)}
+\textbf{Nguyên lý mã hóa:}\\
 Cấm trực tiếp mọi cặp biến $(x_i, x_j)$ cùng nhận giá trị \texttt{True}~\cite{prestwich2009cnf}:
 \begin{equation}
     \text{AMO}_{\text{pair}}(x_1, \dots, x_k) = \bigwedge_{1 \le i < j \le k} (\neg x_i \lor \neg x_j).
 \end{equation}
+\textbf{Độ phức tạp và Triển khai:}\\
 Số mệnh đề cho 1 nhóm là $\binom{k}{2} = \mathcal{O}(k^2)$. Không dùng biến phụ. Phương pháp này có sẵn trong PySAT qua \texttt{CardEnc.atmost(..., encoding=EncType.pairwise)}.
 
 \subsubsection{2. Sequential Counter Encoding (Bộ đếm Tuần tự Sinz, 2005)}
+\textbf{Nguyên lý mã hóa:}\\
 Sử dụng $k-1$ biến phụ $s_1, \dots, s_{k-1}$ biểu thị trạng thái tích lũy~\cite{sinz2005towards}:
 \begin{align}
     &(\neg x_1 \lor s_1), \\
     &(\neg x_i \lor s_i), \quad (\neg s_{i-1} \lor s_i), \quad (\neg x_i \lor \neg s_{i-1}), \quad \forall 2 \le i \le k-1, \\
     &(\neg x_k \lor \neg s_{k-1}).
 \end{align}
+\textbf{Độ phức tạp và Triển khai:}\\
 Số biến phụ là $k - 1 = \mathcal{O}(k)$. Số mệnh đề là $3k - 4 = \mathcal{O}(k)$. Phương pháp này tương đương với \texttt{CardEnc.atmost(..., encoding=EncType.seqcounter)} trong PySAT.
 
 \subsubsection{3. Commander Variable Encoding (Klieber \& Kwon, 2007)}
 \textit{(Tự cài đặt độc lập - Thư viện PySAT CardEnc chuẩn không tích hợp sẵn phương pháp này)}.\\
+\textbf{Nguyên lý mã hóa:}\\
 Chia $k$ biến thành các nhóm nhỏ kích thước $g=3$~\cite{klieber2007efficient}. Với mỗi nhóm $G_m$, tạo biến chỉ huy $c_m$:
 \begin{enumerate}
     \item Trong mỗi nhóm: $\text{AMO}(G_m)$ bằng Pairwise.
     \item Liên kết: $(\neg x \lor c_m)$ với mọi $x \in G_m$, và $(\neg c_m \lor \bigvee_{x \in G_m} x)$.
     \item Đệ quy: Áp dụng $\text{AMO}(c_1, c_2, \dots)$ lên tập biến chỉ huy.
 \end{enumerate}
+\textbf{Độ phức tạp:}\\
 Số biến phụ $\mathcal{O}(k)$, số mệnh đề $\mathcal{O}(k)$.
 
 \subsubsection{4. Binary / Bitwise Encoding (Prestwich, 2009; Frisch \& Giannaros, 2010)}
+\textbf{Nguyên lý mã hóa:}\\
 Sử dụng $m = \lceil \log_2 k \rceil$ biến phụ nhị phân $b_1, \dots, b_m$ mã hóa vị trí của biến được bật~\cite{prestwich2009cnf,frisch2010sat}:
 \begin{equation}
     \bigwedge_{j=1}^m (\neg x_i \lor \ell(b_j, \text{bit}_j(i-1))),
 \end{equation}
-với $\ell(b_j, 1) = b_j$ và $\ell(b_j, 0) = \neg b_j$. Số biến phụ $\lceil \log_2 k \rceil = \mathcal{O}(\log k)$, số mệnh đề $\mathcal{O}(k \log k)$. Tương đương \texttt{CardEnc.atmost(..., encoding=EncType.bitwise)} trong PySAT.
+với $\ell(b_j, 1) = b_j$ và $\ell(b_j, 0) = \neg b_j$.
+
+\textbf{Độ phức tạp và Triển khai:}\\
+Số biến phụ $\lceil \log_2 k \rceil = \mathcal{O}(\log k)$, số mệnh đề $\mathcal{O}(k \log k)$. Tương đương \texttt{CardEnc.atmost(..., encoding=EncType.bitwise)} trong PySAT.
 
 \subsubsection{5. Product Encoding (Chen, 2010)}
 \textit{(Tự cài đặt độc lập - Thư viện PySAT CardEnc chuẩn không tích hợp sẵn phương pháp này)}.\\
+\textbf{Nguyên lý mã hóa:}\\
 Ánh xạ biến vào lưới $p \times q \ge k$ với $p = \lfloor \sqrt{k} \rfloor, q = \lceil k / p \rceil$~\cite{chen2010product}.
 Khai báo $p$ biến hàng $u_1, \dots, u_p$ và $q$ biến cột $v_1, \dots, v_q$:
 \begin{align}
     &(\neg x_{\text{idx}} \lor u_r), \quad (\neg x_{\text{idx}} \lor v_c), \\
     &\text{AMO}_{\text{pair}}(u_1, \dots, u_p), \quad \text{AMO}_{\text{pair}}(v_1, \dots, v_q).
 \end{align}
+\textbf{Độ phức tạp:}\\
 Số biến phụ $p + q = \mathcal{O}(\sqrt{k})$, số mệnh đề $\mathcal{O}(k)$.
 
 \begin{table*}[htbp]
@@ -259,6 +300,8 @@ Product (2D Grid) & $\mathcal{O}(\sqrt{k})$ & $\mathcal{O}(k)$ & $\mathcal{O}(N^
 \end{table*}
 
 \subsection{Kỹ thuật Phá vỡ Đối xứng (Symmetry Breaking)}
+
+\noindent\textbf{Cấu trúc nhóm đối xứng của bàn cờ ($D_4$):}\\
 Nhóm đối xứng của bài toán $N$-Queens bao gồm 8 phép biến đổi đẳng cự ($D_4$). Bằng cách áp dụng phép phản xạ gương qua trục đứng, ta có thể giới hạn quân hậu ở hàng 0 chỉ nằm ở nửa bên trái bàn cờ:
 \begin{equation}
     \neg X_{0, c}, \quad \forall c \ge \lceil N / 2 \rceil.
@@ -271,6 +314,7 @@ Nếu bài toán $N$-Queens có nghiệm hợp lệ thì luôn tồn tại ít n
 Giả sử $\mathcal{Q} = \{(r, c_r) \mid 0 \le r < N\}$ là một nghiệm hợp lệ của bài toán $N$-Queens. Nếu $c_0 < \lceil N/2 \rceil$, nghiệm $\mathcal{Q}$ đã thỏa mãn ràng buộc. Nếu $c_0 \ge \lceil N/2 \rceil$, ta áp dụng phép phản xạ gương theo trục đứng: $\phi(r, c) = (r, N - 1 - c)$. Ánh xạ $\phi$ là một song ánh trên bàn cờ $\mathcal{H}_N$. Khoảng cách hàng giữa hai ô bất kỳ không đổi: $|r_1 - r_2| = |r_1 - r_2|$. Khoảng cách cột thỏa mãn: $|(N - 1 - c_1) - (N - 1 - c_2)| = |c_2 - c_1| = |c_1 - c_2|$. Do đó, điều kiện không tấn công trên hàng, cột và đường chéo được bảo toàn hoàn toàn. Vị trí cột mới của quân hậu ở hàng 0 là $c'_0 = N - 1 - c_0 \le N - 1 - \lceil N/2 \rceil = \lfloor N/2 \rfloor - 1 < \lceil N/2 \rceil$. Như vậy, nghiệm phản xạ $\phi(\mathcal{Q})$ là một nghiệm hợp lệ và thỏa mãn ràng buộc phá vỡ đối xứng.
 \end{proof}
 
+\noindent\textbf{Ghi chú thực nghiệm về việc loại trừ đối xứng trong đánh giá:}\\
 \textit{Ghi chú thực nghiệm:} Phá vỡ đối xứng là một kỹ thuật tùy chọn được phân tích hình thức trong Bổ đề 1. Trong toàn bộ các thực nghiệm định lượng chính thức của bài báo này, chúng tôi giữ mô hình cơ sở không áp dụng phá vỡ đối xứng (tức không thêm các mệnh đề đơn vị loại trừ đối xứng) nhằm đo lường năng lực tìm kiếm tự nhiên của các solver khi không có sự hỗ trợ của các ràng buộc phụ trợ.
 
 \subsection{Chứng minh tính đúng đắn của mô hình SAT}
@@ -278,7 +322,8 @@ Giả sử $\mathcal{Q} = \{(r, c_r) \mid 0 \le r < N\}$ là một nghiệm hợ
 Cho bàn cờ kích thước $N \times N$. Công thức logic $\mathcal{F}_{\text{NQueens}} = \mathcal{F}_{\text{row}} \land \mathcal{F}_{\text{col}} \land \mathcal{F}_{\text{diag1}} \land \mathcal{F}_{\text{diag2}}$ là thỏa được (SAT) khi và chỉ khi bài toán $N$-Queens có nghiệm hợp lệ.
 \end{proposition}
 \begin{proof}
-$(\implies)$ Giả sử công thức $\mathcal{F}_{\text{NQueens}}$ có một phép gán chân trị thỏa mãn $\tau$ (gồm các biến cơ sở $X_{r,c}$ và mọi biến phụ liên quan).
+\noindent\textbf{1. Chứng minh chiều thuận ($\implies$ - Tính đúng đắn / Soundness):}\\
+Giả sử công thức $\mathcal{F}_{\text{NQueens}}$ có một phép gán chân trị thỏa mãn $\tau$ (gồm các biến cơ sở $X_{r,c}$ và mọi biến phụ liên quan).
 Trước hết, ta chứng minh mọi kỹ thuật mã hóa AMO được sử dụng trong bài báo đều suy diễn chặt chẽ ràng buộc số lượng $\sum_{i=1}^k x_i \le 1$:
 \begin{enumerate}
     \item \textit{Pairwise:} Chứa các mệnh đề $(\neg x_i \lor \neg x_j)$ với mọi $i < j$. Nếu có hai biến $x_i = x_j = 1$, mệnh đề tương ứng nhận giá trị \texttt{False}, mâu thuẫn.
@@ -289,7 +334,8 @@ Trước hết, ta chứng minh mọi kỹ thuật mã hóa AMO được sử d�
 \end{enumerate}
 Như vậy, trên mỗi hàng $r \in \{0, \dots, N-1\}$, ràng buộc $\text{EO} = \text{ALO} \land \text{AMO}$ đảm bảo tồn tại \textit{duy nhất} một chỉ số cột $c_r$ sao cho $\tau(X_{r, c_r}) = 1$. Tương tự, trên mỗi cột $c \in \{0, \dots, N-1\}$, tồn tại duy nhất một quân hậu, do đó ánh xạ $r \mapsto c_r$ là một hoán vị trên $\{0, \dots, N-1\}$. Trên mỗi đường chéo xuôi ($r - c = k$) và đường chéo ngược ($r + c = k$), ràng buộc AMO đảm bảo có tối đa 1 quân hậu, tức không tồn tại hai quân hậu nào có $|r_1 - r_2| = |c_{r_1} - c_{r_2}|$. Vậy tập $\mathcal{Q} = \{(r, c_r) \mid 0 \le r < N\}$ là một nghiệm hợp lệ của bài toán $N$-Queens.
 
-$(\impliedby)$ Ngược lại, giả sử tồn tại nghiệm hợp lệ $\mathcal{Q} = \{(r, c_r) \mid 0 \le r < N\}$. Ta thiết lập phép gán chân trị cơ sở $\tau(X_{r,c}) = 1 \iff c = c_r$, và $\tau(X_{r,c}) = 0 \iff c \neq c_r$.
+\noindent\textbf{2. Chứng minh chiều nghịch ($\impliedby$ - Tính đầy đủ / Completeness):}\\
+Ngược lại, giả sử tồn tại nghiệm hợp lệ $\mathcal{Q} = \{(r, c_r) \mid 0 \le r < N\}$. Ta thiết lập phép gán chân trị cơ sở $\tau(X_{r,c}) = 1 \iff c = c_r$, và $\tau(X_{r,c}) = 0 \iff c \neq c_r$.
 Vì $\mathcal{Q}$ là nghiệm hợp lệ, mỗi hàng và mỗi cột có đúng một quân hậu, nên mọi mệnh đề ALO và Pairwise AMO trên hàng và cột đều thỏa mãn; trên các đường chéo có tối đa một quân hậu nên không có cặp biến cơ sở nào cùng nhận giá trị 1.
 Đối với các biến phụ:
 \begin{enumerate}
@@ -322,14 +368,14 @@ Vậy $\tau$ là phép gán thỏa mãn toàn bộ công thức $\mathcal{F}_{\t
 \subsection{Thiết lập Môi trường Thực nghiệm}
 Toàn bộ các thí nghiệm được triển khai và đo lường trên máy trạm có cấu hình:
 \begin{itemize}
-    \item \textbf{Bộ vi xử lý (CPU):} Intel Core i7-12700KF (12 nhân, 20 luồng, xung nhịp cơ bản 3.60 GHz, Turbo Boost 5.00 GHz).
+    \item \textbf{Cấu hình vi xử lý (CPU):} Intel Core i7-12700KF (12 nhân, 20 luồng, xung nhịp cơ bản 3.60 GHz, Turbo Boost 5.00 GHz).
     \item \textbf{Bộ nhớ trong (RAM):} 32 GB DDR4 3200 MHz.
     \item \textbf{Hệ điều hành:} Microsoft Windows 11 Pro 64-bit.
     \item \textbf{Môi trường phần mềm:} Python 3.14, PySAT toolkit (phiên bản 1.9.dev15) tích hợp solver CaDiCaL 1.9.5 và Glucose 4.2; Google OR-Tools 9.15 (CP-SAT và SCIP 9.0); Gurobi Optimizer 13.0.3 (gurobipy).
     \item \textbf{Quy trình đo đạc chuẩn mực và cách ly tiến trình (Process Isolation):}
       \begin{itemize}
-          \item Để loại trừ triệt để ảnh hưởng của phân mảnh bộ nhớ heap (memory fragmentation) và rác tích tụ trong tiến trình Python dài, \textbf{mỗi lượt chạy (run) của từng bộ giải và từng giá trị $N$ được thực thi trong một tiến trình hệ điều hành độc lập} (thông qua lệnh gọi \texttt{subprocess}), bộ nhớ RAM được giải phóng hoàn toàn giữa các lượt chạy. Mỗi cấu hình được đo lặp lại đúng 3 lần độc lập để xác định giá trị trung vị (median), khoảng biến thiên $[\min, \max]$ và độ lệch chuẩn ($\sigma$).
-          \item Toàn bộ số liệu trong Bảng 2 và Bảng 4 được trích xuất từ cùng một quy trình thực nghiệm đồng nhất duy nhất, đảm bảo tính nhất quán toán học giữa các bảng ($t_{\text{Bảng 4}} = t_{\text{Bảng 2}} / 1000$).
+          \item \textbf{Cách ly tiến trình (\texttt{subprocess}):} Để loại trừ triệt để ảnh hưởng của phân mảnh bộ nhớ heap (memory fragmentation) và rác tích tụ trong tiến trình Python dài, \textbf{mỗi lượt chạy (run) của từng bộ giải và từng giá trị $N$ được thực thi trong một tiến trình hệ điều hành độc lập} (thông qua lệnh gọi \texttt{subprocess}), bộ nhớ RAM được giải phóng hoàn toàn giữa các lượt chạy. Mỗi cấu hình được đo lặp lại đúng 3 lần độc lập để xác định giá trị trung vị (median), khoảng biến thiên $[\min, \max]$ và độ lệch chuẩn ($\sigma$).
+          \item \textbf{Tính nhất quán dữ liệu:} Toàn bộ số liệu trong Bảng 2 và Bảng 4 được trích xuất từ cùng một quy trình thực nghiệm đồng nhất duy nhất, đảm bảo tính nhất quán toán học giữa các bảng ($t_{\text{Bảng 4}} = t_{\text{Bảng 2}} / 1000$).
           \item \textbf{Thời gian đo và Quy ước Time Limit:} Báo cáo tách biệt giữa thời gian mã hóa (Encoding Time) và thời gian giải của solver (Solving Time) dựa trên đồng hồ thời gian thực (wall-clock time). Giới hạn thời gian (Time Limit) 300.0 giây được áp dụng thuần túy cho thời gian giải (Solving Time) của solver.
           \item \textbf{Cấu hình luồng (Thread fairness):} Để so sánh công bằng với các SAT solver chạy đơn luồng (CaDiCaL 1.9.5 và Glucose 4.2), CP-SAT được cấu hình tường minh \texttt{num\_workers = 1} (thay vì tìm kiếm song song đa luồng), và Gurobi được cấu hình \texttt{Threads = 1}.
           \item \textbf{Giới hạn thời gian (Time Limit):} Áp dụng cùng một ngưỡng thống nhất 300.0 giây (5 phút) cho tất cả các solver. Trường hợp vượt quá ngưỡng này được đánh dấu là \texttt{> 300.0s (TO)}.
@@ -396,8 +442,8 @@ Product (2D Grid) & $1.80$ & $17.90$ & $85.70$ & $421.10$ & $1{,}486.30$ & Mện
 
 \textbf{Nhận xét và phân tích chuyên sâu về Bảng~\ref{tab:ablation_results}:}
 \begin{enumerate}
-    \item \textbf{Mối quan hệ phi tuyến giữa số lượng mệnh đề và thời gian giải:} Kết quả thực nghiệm cho thấy \textit{số lượng mệnh đề ít hơn không đồng nghĩa với thời gian giải nhanh hơn}. Ở $N=128$, Sequential Counter có số lượng mệnh đề rất thấp ($193{,}800$ clauses), nhưng thời gian giải của CaDiCaL lại lên tới $24.85$ giây, chậm hơn Pairwise ($6.30$ giây với gần 3.5 triệu mệnh đề) và chậm hơn Commander khoảng 33 lần ($0.76$ giây).
-    \item \textbf{Phân tích động lực tìm kiếm CDCL (CDCL Search Dynamics):} 
+    \item \textbf{Phát hiện 1 (Mối quan hệ phi tuyến giữa số mệnh đề và thời gian giải):} Kết quả thực nghiệm cho thấy \textit{số lượng mệnh đề ít hơn không đồng nghĩa với thời gian giải nhanh hơn}. Ở $N=128$, Sequential Counter có số lượng mệnh đề rất thấp ($193{,}800$ clauses), nhưng thời gian giải của CaDiCaL lại lên tới $24.85$ giây, chậm hơn Pairwise ($6.30$ giây với gần 3.5 triệu mệnh đề) và chậm hơn Commander khoảng 33 lần ($0.76$ giây).
+    \item \textbf{Phát hiện 2 (Phân tích vi mô động lực tìm kiếm CDCL - CDCL Search Dynamics):} 
     Để làm sáng tỏ cơ chế nội tại vì sao Sequential Counter có số lượng mệnh đề rất thấp nhưng thời gian giải lại tăng vọt ở $N=128$, chúng tôi đã trích xuất đầy đủ các thông số thống kê vi mô của solver CaDiCaL (\texttt{accum\_stats()}) qua 3 lần chạy độc lập cho cả 5 kỹ thuật mã hóa tại $N \in \{32, 64, 128\}$, được trình bày trong Bảng~\ref{tab:cdcl_search_stats}.
 
 \begin{table*}[htbp]
@@ -455,9 +501,9 @@ Commander & 1000 & \texttt{5241a3b2} & 2{,}013{,}684 & 13{,}999{,}546 & \textbf{
         \item \textbf{Nguyên nhân thực sự của sự bùng nổ thời gian giải:} Tổng số lượt lan truyền đơn vị của Sequential Counter tăng vọt gấp $58$ lần so với Commander ($42.89 \times 10^6$ so với $738 \times 10^3$) chủ yếu do \textbf{số lượng xung đột tăng gấp $68$ lần ($62{,}360$ so với $916$)} và \textbf{số lượng quyết định phân nhánh tăng gấp $26$ lần ($107{,}733$ so với $4{,}159$)}.
     \end{itemize}
     Kết quả thực nghiệm cho thấy sự bùng nổ thời gian giải của Sequential Counter gắn liền với số lượng xung đột và quyết định tăng đột biến. Tuy nhiên, mối quan hệ giữa số biến phụ và số xung đột không phải là một tương quan tuyến tính đơn giản: Commander Variable có tới $33{,}290$ biến phụ (gấp $2.4$ lần Product và $6.9$ lần Binary) nhưng lại đạt số xung đột thấp nhất ($916$ xung đột), trong khi Pairwise không có bất kỳ biến phụ nào lại có tới $6{,}037$ xung đột (hệ số tương quan hạng Spearman giữa số biến phụ và số xung đột trên 5 kỹ thuật tại $N=128$ chỉ đạt $\approx 0.1$). Đáng chú ý, khi mở rộng đo đạc CDCL vi mô lên các kích thước lớn ($N \ge 256$), solver CaDiCaL tiếp tục duy trì tính nhất quán tuyệt đối về số xung đột và quyết định trên cùng công thức CNF qua cả 3 lần chạy độc lập: ở $N=256$, Commander luôn có đúng $5{,}132$ xung đột, Product có $6{,}607$ xung đột, Pairwise có $6{,}174$ xung đột, trong khi Sequential lên tới $120{,}089$ xung đột; ở $N=500$, Commander có $5{,}096$ xung đột còn Product có $7{,}798$ xung đột; ở $N=1000$, Commander có $943$ xung đột còn Product có $13{,}397$ xung đột. Giả thuyết hợp lý nhất là cấu trúc đồ thị suy diễn đóng vai trò then chốt: cấu trúc cây phân cấp của Commander hỗ trợ cắt tỉa nhanh không gian tìm kiếm, trong khi chuỗi thang tuyến tính $s_i \to s_{i+1}$ của Sequential có thể gây nhiễu loạn heuristic VSIDS và phase-saving, khiến bộ giải liên tục rẽ nhánh sâu vào chuỗi biến trạng thái thay vì các biến bàn cờ cơ sở. Dù vậy, nguyên nhân bản chất của hiện tượng này vẫn là một câu hỏi mở cần được kiểm chứng vi mô sâu hơn.
-    \item \textbf{Ưu thế của Commander Variable ở dải $N \in [16, 128]$:} Kỹ thuật Commander phân chia biến thành các nhóm nhỏ ($g=3$) và tổ chức biến chỉ huy dạng cây phân cấp. Cấu trúc này cho phép bộ giải CDCL gán giá trị \texttt{False} cho một nhóm biến ngay khi biến chỉ huy bị gán \texttt{False}, giúp cắt tỉa nhanh không gian tìm kiếm ở các mức quyết định cao với số lượng xung đột cực thấp ($916$ xung đột ở $N=128$). Nhờ đó, Commander đạt thời gian giải nhanh nhất từ $N=16$ ($7.70$ms) đến $N=128$ ($756.90$ms, tức khoảng $0.76$s).
-    \item \textbf{Đặc điểm của Binary và Product Encoding:} Binary Encoding sử dụng ít biến phụ nhất trong các phương pháp mở rộng ($21{,}234$ biến ở $N=128$) và có thời gian giải $1{,}415.10$ms, tương đương Product Encoding ($1{,}486.30$ms). Trong khi đó, Product Encoding đạt điểm cân bằng rất tốt giữa số biến phụ ($30{,}182$) và số mệnh đề ($193{,}122$ clauses ở $N=128$, tương đương Sequential với $193{,}800$ clauses), duy trì tốc độ giải ổn định.
-    \item \textbf{Thời gian mã hóa và Bộ nhớ ở quy mô lớn:} Với $N \in [8, 128]$, thời gian sinh CNF của các phương pháp đều dưới 2 giây. Tuy nhiên ở các kích thước lớn, chi phí sinh mệnh đề bằng Python tăng đáng kể: ở $N=500$, Commander cần 2.83s mã hóa và $1{,}389.9$ MB RAM đỉnh, Product cần 1.79s và $983.1$ MB RAM; ở $N=1000$, Commander cần 11.38s mã hóa (13.99 triệu mệnh đề, $4{,}410.8$ MB RAM), Product cần 7.57s (11.95 triệu mệnh đề, $3{,}832.5$ MB RAM). Đặc biệt, Pairwise ở $N=256$ đòi hỏi 14.74s mã hóa cho 27.83 triệu mệnh đề và tiêu tốn đỉnh điểm $7{,}679.4$ MB RAM ($\approx 7.50$ GiB), và đến $N=500$ ($207{,}834{,}500$ mệnh đề, xấp xỉ 207.8 triệu) thì dừng do ngoại lệ \texttt{MemoryError} khi tiến trình Python cố gắng khởi tạo cấu trúc danh sách (\texttt{list}) vượt quá không gian bộ nhớ heap khả dụng liên tục của runtime 64-bit trên hệ thống Windows.
+    \item \textbf{Phát hiện 3 (Ưu thế vượt trội của Commander Variable ở dải $N \in [16, 128]$):} Kỹ thuật Commander phân chia biến thành các nhóm nhỏ ($g=3$) và tổ chức biến chỉ huy dạng cây phân cấp. Cấu trúc này cho phép bộ giải CDCL gán giá trị \texttt{False} cho một nhóm biến ngay khi biến chỉ huy bị gán \texttt{False}, giúp cắt tỉa nhanh không gian tìm kiếm ở các mức quyết định cao với số lượng xung đột cực thấp ($916$ xung đột ở $N=128$). Nhờ đó, Commander đạt thời gian giải nhanh nhất từ $N=16$ ($7.70$ms) đến $N=128$ ($756.90$ms, tức khoảng $0.76$s).
+    \item \textbf{Phát hiện 4 (Đặc tính cân bằng của Binary và Product Encoding):} Binary Encoding sử dụng ít biến phụ nhất trong các phương pháp mở rộng ($21{,}234$ biến ở $N=128$) và có thời gian giải $1{,}415.10$ms, tương đương Product Encoding ($1{,}486.30$ms). Trong khi đó, Product Encoding đạt điểm cân bằng rất tốt giữa số biến phụ ($30{,}182$) và số mệnh đề ($193{,}122$ clauses ở $N=128$, tương đương Sequential với $193{,}800$ clauses), duy trì tốc độ giải ổn định.
+    \item \textbf{Phát hiện 5 (Chi phí thời gian mã hóa và Bộ nhớ ở quy mô cực đại $N \ge 256$):} Với $N \in [8, 128]$, thời gian sinh CNF của các phương pháp đều dưới 2 giây. Tuy nhiên ở các kích thước lớn, chi phí sinh mệnh đề bằng Python tăng đáng kể: ở $N=500$, Commander cần 2.83s mã hóa và $1{,}389.9$ MB RAM đỉnh, Product cần 1.79s và $983.1$ MB RAM; ở $N=1000$, Commander cần 11.38s mã hóa (13.99 triệu mệnh đề, $4{,}410.8$ MB RAM), Product cần 7.57s (11.95 triệu mệnh đề, $3{,}832.5$ MB RAM). Đặc biệt, Pairwise ở $N=256$ đòi hỏi 14.74s mã hóa cho 27.83 triệu mệnh đề và tiêu tốn đỉnh điểm $7{,}679.4$ MB RAM ($\approx 7.50$ GiB), và đến $N=500$ ($207{,}834{,}500$ mệnh đề, xấp xỉ 207.8 triệu) thì dừng do ngoại lệ \texttt{MemoryError} khi tiến trình Python cố gắng khởi tạo cấu trúc danh sách (\texttt{list}) vượt quá không gian bộ nhớ heap khả dụng liên tục của runtime 64-bit trên hệ thống Windows.
 \end{enumerate}
 
 \subsection{Thực nghiệm 2: So sánh Hiệu năng giữa SAT, CP-SAT, Gurobi và SCIP}
@@ -512,10 +558,10 @@ CaDiCaL (Commander) & $0.0016$ & $\mathbf{0.0077}$ & $0.0375$ & $\mathbf{0.1870}
 
 \textbf{Thảo luận chuyên sâu về hiệu năng so sánh:}
 \begin{enumerate}
-    \item \textbf{Hiệu năng của Gurobi và ILP:} Ở các kích thước nhỏ ($N \le 32$), Gurobi 13.0 thể hiện tốc độ ấn tượng ($0.0002$s ở $N=8$ và $0.0272$s ở $N=32$) nhờ các thuật toán tiền xử lý (Presolve) và cắt mặt phẳng (cutting planes) tiên tiến. Tuy nhiên, ở $N \ge 64$, mô hình có $4{,}096$ biến, vượt quá giới hạn 2.000 biến của license dùng thử đi kèm gói cài đặt pip nên bộ giải dừng ngay với thông báo lỗi nguyên văn: \texttt{"Model too large for size-limited license; visit https://gurobi.com/unrestricted"}. Cần làm rõ rằng đây là giới hạn kỹ thuật của gói license hạn chế kích thước đi kèm gói pip, không phải lỗi thuật toán hay license học thuật đầy đủ. Đối với SCIP (bộ giải không giới hạn kích thước), thời gian giải tăng vọt từ $0.0190$s ($N=16$) lên $3.1150$s ($N=32$) và chạm trần $300.0$s ở $N \ge 64$. Điều này phù hợp với lý thuyết tối ưu tổ hợp: mô hình ILP nới lỏng tuyến tính của $N$-Queens cho nghiệm phân số đồng nhất $x_{r,c} = 1/N$, khiến cận dưới trùng nhau tại mọi nút và triệt tiêu sức mạnh cắt tỉa của cây nhánh-cận.
-    \item \textbf{Hiệu năng của Google OR-Tools CP-SAT và Hạn chế cấu hình:} CP-SAT đơn luồng (\texttt{num\_workers = 1}, chiến lược tìm kiếm mặc định) hoạt động rất hiệu quả ở dải $N \in [8, 128]$ ($N=128$ giải trong $3.46$s) nhờ các thuật toán lọc miền giá trị dựa trên toán tử \texttt{AllDifferent}. Tuy nhiên, ở $N \ge 256$, bộ giải không thể tìm thấy nghiệm trong giới hạn 300 giây và trả về trạng thái \texttt{UNKNOWN/TIMEOUT}. Cấu hình đơn luồng là bắt buộc nhằm đảm bảo tính so sánh công bằng đối đầu với SAT CaDiCaL (vốn là giải thuật đơn luồng tuần tự); tuy nhiên, cấu hình này cũng hạn chế tiềm năng thực tế của CP-SAT khi không khai thác danh mục thuật toán song song đa luồng (portfolio search) và các bộ sinh nghiệm láng giềng lớn (LNS - Large Neighborhood Search).
-    \item \textbf{So sánh hai chiều giữa Glucose 4.2 và CaDiCaL:} Cùng áp dụng kỹ thuật Product AMO, Glucose 4.2 và CaDiCaL thể hiện các đặc tính tìm kiếm khác nhau rõ rệt theo quy mô $N$: ở $N=128$, Glucose giải trong $1.07$s (dải $[1.06, 1.08]$s), nhanh hơn CaDiCaL Product ($1.49$s); tuy nhiên ở $N=32$, Glucose mất tới $20.71$s trong khi CaDiCaL chỉ mất $0.0857$s (chậm hơn khoảng $242$ lần: $20.7088 / 0.0857 \approx 242$). Ở $N=64$, Glucose cũng mất tới $36.56$s so với $0.4211$s của CaDiCaL (chậm hơn khoảng 87 lần: $36.5604 / 0.4211 \approx 87$). Sự khác biệt hiệu năng này có thể liên quan đến giả thuyết về chiến lược quản lý độ dài mệnh đề học (LBD - Literal Block Distance) và tần suất khởi động lại (restart) giữa hai bộ giải khi cấu trúc đồ thị lan truyền thay đổi theo quy mô $N$.
-    \item \textbf{Khả năng mở rộng của SAT CaDiCaL và Bản chất độ biến động thời gian ở quy mô cực đại ($N \ge 256$):} 
+    \item \textbf{Khía cạnh 1 (Hiệu năng của Gurobi 13.0 và SCIP - Trường phái ILP):} Ở các kích thước nhỏ ($N \le 32$), Gurobi 13.0 thể hiện tốc độ ấn tượng ($0.0002$s ở $N=8$ và $0.0272$s ở $N=32$) nhờ các thuật toán tiền xử lý (Presolve) và cắt mặt phẳng (cutting planes) tiên tiến. Tuy nhiên, ở $N \ge 64$, mô hình có $4{,}096$ biến, vượt quá giới hạn 2.000 biến của license dùng thử đi kèm gói cài đặt pip nên bộ giải dừng ngay với thông báo lỗi nguyên văn: \texttt{"Model too large for size-limited license; visit https://gurobi.com/unrestricted"}. Cần làm rõ rằng đây là giới hạn kỹ thuật của gói license hạn chế kích thước đi kèm gói pip, không phải lỗi thuật toán hay license học thuật đầy đủ. Đối với SCIP (bộ giải không giới hạn kích thước), thời gian giải tăng vọt từ $0.0190$s ($N=16$) lên $3.1150$s ($N=32$) và chạm trần $300.0$s ở $N \ge 64$. Điều này phù hợp với lý thuyết tối ưu tổ hợp: mô hình ILP nới lỏng tuyến tính của $N$-Queens cho nghiệm phân số đồng nhất $x_{r,c} = 1/N$, khiến cận dưới trùng nhau tại mọi nút và triệt tiêu sức mạnh cắt tỉa của cây nhánh-cận.
+    \item \textbf{Khía cạnh 2 (Hiệu năng của Google OR-Tools CP-SAT - Trường phái CP):} CP-SAT đơn luồng (\texttt{num\_workers = 1}, chiến lược tìm kiếm mặc định) hoạt động rất hiệu quả ở dải $N \in [8, 128]$ ($N=128$ giải trong $3.46$s) nhờ các thuật toán lọc miền giá trị dựa trên toán tử \texttt{AllDifferent}. Tuy nhiên, ở $N \ge 256$, bộ giải không thể tìm thấy nghiệm trong giới hạn 300 giây và trả về trạng thái \texttt{UNKNOWN/TIMEOUT}. Cấu hình đơn luồng là bắt buộc nhằm đảm bảo tính so sánh công bằng đối đầu với SAT CaDiCaL (vốn là giải thuật đơn luồng tuần tự); tuy nhiên, cấu hình này cũng hạn chế tiềm năng thực tế của CP-SAT khi không khai thác danh mục thuật toán song song đa luồng (portfolio search) và các bộ sinh nghiệm láng giềng lớn (LNS - Large Neighborhood Search).
+    \item \textbf{Khía cạnh 3 (So sánh đối đầu giữa Glucose 4.2 và CaDiCaL 1.9.5):} Cùng áp dụng kỹ thuật Product AMO, Glucose 4.2 và CaDiCaL thể hiện các đặc tính tìm kiếm khác nhau rõ rệt theo quy mô $N$: ở $N=128$, Glucose giải trong $1.07$s (dải $[1.06, 1.08]$s), nhanh hơn CaDiCaL Product ($1.49$s); tuy nhiên ở $N=32$, Glucose mất tới $20.71$s trong khi CaDiCaL chỉ mất $0.0857$s (chậm hơn khoảng $242$ lần: $20.7088 / 0.0857 \approx 242$). Ở $N=64$, Glucose cũng mất tới $36.56$s so với $0.4211$s của CaDiCaL (chậm hơn khoảng 87 lần: $36.5604 / 0.4211 \approx 87$). Sự khác biệt hiệu năng này có thể liên quan đến giả thuyết về chiến lược quản lý độ dài mệnh đề học (LBD - Literal Block Distance) và tần suất khởi động lại (restart) giữa hai bộ giải khi cấu trúc đồ thị lan truyền thay đổi theo quy mô $N$.
+    \item \textbf{Khía cạnh 4 (Khả năng mở rộng của SAT CaDiCaL và Bản chất độ biến động thời gian ở quy mô cực đại $N \ge 256$):} 
     CaDiCaL 1.9.5 với mã hóa Commander và Product thể hiện khả năng mở rộng quy mô vượt trội so với các phương pháp đối chứng:
     \begin{itemize}
         \item Ở $N=64$, CaDiCaL Commander giải trong $0.1870$s (nhanh gấp khoảng $3.2$ lần CP-SAT với $0.5912$s).
@@ -529,18 +575,20 @@ CaDiCaL (Commander) & $0.0016$ & $\mathbf{0.0077}$ & $0.0375$ & $\mathbf{0.1870}
 ---
 
 \section{Kết luận và Thảo luận (Conclusion \& Discussion)}
+
+\subsection{Kết luận tổng kết (Summary of Findings)}
 Bài báo đã nghiên cứu, cài đặt và đánh giá toàn diện phương pháp giải chính xác bài toán $N$-Queens bằng SAT Solving trên thư viện PySAT. Thông qua việc phân tích lý thuyết và thực nghiệm 5 kỹ thuật mã hóa AMO, bài báo rút ra các kết luận quan trọng:
 \begin{itemize}
-    \item Mã hóa Pairwise bùng nổ đa thức bậc ba $\mathcal{O}(N^3)$ mệnh đề trên toàn bàn cờ. Thực nghiệm đo đạc ghi nhận Pairwise tiêu tốn $7{,}679.4$ MB RAM đỉnh tại $N=256$ ($\approx 7.50$ GiB cho $27{,}831{,}552$ mệnh đề, giải trong $83.46$s) và dừng do ngoại lệ \texttt{MemoryError} tại $N=500$ khi khởi tạo $207{,}834{,}500$ mệnh đề trong danh sách đối tượng Python.
-    \item Sequential Counter tuy giảm số mệnh đề xuống $\mathcal{O}(N^2)$ nhưng sinh ra số lượng xung đột ($62{,}360$) và quyết định ($107{,}733$) vượt trội ở $N=128$, kéo theo $42.89$ triệu lượt lan truyền đơn vị khiến thời gian giải suy giảm nghiêm trọng ($24.85$s, chậm hơn Commander khoảng 33 lần). Tuy nhiên, số lượng biến phụ không quyết định trực tiếp số xung đột (Commander có nhiều biến phụ gấp $2.4\times$ Product nhưng có ít xung đột nhất), cho thấy cấu trúc đồ thị lan truyền cục bộ đóng vai trò quyết định tới hành vi phân nhánh CDCL.
-    \item Commander Variable và Product Encoding là hai kỹ thuật mã hóa có năng lực mở rộng tốt nhất. Commander Variable giúp solver CaDiCaL đạt tốc độ giải nhanh nhất trên dải $N \in [16, 128]$ (chỉ $0.76$s ở $N=128$). Ở quy mô cực đại $N \ge 256$, cả Commander Variable và Product Encoding đều mở rộng thành công lên tới $N=500$ ($32.11$s và $32.26$s) và $N = 1000$ ($100.92$s và $200.36$s, trong đó Product giải thành công 2/3 lần trong giới hạn 300s). Product Encoding đạt quy mô mệnh đề tương đương Sequential ở $N \ge 64$ ($47{,}520$ clauses ở $N=64$ và $193{,}122$ clauses ở $N=128$), trong khi Sequential Counter có ít mệnh đề hơn ở $N \le 32$.
-    \item So sánh đối chứng thực nghiệm cho thấy SAT Solving (đặc biệt là CaDiCaL 1.9.5) vượt trội rõ rệt so với SCIP và CP-SAT về khả năng mở rộng ở các kích thước $N \ge 256$. Gurobi thể hiện tốc độ nhanh nhất ở $N = 8$ và $N = 32$ (trong khi CaDiCaL Commander nhanh nhất ở $N = 16$), nhưng dừng ở $N \ge 64$ do giới hạn kích thước license đi kèm gói pip (2.000 biến).
+    \item \textbf{Bùng nổ bộ nhớ của Pairwise:} Mã hóa Pairwise bùng nổ đa thức bậc ba $\mathcal{O}(N^3)$ mệnh đề trên toàn bàn cờ. Thực nghiệm đo đạc ghi nhận Pairwise tiêu tốn $7{,}679.4$ MB RAM đỉnh tại $N=256$ ($\approx 7.50$ GiB cho $27{,}831{,}552$ mệnh đề, giải trong $83.46$s) và dừng do ngoại lệ \texttt{MemoryError} tại $N=500$ khi khởi tạo $207{,}834{,}500$ mệnh đề trong danh sách đối tượng Python.
+    \item \textbf{Suy thoái tìm kiếm của Sequential Counter:} Sequential Counter tuy giảm số mệnh đề xuống $\mathcal{O}(N^2)$ nhưng sinh ra số lượng xung đột ($62{,}360$) và quyết định ($107{,}733$) vượt trội ở $N=128$, kéo theo $42.89$ triệu lượt lan truyền đơn vị khiến thời gian giải suy giảm nghiêm trọng ($24.85$s, chậm hơn Commander khoảng 33 lần). Tuy nhiên, số lượng biến phụ không quyết định trực tiếp số xung đột (Commander có nhiều biến phụ gấp $2.4\times$ Product nhưng có ít xung đột nhất), cho thấy cấu trúc đồ thị lan truyền cục bộ đóng vai trò quyết định tới hành vi phân nhánh CDCL.
+    \item \textbf{Năng lực mở rộng của Commander và Product:} Commander Variable và Product Encoding là hai kỹ thuật mã hóa có năng lực mở rộng tốt nhất. Commander Variable giúp solver CaDiCaL đạt tốc độ giải nhanh nhất trên dải $N \in [16, 128]$ (chỉ $0.76$s ở $N=128$). Ở quy mô cực đại $N \ge 256$, cả Commander Variable và Product Encoding đều mở rộng thành công lên tới $N=500$ ($32.11$s và $32.26$s) và $N = 1000$ ($100.92$s và $200.36$s, trong đó Product giải thành công 2/3 lần trong giới hạn 300s). Product Encoding đạt quy mô mệnh đề tương đương Sequential ở $N \ge 64$ ($47{,}520$ clauses ở $N=64$ và $193{,}122$ clauses ở $N=128$), trong khi Sequential Counter có ít mệnh đề hơn ở $N \le 32$.
+    \item \textbf{Vị thế vượt trội của SAT Solving trước ILP và CP:} So sánh đối chứng thực nghiệm cho thấy SAT Solving (đặc biệt là CaDiCaL 1.9.5) vượt trội rõ rệt so với SCIP và CP-SAT về khả năng mở rộng ở các kích thước $N \ge 256$. Gurobi thể hiện tốc độ nhanh nhất ở $N = 8$ và $N = 32$ (trong khi CaDiCaL Commander nhanh nhất ở $N = 16$), nhưng dừng ở $N \ge 64$ do giới hạn kích thước license đi kèm gói pip (2.000 biến).
 \end{itemize}
 
-\textbf{Thảo luận về Hạn chế (Limitations):}\\
+\subsection{Hạn chế của nghiên cứu (Limitations)}
 Cần nhấn mạnh rằng bài toán $N$-Queens tiêu chuẩn có thể được giải gần như tức thời cho $N$ rất lớn bằng các công thức giải tích tường minh (Explicit Modular Arithmetic)~\cite{bell2009survey} hoặc thuật toán tìm kiếm cục bộ Min-Conflicts~\cite{minton1992solving}. Do đó, các kết luận trong bài báo này không nhằm khẳng định SAT là phương pháp nhanh nhất tuyệt đối để tìm một nghiệm cờ vua đơn thuần, mà nhằm đánh giá khách quan năng lực của các \textit{bộ giải quyết bài toán ràng buộc chính xác tổng quát (General Exact Solvers)} khi đối mặt với không gian tổ hợp rời rạc quy mô lớn. Ngoài ra, việc đánh giá Gurobi bị giới hạn bởi quy mô license hạn chế kích thước đi kèm gói pip (tối đa 2.000 biến), chưa phản ánh hết tiềm năng của Gurobi thương mại đầy đủ trên các máy chủ chuyên dụng.
 
-\textbf{Hướng phát triển tương lai:}\\
+\subsection{Hướng phát triển trong tương lai (Future Research Directions)}
 Mở rộng mô hình SAT cho các biến thể $N$-Queens có chướng ngại vật ($N$-Queens Completion), bài toán đếm toàn bộ số lượng nghiệm (\#SAT / Model Counting) bằng bộ giải D4/SharpSAT, và ứng dụng kỹ thuật phân rã Cube-and-Conquer để giải song song trên cụm máy tính hiệu năng cao.
 
 ---
