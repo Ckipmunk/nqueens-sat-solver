@@ -17,7 +17,6 @@ def sync():
         reader = list(csv.DictReader(f))
 
     # 1. Sync raw_benchmark_3runs.csv
-    # Format: Experiment,N,Method,Run_1,Run_2,Run_3,Min,Median,Max,Std,Encoding_Time_s,Peak_RAM_MB
     by_key = {}
     for r in reader:
         key = (r["experiment"], int(r["n"]), r["method"])
@@ -52,7 +51,6 @@ def sync():
             })
 
     # 2. Sync cdcl_search_stats_3runs.csv
-    # Format: Method,N,CNF_Hash,Aux_Vars,Clauses,Conflicts,Decisions,Propagations,Props_Per_Conflict,Props_Per_Decision,Solving_Time_s
     cdcl_path = os.path.join(data_dir, "cdcl_search_stats_3runs.csv")
     with open(cdcl_path, "w", newline="", encoding="utf-8") as f:
         fieldnames = ["Method", "N", "CNF_Hash", "Aux_Vars", "Clauses", "Conflicts", "Decisions", "Propagations", "Props_Per_Conflict", "Props_Per_Decision", "Solving_Time_s"]
@@ -87,6 +85,46 @@ def sync():
                         "Solving_Time_s": f"{statistics.median(solv_times):.4f}"
                     })
 
+        for n in [256, 500, 1000]:
+            for m in ["commander", "product", "sequential", "pairwise"]:
+                key = ("Scale Evaluation", n, m)
+                if key in by_key:
+                    runs = by_key[key]
+                    solved_runs = [r for r in runs if float(r["solving_time_s"]) < 300.0]
+                    r0 = solved_runs[0] if solved_runs else runs[0]
+                    solv_times = [float(r["solving_time_s"]) for r in runs]
+                    v = int(r0["num_vars"]) - n*n
+                    c = int(r0["num_clauses"])
+                    conf = int(r0["conflicts"])
+                    dec = int(r0["decisions"])
+                    prop = int(r0["propagations"])
+                    p_c = prop / max(1, conf)
+                    p_d = prop / max(1, dec)
+                    writer.writerow({
+                        "Method": m.capitalize(),
+                        "N": n,
+                        "CNF_Hash": r0["cnf_hash"],
+                        "Aux_Vars": v,
+                        "Clauses": c,
+                        "Conflicts": conf,
+                        "Decisions": dec,
+                        "Propagations": prop,
+                        "Props_Per_Conflict": f"{p_c:.1f}",
+                        "Props_Per_Decision": f"{p_d:.1f}",
+                        "Solving_Time_s": f"{statistics.median(solv_times):.4f}"
+                    })
+
+    # Load multisolver runs
+    ms_csv = os.path.join(data_dir, "master_multisolver_runs.csv")
+    ms_runs_by_key = {}
+    if os.path.exists(ms_csv):
+        with open(ms_csv, "r", encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                k = (r["solver"], int(r["n"]))
+                if k not in ms_runs_by_key:
+                    ms_runs_by_key[k] = []
+                ms_runs_by_key[k].append(float(r["time_s"]))
+
     # 3. Sync unified_benchmark.json
     unified = {"amo_ablation": {}, "solver_comparison": {}}
     for n in [8, 16, 32, 64, 128]:
@@ -106,7 +144,6 @@ def sync():
                     "cnf_hash": r0["cnf_hash"]
                 }
 
-    # Add solver comparison structured as [n_str][s_name] = {"time_s": t}
     solvers = ["SAT CaDiCaL (Commander)", "SAT CaDiCaL (Product)", "SAT CaDiCaL (Pairwise)", "SAT CaDiCaL (Sequential)", "SAT Glucose 4.2 (Product)", "CP-SAT (OR-Tools, 1w)", "Gurobi 13.0 (1t)", "ILP SCIP 9.0"]
     n_list = [8, 16, 32, 64, 128, 256, 500, 1000]
 
@@ -122,24 +159,23 @@ def sync():
                 if k1 in by_key:
                     t_val = statistics.median([float(r["solving_time_s"]) for r in by_key[k1]])
                 elif k2 in by_key:
-                    # check if timeout
                     runs = by_key[k2]
                     med = statistics.median([float(r["solving_time_s"]) for r in runs])
                     if med < 300.0:
                         t_val = med
                 unified["solver_comparison"][n_str][s] = {"time_s": t_val}
             elif "Glucose" in s:
-                gluc_map = {8: 0.0009, 16: 0.0871, 32: 19.4494, 64: 22.9288, 128: 1.0695}
-                unified["solver_comparison"][n_str][s] = {"time_s": gluc_map.get(n, None)}
+                times = ms_runs_by_key.get(("Glucose 4.2", n), [])
+                unified["solver_comparison"][n_str][s] = {"time_s": statistics.median(times) if times else None}
             elif "CP-SAT" in s:
-                cpsat_map = {8: 0.0062, 16: 0.0292, 32: 0.1076, 64: 0.5643, 128: 2.7988}
-                unified["solver_comparison"][n_str][s] = {"time_s": cpsat_map.get(n, None)}
+                times = ms_runs_by_key.get(("CP-SAT (OR-Tools)", n), [])
+                unified["solver_comparison"][n_str][s] = {"time_s": statistics.median(times) if times else None}
             elif "Gurobi" in s:
-                gur_map = {8: 0.0002, 16: 0.0063, 32: 0.0254}
-                unified["solver_comparison"][n_str][s] = {"time_s": gur_map.get(n, None)}
+                times = ms_runs_by_key.get(("Gurobi 13.0", n), [])
+                unified["solver_comparison"][n_str][s] = {"time_s": statistics.median(times) if times else None}
             elif "SCIP" in s:
-                scip_map = {8: 0.0168, 16: 0.0182, 32: 3.0327}
-                unified["solver_comparison"][n_str][s] = {"time_s": scip_map.get(n, None)}
+                times = ms_runs_by_key.get(("ILP SCIP 9.0", n), [])
+                unified["solver_comparison"][n_str][s] = {"time_s": statistics.median(times) if times else None}
 
     with open(os.path.join(data_dir, "unified_benchmark.json"), "w", encoding="utf-8") as f:
         json.dump(unified, f, indent=2, ensure_ascii=False)

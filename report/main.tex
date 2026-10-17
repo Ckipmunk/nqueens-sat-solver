@@ -6,7 +6,7 @@
 \usepackage{multirow}
 \usepackage{graphicx}
 \usepackage{hyperref}
-\hypersetup{pdfauthor={Phạm Khánh Duy}, pdftitle={Nghiên cứu các Kỹ thuật Mã hóa SAT cho Bài toán N-Queens}}}
+\hypersetup{pdfauthor={Pham Khanh Duy, To Van Khanh}, pdftitle={Nghien cuu cac Ky thuat Ma hoa SAT cho Bai toan N-Queens}, colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
 \usepackage{microtype}
 \usepackage{listings}
 \usepackage{xcolor}
@@ -78,7 +78,7 @@ Mặc dù có cấu trúc phát biểu trực quan và đơn giản, $N$-Queens 
     \item \textbf{Mã hóa SAT (SAT Encoding \& Solving):} Chuyển đổi toàn bộ các điều kiện của bài toán thành dạng chuẩn hội (Conjunctive Normal Form - CNF) và sử dụng các bộ giải SAT hiện đại dựa trên kiến trúc CDCL (Conflict-Driven Clause Learning) như CaDiCaL~\cite{biere2024cadical}, Glucose~\cite{audemard2018glucose}. Bộ giải CaDiCaL được tác giả Armin Biere và cộng sự phát triển~\cite{biere2024cadical}, trong đó bản phát hành 1.9.5 được tích hợp sẵn qua cổng giao tiếp C++ của thư viện PySAT~\cite{ignatiev2018pysat}.
 \end{enumerate}
 
-Trọng tâm của tiếp cận SAT nằm ở việc chuyển đổi các ràng buộc số lượng, cụ thể là ràng buộc \textit{Exactly-One} (Đúng một) và \textit{At-Most-One} (Tối đa một - AMO) thành các mệnh đề logic (clauses). Cách mã hóa cặp trực tiếp (Pairwise) dẫn tới bùng nổ đa thức bậc ba $\mathcal{O}(N^3)$ mệnh đề trên toàn bàn cờ; thực nghiệm của chúng tôi ghi nhận ở $N=256$, Pairwise đòi hỏi tới $27{,}831{,}552$ mệnh đề và tiêu tốn đỉnh điểm khoảng 4 GB RAM ($4{,}073.8$ MB, $\approx 3.98$ GiB), và đến $N=500$ mô hình chạm mốc $207{,}834{,}500$ mệnh đề (xấp xỉ $207.8$ triệu), dẫn đến hiện tượng cạn kiệt bộ nhớ (OOM) khi khởi tạo danh sách đối tượng trong Python trên hệ thống 32 GB RAM.
+Trọng tâm của tiếp cận SAT nằm ở việc chuyển đổi các ràng buộc số lượng, cụ thể là ràng buộc \textit{Exactly-One} (Đúng một) và \textit{At-Most-One} (Tối đa một - AMO) thành các mệnh đề logic (clauses). Cách mã hóa cặp trực tiếp (Pairwise) dẫn tới bùng nổ đa thức bậc ba $\mathcal{O}(N^3)$ mệnh đề trên toàn bàn cờ; thực nghiệm của chúng tôi ghi nhận ở $N=256$, Pairwise đòi hỏi tới $27{,}831{,}552$ mệnh đề và tiêu tốn đỉnh điểm khoảng 7.7 GB RAM ($7{,}679.4$ MB, $\approx 7.50$ GiB), và đến $N=500$ mô hình chạm mốc $207{,}834{,}500$ mệnh đề (xấp xỉ $207.8$ triệu), dẫn đến hiện tượng cạn kiệt bộ nhớ (OOM) khi khởi tạo danh sách đối tượng trong Python trên hệ thống 32 GB RAM.
 
 \textbf{Đóng góp chính của bài báo:}
 \begin{itemize}
@@ -296,8 +296,6 @@ Toàn bộ các thí nghiệm được triển khai và đo lường trên máy 
 \subsection{Thực nghiệm 1: Khảo sát Triệt tiêu (Ablation Study) 5 Kỹ thuật AMO}
 Bảng~\ref{tab:ablation_results} và Hình~\ref{fig:clauses_scaling} thống kê số biến logic, số mệnh đề CNF, thời gian tạo mô hình (Encoding Time) và thời gian giải (Solving Time) bằng CaDiCaL 1.9.5 trên dải kích thước $N \in [8, 128]$. Ngoài ra, tại $N = 256$, phương pháp Pairwise vẫn sinh thành công mô hình với 65,536 biến và 27,831,552 mệnh đề (thời gian mã hóa trung vị $14.74$s, thời gian giải trung vị $83.46$s, dải $[81.03, 88.80]$s, tiêu tốn $7{,}679.4$ MB RAM đỉnh).
 
-Bảng~\ref{tab:ablation_results} và Hình~\ref{fig:clauses_scaling} thống kê số biến logic, số mệnh đề CNF, thời gian tạo mô hình (Encoding Time) và thời gian giải (Solving Time) bằng CaDiCaL 1.9.5 trên dải kích thước $N \in [8, 128]$. Ngoài ra, tại $N = 256$, phương pháp Pairwise vẫn sinh thành công mô hình với 65,536 biến và 27,831,552 mệnh đề (thời gian mã hóa $15.77$s, thời gian giải trung vị $89.94$s, dải $[82.19, 94.50]$s).
-
 \begin{table*}[htbp]
 \caption{So sánh thực nghiệm toàn diện giữa 5 kỹ thuật mã hóa AMO trên CaDiCaL 1.9.5 ($N \in [8, 128]$). Giá trị thời gian giải là trung vị của 3 lần chạy lặp độc lập qua tiến trình riêng biệt (\texttt{subprocess}).}
 \label{tab:ablation_results}
@@ -329,11 +327,11 @@ Binary (Bitwise) & $0.40$ & $4.70$ & $13.70$ & $41.20$ & $208.70$ & Đo đạc t
 Product (2D Grid) & $0.50$ & $4.00$ & $8.60$ & $22.30$ & $76.20$ & Đo đạc tự động \\
 \midrule
 \multicolumn{7}{l}{\textbf{Thời gian giải trung vị - Solving Time CaDiCaL 1.9.5 (ms)}} \\
-Pairwise (Direct) & $1.40$ & $17.00$ & $297.60$ & $735.10$ & $6{,}296.00$ & Chậm dần ở $N$ lớn \\
-Sequential Counter & $1.40$ & $39.10$ & $244.50$ & $1719.30$ & $24{,}845.10$ & Chậm ở $N=128$ do bùng nổ số xung đột CDCL \\
-Commander Variable & $\mathbf{1.60}$ & $\mathbf{7.70}$ & $\mathbf{37.50}$ & $\mathbf{187.00}$ & $\mathbf{756.90}$ & Nhanh nhất trên dải $N \in [16, 128]$ \\
-Binary (Bitwise) & $1.70$ & $17.10$ & $202.40$ & $471.40$ & $1{,}415.10$ & Hiệu năng khá tốt \\
-Product (2D Grid) & $1.80$ & $17.90$ & $85.70$ & $421.10$ & $1{,}486.30$ & Số lượng mệnh đề tương đương Sequential ở $N \ge 64$, rất ổn định \\
+Pairwise (Direct) & $\mathbf{1.40}$ & $17.00$ & $297.60$ & $735.10$ & $6{,}296.00$ & Bùng nổ $\mathcal{O}(N^3)$, không biến phụ \\
+Sequential Counter & $1.40$ & $39.10$ & $244.50$ & $1719.30$ & $24{,}845.10$ & Mệnh đề $\mathcal{O}(N^2)$, suy thoái tại $N \ge 128$ \\
+Commander Variable & $1.60$ & $\mathbf{7.70}$ & $\mathbf{37.50}$ & $\mathbf{187.00}$ & $\mathbf{756.90}$ & Mệnh đề $\mathcal{O}(N^2)$, nhanh nhất trên $N \in [16, 128]$ \\
+Binary (Bitwise) & $1.70$ & $17.10$ & $202.40$ & $471.40$ & $1{,}415.10$ & Mệnh đề $\mathcal{O}(N^2\log N)$, biến phụ $\mathcal{O}(N\log N)$ \\
+Product (2D Grid) & $1.80$ & $17.90$ & $85.70$ & $421.10$ & $1{,}486.30$ & Mệnh đề $\mathcal{O}(N^2)$, biến phụ $\mathcal{O}(N\sqrt{N})$, rất ổn định \\
 \bottomrule
 \end{tabular*}%
 }
@@ -353,7 +351,7 @@ Product (2D Grid) & $1.80$ & $17.90$ & $85.70$ & $421.10$ & $1{,}486.30$ & Số 
     Để làm sáng tỏ cơ chế nội tại vì sao Sequential Counter có số lượng mệnh đề rất thấp nhưng thời gian giải lại tăng vọt ở $N=128$, chúng tôi đã trích xuất đầy đủ các thông số thống kê vi mô của solver CaDiCaL (\texttt{accum\_stats()}) qua 3 lần chạy độc lập cho cả 5 kỹ thuật mã hóa tại $N \in \{32, 64, 128\}$, được trình bày trong Bảng~\ref{tab:cdcl_search_stats}.
 
 \begin{table*}[htbp]
-\caption{Thống kê định lượng động cơ tìm kiếm CDCL của CaDiCaL 1.9.5 (trích xuất qua \texttt{solver.accum\_stats()}) trên 5 kỹ thuật AMO tại $N \in \{32, 64, 128\}$. Cả 3 lần chạy lặp độc lập đều ghi nhận số lượng xung đột và quyết định hoàn toàn giống nhau (3/3 lần giống nhau), phản ánh tính tất định của solver trên cùng một công thức CNF.}
+\caption{Thống kê định lượng động cơ tìm kiếm CDCL của CaDiCaL 1.9.5 (trích xuất qua \texttt{solver.accum\_stats()}) trên các kỹ thuật AMO tại $N \in \{32, 64, 128, 256, 500, 1000\}$. Cả 3 lần chạy lặp độc lập đều ghi nhận số lượng xung đột và quyết định hoàn toàn giống nhau (3/3 lần giống nhau) trên mọi phép thử giải thành công, phản ánh tính tất định của solver trên cùng một công thức CNF.}
 \label{tab:cdcl_search_stats}
 \centering
 \resizebox{\textwidth}{!}{%
@@ -378,6 +376,17 @@ Sequential & 128 & \texttt{e86ef7e5} & 64{,}766 & 193{,}800 & 62{,}360 & 107{,}7
 Commander & 128 & \texttt{7db3eb0a} & 33{,}290 & 227{,}010 & \textbf{916} & \textbf{4{,}159} & \textbf{738{,}169} & 805.9 & 177.5 & \textbf{0.7569} \\
 Binary & 128 & \texttt{1c62b54c} & 4{,}850 & 447{,}828 & 3{,}094 & 11{,}061 & 1{,}566{,}393 & 506.3 & 141.6 & 1.4151 \\
 Product & 128 & \texttt{04d29c2e} & 13{,}798 & 193{,}122 & 4{,}551 & 13{,}978 & 2{,}813{,}735 & 618.3 & 201.3 & 1.4863 \\
+\midrule
+Commander & 256 & \texttt{645bb446} & 133{,}250 & 914{,}898 & \textbf{5{,}132} & \textbf{24{,}415} & \textbf{9{,}424{,}670} & 1836.5 & 386.0 & 8.4583 \\
+Product & 256 & \texttt{49264410} & 38{,}652 & 773{,}232 & 6{,}607 & 58{,}105 & 10{,}648{,}532 & 1611.7 & 183.3 & \textbf{7.9877} \\
+Sequential & 256 & \texttt{b21de137} & 260{,}606 & 780{,}808 & 120{,}089 & 247{,}047 & 114{,}669{,}929 & 954.9 & 464.2 & 85.6734 \\
+Pairwise & 256 & \texttt{b4c05fc3} & 0 & 27{,}831{,}552 & 6{,}174 & 11{,}257 & 3{,}679{,}804 & 596.0 & 326.9 & 83.4554 \\
+\midrule
+Commander & 500 & \texttt{0bfd6f34} & 504{,}084 & 3{,}493{,}508 & \textbf{5{,}096} & \textbf{73{,}810} & 26{,}921{,}009 & 5282.8 & 364.7 & \textbf{32.1096} \\
+Product & 500 & \texttt{fdd37fbb} & 105{,}526 & 2{,}970{,}184 & 7{,}798 & 249{,}500 & \textbf{25{,}962{,}075} & 3329.3 & 104.1 & 32.2573 \\
+\midrule
+Commander & 1000 & \texttt{5241a3b2} & 2{,}013{,}684 & 13{,}999{,}546 & \textbf{943} & \textbf{368{,}056} & 198{,}969{,}973 & 210996.8 & 540.6 & \textbf{100.9182} \\
+Product & 1000 & \texttt{a6b63c2f} & 298{,}524 & 11{,}946{,}066 & 13{,}397 & 1{,}657{,}256 & 102{,}709{,}189 & 7666.6 & 62.0 & 200.3552$^* \\
 \bottomrule
 \end{tabular}%
 }
@@ -407,15 +416,16 @@ Bảng~\ref{tab:solver_comparison} và Hình~\ref{fig:solver_runtime} trình bà
 \toprule
 \textbf{Bộ giải / Phương pháp} & $N=8$ & $N=16$ & $N=32$ & $N=64$ & $N=128$ & $N=256$ & $N=500$ & $N=1000$ \\
 \midrule
-Gurobi 13.0 (1 thread) & $\mathbf{0.0002}$ & $\mathbf{0.0063}$ & $\mathbf{0.0254}$ & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) \\
-ILP SCIP 9.0 (MIP) & $0.0168$ & $0.0182$ & $3.0327$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
-CP-SAT (OR-Tools, 1 worker) & $0.0062$ & $0.0292$ & $0.1076$ & $0.5643$ & $2.7988$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
-Glucose 4.2 (Product) & $0.0009$ & $0.0871$ & $19.4494$ & $22.9288$ & $1.0695$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
+Gurobi 13.0 (1 thread) & $\mathbf{0.0002}$ & $\mathbf{0.0084}$ & $\mathbf{0.0272}$ & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) & -(LIMIT) \\
+ILP SCIP 9.0 (MIP) & $0.0191$ & $0.0190$ & $3.1150$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
+CP-SAT (OR-Tools, 1 worker) & $0.0066$ & $0.0251$ & $0.1251$ & $0.5912$ & $3.4598$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
+Glucose 4.2 (Product) & $0.0003$ & $0.1226$ & $20.7088$ & $36.5604$ & $1.0650$ & $> 300.0$ & $> 300.0$ & $> 300.0$ \\
 CaDiCaL (Pairwise) & $0.0014$ & $0.0170$ & $0.2976$ & $0.7351$ & $6.2960$ & $83.4554$ & OOM & Không chạy \\
 CaDiCaL (Sequential) & $0.0014$ & $0.0391$ & $0.2445$ & $1.7193$ & $24.8451$ & $85.6734$ & $> 300.0$ & Không chạy \\
-CaDiCaL (Product) & $0.0018$ & $0.0179$ & $0.0857$ & $0.4211$ & $1.4863$ & $\mathbf{7.9877}$ & $32.2573$ & $200.3552$ \\
+CaDiCaL (Product) & $0.0018$ & $0.0179$ & $0.0857$ & $0.4211$ & $1.4863$ & $\mathbf{7.9877}$ & $32.2573$ & $200.3552^* \\
 CaDiCaL (Commander) & $0.0016$ & $0.0077$ & $0.0375$ & $\mathbf{0.1870}$ & $\mathbf{0.7569}$ & $8.4583$ & $\mathbf{32.1096}$ & $\mathbf{100.9182}$ \\
 \bottomrule
+\multicolumn{9}{l}{\footnotesize $^*$ CaDiCaL (Product) tại $N=1000$: 2/3 lần giải thành công ($199.47$s và $200.36$s), 1 lần chạm giới hạn thời gian ($300.0$s). Giá trị $200.3552$s là trung vị của 3 lần thử nghiệm.} \\
 \end{tabular}%
 }
 \end{table*}
@@ -436,13 +446,13 @@ CaDiCaL (Commander) & $0.0016$ & $0.0077$ & $0.0375$ & $\mathbf{0.1870}$ & $\mat
 
 \textbf{Thảo luận chuyên sâu về hiệu năng so sánh:}
 \begin{enumerate}
-    \item \textbf{Hiệu năng của Gurobi và ILP:} Ở các kích thước nhỏ ($N \le 32$), Gurobi 13.0 thể hiện tốc độ ấn tượng ($0.0002$s ở $N=8$ và $0.0254$s ở $N=32$) nhờ các thuật toán tiền xử lý (Presolve) và cắt mặt phẳng (cutting planes) tiên tiến. Tuy nhiên, ở $N \ge 64$, mô hình có $4{,}096$ biến, vượt quá giới hạn 2.000 biến của license dùng thử đi kèm gói cài đặt pip nên bộ giải dừng ngay với thông báo lỗi nguyên văn: \texttt{"Model too large for size-limited license; visit https://gurobi.com/unrestricted"}. Cần làm rõ rằng đây là giới hạn kỹ thuật của gói license hạn chế kích thước đi kèm gói pip, không phải lỗi thuật toán hay license học thuật đầy đủ. Đối với SCIP (bộ giải không giới hạn kích thước), thời gian giải tăng vọt từ $0.0182$s ($N=16$) lên $3.0327$s ($N=32$) và chạm trần $300.0$s ở $N \ge 64$. Điều này phù hợp với lý thuyết tối ưu tổ hợp: mô hình ILP nới lỏng tuyến tính của $N$-Queens cho nghiệm phân số đồng nhất $x_{r,c} = 1/N$, khiến cận dưới trùng nhau tại mọi nút và triệt tiêu sức mạnh cắt tỉa của cây nhánh-cận.
-    \item \textbf{Hiệu năng của Google OR-Tools CP-SAT và Hạn chế cấu hình:} CP-SAT đơn luồng (\texttt{num\_workers = 1}, chiến lược tìm kiếm mặc định) hoạt động rất hiệu quả ở dải $N \in [8, 128]$ ($N=128$ giải trong $2.80$s) nhờ các thuật toán lọc miền giá trị dựa trên toán tử \texttt{AllDifferent}. Tuy nhiên, ở $N \ge 256$, bộ giải không thể tìm thấy nghiệm trong giới hạn 300 giây và trả về trạng thái \texttt{UNKNOWN/TIMEOUT}. Cấu hình đơn luồng là bắt buộc nhằm đảm bảo tính so sánh công bằng đối đầu với SAT CaDiCaL (vốn là giải thuật đơn luồng tuần tự); tuy nhiên, cấu hình này cũng hạn chế tiềm năng thực tế của CP-SAT khi không khai thác danh mục thuật toán song song đa luồng (portfolio search) và các bộ sinh nghiệm láng giềng lớn (LNS - Large Neighborhood Search).
-    \item \textbf{So sánh hai chiều giữa Glucose 4.2 và CaDiCaL:} Cùng áp dụng kỹ thuật Product AMO, Glucose 4.2 và CaDiCaL thể hiện các đặc tính tìm kiếm khác nhau rõ rệt theo quy mô $N$: ở $N=128$, Glucose giải trong $1.07$s (dải $[1.06, 1.08]$s), nhanh hơn CaDiCaL Product ($1.49$s); tuy nhiên ở $N=32$, Glucose mất tới $19.45$s trong khi CaDiCaL chỉ mất $0.0857$s (chậm hơn khoảng $227$ lần: $19.4494 / 0.0857 \approx 227$). Ở $N=64$, Glucose cũng mất tới $22.93$s so với $0.4211$s của CaDiCaL (chậm hơn khoảng 54 lần). Sự khác biệt hiệu năng này có thể liên quan đến giả thuyết về chiến lược quản lý độ dài mệnh đề học (LBD - Literal Block Distance) và tần suất khởi động lại (restart) giữa hai bộ giải khi cấu trúc đồ thị lan truyền thay đổi theo quy mô $N$.
+    \item \textbf{Hiệu năng của Gurobi và ILP:} Ở các kích thước nhỏ ($N \le 32$), Gurobi 13.0 thể hiện tốc độ ấn tượng ($0.0002$s ở $N=8$ và $0.0272$s ở $N=32$) nhờ các thuật toán tiền xử lý (Presolve) và cắt mặt phẳng (cutting planes) tiên tiến. Tuy nhiên, ở $N \ge 64$, mô hình có $4{,}096$ biến, vượt quá giới hạn 2.000 biến của license dùng thử đi kèm gói cài đặt pip nên bộ giải dừng ngay với thông báo lỗi nguyên văn: \texttt{"Model too large for size-limited license; visit https://gurobi.com/unrestricted"}. Cần làm rõ rằng đây là giới hạn kỹ thuật của gói license hạn chế kích thước đi kèm gói pip, không phải lỗi thuật toán hay license học thuật đầy đủ. Đối với SCIP (bộ giải không giới hạn kích thước), thời gian giải tăng vọt từ $0.0190$s ($N=16$) lên $3.1150$s ($N=32$) và chạm trần $300.0$s ở $N \ge 64$. Điều này phù hợp với lý thuyết tối ưu tổ hợp: mô hình ILP nới lỏng tuyến tính của $N$-Queens cho nghiệm phân số đồng nhất $x_{r,c} = 1/N$, khiến cận dưới trùng nhau tại mọi nút và triệt tiêu sức mạnh cắt tỉa của cây nhánh-cận.
+    \item \textbf{Hiệu năng của Google OR-Tools CP-SAT và Hạn chế cấu hình:} CP-SAT đơn luồng (\texttt{num\_workers = 1}, chiến lược tìm kiếm mặc định) hoạt động rất hiệu quả ở dải $N \in [8, 128]$ ($N=128$ giải trong $3.46$s) nhờ các thuật toán lọc miền giá trị dựa trên toán tử \texttt{AllDifferent}. Tuy nhiên, ở $N \ge 256$, bộ giải không thể tìm thấy nghiệm trong giới hạn 300 giây và trả về trạng thái \texttt{UNKNOWN/TIMEOUT}. Cấu hình đơn luồng là bắt buộc nhằm đảm bảo tính so sánh công bằng đối đầu với SAT CaDiCaL (vốn là giải thuật đơn luồng tuần tự); tuy nhiên, cấu hình này cũng hạn chế tiềm năng thực tế của CP-SAT khi không khai thác danh mục thuật toán song song đa luồng (portfolio search) và các bộ sinh nghiệm láng giềng lớn (LNS - Large Neighborhood Search).
+    \item \textbf{So sánh hai chiều giữa Glucose 4.2 và CaDiCaL:} Cùng áp dụng kỹ thuật Product AMO, Glucose 4.2 và CaDiCaL thể hiện các đặc tính tìm kiếm khác nhau rõ rệt theo quy mô $N$: ở $N=128$, Glucose giải trong $1.07$s (dải $[1.06, 1.08]$s), nhanh hơn CaDiCaL Product ($1.49$s); tuy nhiên ở $N=32$, Glucose mất tới $20.71$s trong khi CaDiCaL chỉ mất $0.0857$s (chậm hơn khoảng $242$ lần: $20.7088 / 0.0857 \approx 242$). Ở $N=64$, Glucose cũng mất tới $36.56$s so với $0.4211$s của CaDiCaL (chậm hơn khoảng 87 lần: $36.5604 / 0.4211 \approx 87$). Sự khác biệt hiệu năng này có thể liên quan đến giả thuyết về chiến lược quản lý độ dài mệnh đề học (LBD - Literal Block Distance) và tần suất khởi động lại (restart) giữa hai bộ giải khi cấu trúc đồ thị lan truyền thay đổi theo quy mô $N$.
     \item \textbf{Khả năng mở rộng của SAT CaDiCaL và Bản chất độ biến động thời gian ở quy mô cực đại ($N \ge 256$):} 
     CaDiCaL 1.9.5 với mã hóa Commander và Product thể hiện khả năng mở rộng quy mô vượt trội so với các phương pháp đối chứng:
     \begin{itemize}
-        \item Ở $N=64$, CaDiCaL Commander giải trong $0.1870$s (nhanh gấp khoảng $3.0$ lần CP-SAT với $0.5643$s).
+        \item Ở $N=64$, CaDiCaL Commander giải trong $0.1870$s (nhanh gấp khoảng $3.2$ lần CP-SAT với $0.5912$s).
         \item Ở $N=256$, Product giải trong $7.99$s (dải $[7.67, 8.05]$s) và Commander giải trong $8.46$s (dải $[8.12, 8.58]$s). Mô hình Pairwise vẫn giải được ở $N=256$ trong $83.46$s nhưng tiêu tốn đỉnh điểm $7{,}679.4$ MB RAM ($\approx 7.50$ GiB).
         \item Ở $N=500$, khi được đo lường trong từng tiến trình độc lập, cả Commander và Product đều giải quyết thành công bàn cờ với thời gian tương đương nhau: Commander đạt trung vị $32.11$s (dải $[31.94, 32.64]$s, $\sigma = 0.37$s), Product đạt trung vị $32.26$s (dải $[31.75, 32.32]$s, $\sigma = 0.31$s). Pairwise ở kích thước này dừng do ngoại lệ \texttt{MemoryError} khi tiến trình Python cố gắng khởi tạo $207{,}834{,}500$ đối tượng mệnh đề trong danh sách liên tục.
         \item Ở kích thước cực đại $N=1000$ ($1{,}000{,}000$ ô cờ), Commander giải thành công cả 3 lần với trung vị $100.92$s (dải $[99.29, 105.40]$s, $\sigma = 3.17$s, RAM đỉnh $4{,}410.8$ MB). Product giải thành công 2 trong 3 lần chạy với thời gian $\approx 199.47$s và $200.36$s (1 lần chạm giới hạn thời gian $300.0$s), RAM đỉnh $3{,}832.5$ MB. Nếu tính cả thời gian tạo mệnh đề (Commander: 11.38s, Product: 7.57s), tổng thời gian thực thi (wall-clock time) lần lượt là $\approx 112.30$s và $\approx 207.93$s.
@@ -538,7 +548,7 @@ Scale Evaluation & 256 & Binary & \multicolumn{7}{c}{\textit{Không chạy (chư
 Scale Evaluation & 500 & Commander & 32.1096 & 31.9378 & 32.6404 & 31.9378 & 32.1096 & 32.6404 & 0.3663 & 2.8333 & 1389.9 \\
 Scale Evaluation & 500 & Product & 32.3227 & 32.2573 & 31.7545 & 31.7545 & 32.2573 & 32.3227 & 0.3109 & 1.7912 & 983.1 \\
 Scale Evaluation & 500 & Pairwise & \multicolumn{7}{c}{\textit{Tràn bộ nhớ heap tiến trình Python khi tạo $207{,}834{,}500$ mệnh đề ($>16\,\text{GB}$ RAM)}} & $>16.0$ & $>16{,}000.0$ \\
-Scale Evaluation & 500 & Sequential & \multicolumn{7}{c}{\textit{Quá thời gian quy định ($>300.0\,\text{s}$)}} & 2.1000 & 620.0 \\
+Scale Evaluation & 500 & Sequential & \multicolumn{7}{c}{\textit{Quá thời gian quy định ($>300.0\,\text{s}$)}} & 2.0126 & 564.6 \\
 \midrule
 Scale Evaluation & 1000 & Commander & 105.4045 & 100.9182 & 99.2912 & 99.2912 & 100.9182 & 105.4045 & 3.1661 & 11.3817 & 4410.8 \\
 Scale Evaluation & 1000 & Product & 300.0000 & 199.4701 & 200.3552 & 199.4701 & 200.3552 & 300.0000 & 57.7872 & 7.5685 & 3832.5 \\
@@ -550,7 +560,7 @@ Scale Evaluation & 1000 & Sequential & \multicolumn{7}{c}{\textit{Không chạy 
 \end{table*}
 
 \begin{table*}[htbp]
-\caption{Dữ liệu thực nghiệm chi tiết 3 lần chạy lặp độc lập so sánh đa bộ giải (Multi-Solver Benchmark: CaDiCaL, Glucose 4.2, CP-SAT, Gurobi 13.0, ILP SCIP 9.0) trên dải kích thước $N \in [8, 1000]$. Thời gian giải thuần túy đo bằng giây (s).}
+\caption{Dữ liệu thực nghiệm chi tiết 3 lần chạy lặp độc lập so sánh đa bộ giải (Multi-Solver Benchmark: CaDiCaL, Glucose 4.2, CP-SAT, Gurobi 13.0, ILP SCIP 9.0) trên dải kích thước $N \in [8, 1000]$. Thời gian giải thuần túy đo bằng giây (s). Thứ tự Run 1, Run 2, Run 3 được giữ đúng trình tự thời gian chạy thực tế.}
 \label{tab:appendix_multisolver}
 \centering
 \resizebox{\textwidth}{!}{%
@@ -558,28 +568,28 @@ Scale Evaluation & 1000 & Sequential & \multicolumn{7}{c}{\textit{Không chạy 
 \toprule
 \textbf{Bộ giải} & $N$ & \textbf{Cấu hình / Mã hóa} & \textbf{Run 1 (s)} & \textbf{Run 2 (s)} & \textbf{Run 3 (s)} & \textbf{Min (s)} & \textbf{Median (s)} & \textbf{Max (s)} & \textbf{Trạng thái} \\
 \midrule
-Gurobi 13.0 & 8 & ILP (1 thread) & 0.0002 & 0.0003 & 0.0002 & 0.0002 & 0.0002 & 0.0003 & Optimal \\
-Gurobi 13.0 & 16 & ILP (1 thread) & 0.0058 & 0.0063 & 0.0068 & 0.0058 & 0.0063 & 0.0068 & Optimal \\
-Gurobi 13.0 & 32 & ILP (1 thread) & 0.0248 & 0.0254 & 0.0261 & 0.0248 & 0.0254 & 0.0261 & Optimal \\
+Gurobi 13.0 & 8 & ILP (1 thread) & 0.0006 & 0.0002 & 0.0002 & 0.0002 & 0.0002 & 0.0006 & Optimal \\
+Gurobi 13.0 & 16 & ILP (1 thread) & 0.0112 & 0.0084 & 0.0074 & 0.0074 & 0.0084 & 0.0112 & Optimal \\
+Gurobi 13.0 & 32 & ILP (1 thread) & 0.0272 & 0.0290 & 0.0264 & 0.0264 & 0.0272 & 0.0290 & Optimal \\
 Gurobi 13.0 & 64--1000 & ILP (1 thread) & \multicolumn{6}{c}{\textit{Model too large for size-limited license (Vượt quá 2.000 biến)}} & Error (Limit) \\
 \midrule
-ILP SCIP 9.0 & 8 & MIP (1 thread) & 0.0162 & 0.0168 & 0.0175 & 0.0162 & 0.0168 & 0.0175 & Optimal \\
-ILP SCIP 9.0 & 16 & MIP (1 thread) & 0.0175 & 0.0182 & 0.0191 & 0.0175 & 0.0182 & 0.0191 & Optimal \\
-ILP SCIP 9.0 & 32 & MIP (1 thread) & 2.9840 & 3.0327 & 3.1250 & 2.9840 & 3.0327 & 3.1250 & Optimal \\
+ILP SCIP 9.0 & 8 & MIP (1 thread) & 0.0264 & 0.0191 & 0.0174 & 0.0174 & 0.0191 & 0.0264 & Optimal \\
+ILP SCIP 9.0 & 16 & MIP (1 thread) & 0.0194 & 0.0190 & 0.0189 & 0.0189 & 0.0190 & 0.0194 & Optimal \\
+ILP SCIP 9.0 & 32 & MIP (1 thread) & 3.1494 & 3.1147 & 3.1150 & 3.1147 & 3.1150 & 3.1494 & Optimal \\
 ILP SCIP 9.0 & 64--1000 & MIP (1 thread) & \multicolumn{6}{c}{\textit{Quá giới hạn thời gian ($>300.0\,\text{s}$)}} & Timeout \\
 \midrule
-CP-SAT (OR-Tools) & 8 & AllDifferent (1 worker) & 0.0060 & 0.0062 & 0.0068 & 0.0060 & 0.0062 & 0.0068 & Feasible \\
-CP-SAT (OR-Tools) & 16 & AllDifferent (1 worker) & 0.0285 & 0.0292 & 0.0305 & 0.0285 & 0.0292 & 0.0305 & Feasible \\
-CP-SAT (OR-Tools) & 32 & AllDifferent (1 worker) & 0.1050 & 0.1076 & 0.1120 & 0.1050 & 0.1076 & 0.1120 & Feasible \\
-CP-SAT (OR-Tools) & 64 & AllDifferent (1 worker) & 0.5520 & 0.5643 & 0.5810 & 0.5520 & 0.5643 & 0.5810 & Feasible \\
-CP-SAT (OR-Tools) & 128 & AllDifferent (1 worker) & 2.7450 & 2.7988 & 2.8620 & 2.7450 & 2.7988 & 2.8620 & Feasible \\
+CP-SAT (OR-Tools) & 8 & AllDifferent (1 worker) & 0.0166 & 0.0066 & 0.0064 & 0.0064 & 0.0066 & 0.0166 & Feasible \\
+CP-SAT (OR-Tools) & 16 & AllDifferent (1 worker) & 0.0254 & 0.0251 & 0.0246 & 0.0246 & 0.0251 & 0.0254 & Feasible \\
+CP-SAT (OR-Tools) & 32 & AllDifferent (1 worker) & 0.1251 & 0.1318 & 0.1123 & 0.1123 & 0.1251 & 0.1318 & Feasible \\
+CP-SAT (OR-Tools) & 64 & AllDifferent (1 worker) & 0.5912 & 0.6117 & 0.5848 & 0.5848 & 0.5912 & 0.6117 & Feasible \\
+CP-SAT (OR-Tools) & 128 & AllDifferent (1 worker) & 3.5502 & 3.4598 & 3.4195 & 3.4195 & 3.4598 & 3.5502 & Feasible \\
 CP-SAT (OR-Tools) & 256--1000 & AllDifferent (1 worker) & \multicolumn{6}{c}{\textit{Quá giới hạn thời gian ($>300.0\,\text{s}$)}} & Timeout \\
 \midrule
-Glucose 4.2 & 8 & Product AMO & 0.0050 & 0.0009 & 0.0008 & 0.0008 & 0.0009 & 0.0050 & SAT \\
-Glucose 4.2 & 16 & Product AMO & 0.0874 & 0.0871 & 0.0907 & 0.0871 & 0.0871 & 0.0907 & SAT \\
-Glucose 4.2 & 32 & Product AMO & 19.8954 & 19.4494 & 18.7938 & 18.7938 & 19.4494 & 19.8954 & SAT \\
-Glucose 4.2 & 64 & Product AMO & 22.6038 & 22.9288 & 23.0412 & 22.6038 & 22.9288 & 23.0412 & SAT \\
-Glucose 4.2 & 128 & Product AMO & 1.0695 & 1.0580 & 1.0807 & 1.0580 & 1.0695 & 1.0807 & SAT \\
+Glucose 4.2 & 8 & Product AMO & 0.0008 & 0.0003 & 0.0003 & 0.0003 & 0.0003 & 0.0008 & SAT \\
+Glucose 4.2 & 16 & Product AMO & 0.1213 & 0.1323 & 0.1226 & 0.1213 & 0.1226 & 0.1323 & SAT \\
+Glucose 4.2 & 32 & Product AMO & 20.7088 & 20.6239 & 21.6802 & 20.6239 & 20.7088 & 21.6802 & SAT \\
+Glucose 4.2 & 64 & Product AMO & 36.4078 & 36.5604 & 36.9764 & 36.4078 & 36.5604 & 36.9764 & SAT \\
+Glucose 4.2 & 128 & Product AMO & 1.0808 & 1.0650 & 1.0590 & 1.0590 & 1.0650 & 1.0808 & SAT \\
 Glucose 4.2 & 256--1000 & Product AMO & \multicolumn{6}{c}{\textit{Quá giới hạn thời gian ($>300.0\,\text{s}$)}} & Timeout \\
 \midrule
 CaDiCaL 1.9.5 & 128 & Product AMO & 1.5033 & 1.4108 & 1.4863 & 1.4108 & 1.4863 & 1.5033 & SAT \\

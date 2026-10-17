@@ -29,11 +29,11 @@ Binary (Bitwise) & $0.40$ & $4.70$ & $13.70$ & $41.20$ & $208.70$ & Đo đạc t
 Product (2D Grid) & $0.50$ & $4.00$ & $8.60$ & $22.30$ & $76.20$ & Đo đạc tự động \\
 \midrule
 \multicolumn{7}{l}{\textbf{Thời gian giải trung vị - Solving Time CaDiCaL 1.9.5 (ms)}} \\
-Pairwise (Direct) & $1.40$ & $17.00$ & $297.60$ & $735.10$ & $6{,}296.00$ & Chậm dần ở $N$ lớn \\
-Sequential Counter & $1.40$ & $39.10$ & $244.50$ & $1719.30$ & $24{,}845.10$ & Chậm ở $N=128$ do bùng nổ số xung đột CDCL \\
-Commander Variable & $\mathbf{1.60}$ & $\mathbf{7.70}$ & $\mathbf{37.50}$ & $\mathbf{187.00}$ & $\mathbf{756.90}$ & Nhanh nhất trên dải $N \in [16, 128]$ \\
-Binary (Bitwise) & $1.70$ & $17.10$ & $202.40$ & $471.40$ & $1{,}415.10$ & Hiệu năng khá tốt \\
-Product (2D Grid) & $1.80$ & $17.90$ & $85.70$ & $421.10$ & $1{,}486.30$ & Số lượng mệnh đề tương đương Sequential ở $N \ge 64$, rất ổn định \\
+Pairwise (Direct) & $\mathbf{1.40}$ & $17.00$ & $297.60$ & $735.10$ & $6{,}296.00$ & Bùng nổ $\mathcal{O}(N^3)$, không biến phụ \\
+Sequential Counter & $1.40$ & $39.10$ & $244.50$ & $1719.30$ & $24{,}845.10$ & Mệnh đề $\mathcal{O}(N^2)$, suy thoái tại $N \ge 128$ \\
+Commander Variable & $1.60$ & $\mathbf{7.70}$ & $\mathbf{37.50}$ & $\mathbf{187.00}$ & $\mathbf{756.90}$ & Mệnh đề $\mathcal{O}(N^2)$, nhanh nhất trên $N \in [16, 128]$ \\
+Binary (Bitwise) & $1.70$ & $17.10$ & $202.40$ & $471.40$ & $1{,}415.10$ & Mệnh đề $\mathcal{O}(N^2\log N)$, biến phụ $\mathcal{O}(N\log N)$ \\
+Product (2D Grid) & $1.80$ & $17.90$ & $85.70$ & $421.10$ & $1{,}486.30$ & Mệnh đề $\mathcal{O}(N^2)$, biến phụ $\mathcal{O}(N\sqrt{N})$, rất ổn định \\
 \bottomrule
 \end{tabular*}%
 }

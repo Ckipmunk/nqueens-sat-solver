@@ -1,5 +1,5 @@
 \begin{table*}[htbp]
-\caption{Thống kê định lượng động cơ tìm kiếm CDCL của CaDiCaL 1.9.5 (trích xuất qua \texttt{solver.accum\_stats()}) trên 5 kỹ thuật AMO tại $N \in \{32, 64, 128\}$. Cả 3 lần chạy lặp độc lập đều ghi nhận số lượng xung đột và quyết định hoàn toàn giống nhau (3/3 lần giống nhau), phản ánh tính tất định của solver trên cùng một công thức CNF.}
+\caption{Thống kê định lượng động cơ tìm kiếm CDCL của CaDiCaL 1.9.5 (trích xuất qua \texttt{solver.accum\_stats()}) trên các kỹ thuật AMO tại $N \in \{32, 64, 128, 256, 500, 1000\}$. Cả 3 lần chạy lặp độc lập đều ghi nhận số lượng xung đột và quyết định hoàn toàn giống nhau (3/3 lần giống nhau) trên mọi phép thử giải thành công, phản ánh tính tất định của solver trên cùng một công thức CNF.}
 \label{tab:cdcl_search_stats}
 \centering
 \resizebox{\textwidth}{!}{%
@@ -24,6 +24,17 @@ Sequential & 128 & \texttt{e86ef7e5} & 64{,}766 & 193{,}800 & 62{,}360 & 107{,}7
 Commander & 128 & \texttt{7db3eb0a} & 33{,}290 & 227{,}010 & \textbf{916} & \textbf{4{,}159} & \textbf{738{,}169} & 805.9 & 177.5 & \textbf{0.7569} \\
 Binary & 128 & \texttt{1c62b54c} & 4{,}850 & 447{,}828 & 3{,}094 & 11{,}061 & 1{,}566{,}393 & 506.3 & 141.6 & 1.4151 \\
 Product & 128 & \texttt{04d29c2e} & 13{,}798 & 193{,}122 & 4{,}551 & 13{,}978 & 2{,}813{,}735 & 618.3 & 201.3 & 1.4863 \\
+\midrule
+Commander & 256 & \texttt{645bb446} & 133{,}250 & 914{,}898 & \textbf{5{,}132} & \textbf{24{,}415} & \textbf{9{,}424{,}670} & 1836.5 & 386.0 & 8.4583 \\
+Product & 256 & \texttt{49264410} & 38{,}652 & 773{,}232 & 6{,}607 & 58{,}105 & 10{,}648{,}532 & 1611.7 & 183.3 & \textbf{7.9877} \\
+Sequential & 256 & \texttt{b21de137} & 260{,}606 & 780{,}808 & 120{,}089 & 247{,}047 & 114{,}669{,}929 & 954.9 & 464.2 & 85.6734 \\
+Pairwise & 256 & \texttt{b4c05fc3} & 0 & 27{,}831{,}552 & 6{,}174 & 11{,}257 & 3{,}679{,}804 & 596.0 & 326.9 & 83.4554 \\
+\midrule
+Commander & 500 & \texttt{0bfd6f34} & 504{,}084 & 3{,}493{,}508 & \textbf{5{,}096} & \textbf{73{,}810} & 26{,}921{,}009 & 5282.8 & 364.7 & \textbf{32.1096} \\
+Product & 500 & \texttt{fdd37fbb} & 105{,}526 & 2{,}970{,}184 & 7{,}798 & 249{,}500 & \textbf{25{,}962{,}075} & 3329.3 & 104.1 & 32.2573 \\
+\midrule
+Commander & 1000 & \texttt{5241a3b2} & 2{,}013{,}684 & 13{,}999{,}546 & \textbf{943} & \textbf{368{,}056} & 198{,}969{,}973 & 210996.8 & 540.6 & \textbf{100.9182} \\
+Product & 1000 & \texttt{a6b63c2f} & 298{,}524 & 11{,}946{,}066 & 13{,}397 & 1{,}657{,}256 & 102{,}709{,}189 & 7666.6 & 62.0 & 200.3552$^* \\
 \bottomrule
 \end{tabular}%
 }

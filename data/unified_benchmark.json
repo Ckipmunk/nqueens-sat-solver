@@ -201,16 +201,16 @@
         "time_s": 0.0014
       },
       "SAT Glucose 4.2 (Product)": {
-        "time_s": 0.0009
+        "time_s": 0.0003
       },
       "CP-SAT (OR-Tools, 1w)": {
-        "time_s": 0.0062
+        "time_s": 0.0066
       },
       "Gurobi 13.0 (1t)": {
         "time_s": 0.0002
       },
       "ILP SCIP 9.0": {
-        "time_s": 0.0168
+        "time_s": 0.0191
       }
     },
     "16": {
@@ -227,16 +227,16 @@
         "time_s": 0.0391
       },
       "SAT Glucose 4.2 (Product)": {
-        "time_s": 0.0871
+        "time_s": 0.1226
       },
       "CP-SAT (OR-Tools, 1w)": {
-        "time_s": 0.0292
+        "time_s": 0.0251
       },
       "Gurobi 13.0 (1t)": {
-        "time_s": 0.0063
+        "time_s": 0.0084
       },
       "ILP SCIP 9.0": {
-        "time_s": 0.0182
+        "time_s": 0.019
       }
     },
     "32": {
@@ -253,16 +253,16 @@
         "time_s": 0.2445
       },
       "SAT Glucose 4.2 (Product)": {
-        "time_s": 19.4494
+        "time_s": 20.7088
       },
       "CP-SAT (OR-Tools, 1w)": {
-        "time_s": 0.1076
+        "time_s": 0.1251
       },
       "Gurobi 13.0 (1t)": {
-        "time_s": 0.0254
+        "time_s": 0.0272
       },
       "ILP SCIP 9.0": {
-        "time_s": 3.0327
+        "time_s": 3.115
       }
     },
     "64": {
@@ -279,10 +279,10 @@
         "time_s": 1.7193
       },
       "SAT Glucose 4.2 (Product)": {
-        "time_s": 22.9288
+        "time_s": 36.5604
       },
       "CP-SAT (OR-Tools, 1w)": {
-        "time_s": 0.5643
+        "time_s": 0.5912
       },
       "Gurobi 13.0 (1t)": {
         "time_s": null
@@ -305,10 +305,10 @@
         "time_s": 24.8451
       },
       "SAT Glucose 4.2 (Product)": {
-        "time_s": 1.0695
+        "time_s": 1.065
       },
       "CP-SAT (OR-Tools, 1w)": {
-        "time_s": 2.7988
+        "time_s": 3.4598
       },
       "Gurobi 13.0 (1t)": {
         "time_s": null
