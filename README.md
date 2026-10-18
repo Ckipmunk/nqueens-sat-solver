@@ -119,7 +119,7 @@ git commit -m "feat: N-Queens SAT Solver with 5 AMO encodings, CP/ILP/Gurobi ben
 
 # Liên kết với remote repository của bạn trên GitHub
 git branch -M main
-git remote add origin https://github.com/<your-username>/nqueens-sat-solver.git
+git remote add origin https://github.com/Ckipmunk/nqueens-sat-solver.git
 git push -u origin main
 ```
-Sau đó, hãy cập nhật đường link GitHub thực tế của bạn vào mục **Data Availability** trong file báo cáo LaTeX trước khi nộp.
+Kho lưu trữ chính thức đã được tích hợp trực tiếp vào mục **Data Availability** trong toàn bộ các tệp báo cáo LaTeX.

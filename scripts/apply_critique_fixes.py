@@ -107,7 +107,7 @@ def apply_fixes(content):
     )
     content = content.replace(old_conc_prod, new_conc_prod)
 
-    # 10. Data Availability: Remove "gói dự án đính kèm"
+    # 10. Data Availability: Remove "gói dự án đính kèm" and update GitHub repository URL
     old_data_avail = (
         r"Toàn bộ mã nguồn cài đặt 5 kỹ thuật mã hóa AMO, các bộ giải SAT (PySAT), CP-SAT, Gurobi, SCIP và dữ liệu thực nghiệm được cung cấp đầy đủ trong gói dự án đính kèm và lưu trữ công khai trên GitHub repository:"
     )
@@ -115,6 +115,11 @@ def apply_fixes(content):
         r"Toàn bộ mã nguồn cài đặt 5 kỹ thuật mã hóa AMO, các bộ giải SAT (PySAT), CP-SAT, Gurobi, SCIP và toàn bộ dữ liệu thực nghiệm thô được công bố công khai tại kho lưu trữ GitHub chính thức của nhóm nghiên cứu:"
     )
     content = content.replace(old_data_avail, new_data_avail)
+
+    content = content.replace(
+        r"\url{https://github.com/vnu-uet-khmt/nqueens-sat-solver}",
+        r"\url{https://github.com/Ckipmunk/nqueens-sat-solver}"
+    )
 
     return content
 
