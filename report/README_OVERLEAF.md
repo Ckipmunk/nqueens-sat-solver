@@ -23,7 +23,7 @@ Dự án đã đóng gói sẵn tệp nén **`report.zip`** ngay tại thư mụ
 2. Nhấn **New Project** $\rightarrow$ **Upload Project**.
 3. Chọn tệp `report.zip` (ở thư mục gốc dự án) để tải lên. Overleaf sẽ tự động giải nén toàn bộ tệp vào thư mục gốc của project.
 4. Cấu hình Compiler: Chọn **pdfLaTeX** hoặc **XeLaTeX**.
-5. Nhấn **Recompile** (hoặc nhấn Recompile 2 lần nếu cần đồng bộ chỉ số nhãn và số trang "Page x of 19").
+5. Nhấn **Recompile** (hoặc nhấn Recompile 2 lần nếu cần đồng bộ chỉ số nhãn và số trang "Page x of 18").
 
 ---
 

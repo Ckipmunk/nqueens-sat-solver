@@ -228,7 +228,7 @@ def build_tables():
     # =========================================================================
     t3 = []
     t3.append(r"\begin{table*}[htbp]")
-    t3.append(r"\caption{Thống kê định lượng động cơ tìm kiếm CDCL của CaDiCaL 1.9.5 (trích xuất qua \texttt{solver.accum\_stats()}) trên các kỹ thuật AMO tại $N \in \{32, 64, 128, 256, 500, 1000\}$. Cả 3 lần chạy lặp độc lập đều ghi nhận số lượng xung đột và quyết định hoàn toàn giống nhau (3/3 lần giống nhau) trên mọi phép thử giải thành công, phản ánh tính tất định của solver trên cùng một công thức CNF.}")
+    t3.append(r"\caption{Thống kê định lượng động cơ tìm kiếm CDCL của CaDiCaL 1.9.5 (trích xuất qua \texttt{solver.accum\_stats()}) trên các kỹ thuật AMO tại $N \in \{32, 64, 128, 256, 500, 1000\}$. Mọi phép thử giải thành công trên cùng một công thức CNF đều ghi nhận số lượng xung đột và quyết định hoàn toàn đồng nhất, phản ánh tính tất định của solver.}")
     t3.append(r"\label{tab:cdcl_search_stats}")
     t3.append(r"\centering")
     t3.append(r"\renewcommand{\arraystretch}{1.20}")
@@ -236,7 +236,7 @@ def build_tables():
     t3.append(r"\begin{tabular}{llr rrrr rrrr} ")
     t3.append(r"\toprule")
     t3.append(r"\rowcolor{tableheader}")
-    t3.append(r"\textbf{Phương pháp AMO} & $N$ & \textbf{CNF Hash} & \textbf{Biến phụ} & \textbf{Tổng mệnh đề} & \textbf{Xung đột (3/3)} & \textbf{Quyết định} & \textbf{Lan truyền} & \textbf{Props/Conf} & \textbf{Props/Dec} & \textbf{Thời gian giải (s)} \\")
+    t3.append(r"\textbf{Phương pháp AMO} & $N$ & \textbf{CNF Hash} & \textbf{Biến phụ} & \textbf{Tổng mệnh đề} & \textbf{Xung đột$^\ddagger$} & \textbf{Quyết định} & \textbf{Lan truyền} & \textbf{Props/Conf} & \textbf{Props/Dec} & \textbf{Thời gian giải (s)} \\")
     t3.append(r"\midrule")
 
     # Group 1: Ablation N in [32, 64, 128]
@@ -338,9 +338,11 @@ def build_tables():
     prop_pr = f"{d_pr['propagations']:,}".replace(",", "{,}")
     p_conf_pr = d_pr["propagations"] / max(1, d_pr["conflicts"])
     p_dec_pr = d_pr["propagations"] / max(1, d_pr["decisions"])
-    t3.append(f"\\rowcolor{{tablerowalt}} Product & 1000 & \\texttt{{{d_pr['cnf_hash']}}} & {aux_pr} & {cl_pr} & {conf_pr} & {dec_pr} & {prop_pr} & {p_conf_pr:.1f} & {p_dec_pr:.1f} & {d_pr['median_s']:.4f}$^* \\\\")
+    t3.append(f"\\rowcolor{{tablerowalt}} Product & 1000 & \\texttt{{{d_pr['cnf_hash']}}} & {aux_pr} & {cl_pr} & {conf_pr} (2/2) & {dec_pr} & {prop_pr} & {p_conf_pr:.1f} & {p_dec_pr:.1f} & {d_pr['median_s']:.4f}$^* \\\\")
 
     t3.append(r"\bottomrule")
+    t3.append(r"\multicolumn{11}{l}{\footnotesize $^\ddagger$ Số lượng xung đột và quyết định đồng nhất $100\%$ giữa 3/3 lần chạy thành công trên mọi cấu hình, và giữa 2/2 lần giải thành công đối với Product tại $N=1000$.} \\")
+    t3.append(r"\multicolumn{11}{l}{\footnotesize $^*$ CaDiCaL (Product) tại $N=1000$ giải thành công 2/3 lần chạy ($199.47$s và $200.36$s), 1 lần chạm giới hạn 300.0s. Giá trị $200.3552$s là trung vị của 3 lượt thử.} \\")
     t3.append(r"\end{tabular}%")
     t3.append(r"}")
     t3.append(r"\end{table*}")
