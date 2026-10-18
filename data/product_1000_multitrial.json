@@ -1,0 +1,50 @@
+[
+  {
+    "n": 1000,
+    "method": "product",
+    "run_id": 1,
+    "status": "SAT",
+    "num_vars": 1298524,
+    "num_clauses": 11946066,
+    "cnf_hash": "a6b63c2f",
+    "encoding_time": 8.1960240000044,
+    "solving_time": 235.0011197999993,
+    "peak_ram_mb": 3835.51171875,
+    "conflicts": 13397,
+    "decisions": 1657256,
+    "propagations": 102709189,
+    "restarts": 62,
+    "trial": 1,
+    "avail_ram_before_mb": 5782.23046875,
+    "cpu_freq_mhz": 1978.0,
+    "wall_time_s": 245.32897186279297
+  },
+  {
+    "trial": 2,
+    "status": "TIMEOUT",
+    "solving_time": 300,
+    "wall_time_s": 566.8069543838501,
+    "avail_ram_before_mb": 5932.09765625,
+    "cpu_freq_mhz": 2502.0
+  },
+  {
+    "n": 1000,
+    "method": "product",
+    "run_id": 3,
+    "status": "SAT",
+    "num_vars": 1298524,
+    "num_clauses": 11946066,
+    "cnf_hash": "a6b63c2f",
+    "encoding_time": 7.590233399998397,
+    "solving_time": 231.6489124999789,
+    "peak_ram_mb": 3830.8359375,
+    "conflicts": 13397,
+    "decisions": 1657256,
+    "propagations": 102709189,
+    "restarts": 62,
+    "trial": 3,
+    "avail_ram_before_mb": 6158.50390625,
+    "cpu_freq_mhz": 2502.0,
+    "wall_time_s": 241.2929928302765
+  }
+]
