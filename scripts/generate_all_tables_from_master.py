@@ -520,7 +520,7 @@ def build_tables():
             ram = f"{d['peak_ram_mb']:.1f}"
             row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
             t5a.append(f"{row_prefix}Scale Evaluation & 500 & {key.capitalize()} & {r1} & {r2} & {r3} & {mi} & {me} & {ma} & {sd} & {enc} & {ram} \\\\")
-    t5a.append(r"Scale Evaluation & 500 & Pairwise & \multicolumn{7}{c}{\textit{Tràn bộ nhớ heap tiến trình Python khi tạo $207{,}834{,}500$ mệnh đề ($>16\,\text{GB}$ RAM)}} & $>16.0$ & $>16{,}000.0$ \\")
+    t5a.append(r"Scale Evaluation & 500 & Pairwise & \multicolumn{7}{c}{\textit{Ngoại lệ MemoryError khi tạo $207{,}834{,}500$ mệnh đề (dừng trước khi giải)}} & \textit{N/A (OOM)} & \textit{N/A (OOM)} \\")
     
     seq_enc = f"{seq500_data['encoding_time_s']:.4f}"
     seq_ram = f"{seq500_data['peak_ram_mb']:.1f}"
@@ -531,21 +531,34 @@ def build_tables():
     for idx, key in enumerate(["commander", "product"]):
         if 1000 in agg and key in agg[1000]:
             d = agg[1000][key]
-            r1 = f"{d['run1_s']:.4f}"
-            r2 = f"{d['run2_s']:.4f}"
-            r3 = f"{d['run3_s']:.4f}"
-            mi = f"{d['min_s']:.4f}"
-            me = f"{d['median_s']:.4f}"
-            ma = f"{d['max_s']:.4f}"
-            sd = f"{d['std_s']:.4f}"
-            enc = f"{d['enc_time_s']:.4f}"
-            ram = f"{d['peak_ram_mb']:.1f}"
             row_prefix = r"\rowcolor{tablerowalt} " if idx % 2 == 1 else ""
-            t5a.append(f"{row_prefix}Scale Evaluation & 1000 & {key.capitalize()} & {r1} & {r2} & {r3} & {mi} & {me} & {ma} & {sd} & {enc} & {ram} \\\\")
+            if key == "product":
+                r1_str = "> 300.0 (TO)"
+                r2_str = f"{d['run2_s']:.4f}"
+                r3_str = f"{d['run3_s']:.4f}"
+                mi_str = f"{d['min_s']:.4f}"
+                me_str = f"{d['median_s']:.4f}"
+                ma_str = "> 300.0 (TO)"
+                sd_str = r"\text{N/A}^\dagger"
+                enc_str = f"{d['enc_time_s']:.4f}"
+                ram_str = f"{d['peak_ram_mb']:.1f}"
+                t5a.append(f"{row_prefix}Scale Evaluation & 1000 & Product & {r1_str} & {r2_str} & {r3_str} & {mi_str} & {me_str} & {ma_str} & ${sd_str}$ & {enc_str} & {ram_str} \\\\")
+            else:
+                r1 = f"{d['run1_s']:.4f}"
+                r2 = f"{d['run2_s']:.4f}"
+                r3 = f"{d['run3_s']:.4f}"
+                mi = f"{d['min_s']:.4f}"
+                me = f"{d['median_s']:.4f}"
+                ma = f"{d['max_s']:.4f}"
+                sd = f"{d['std_s']:.4f}"
+                enc = f"{d['enc_time_s']:.4f}"
+                ram = f"{d['peak_ram_mb']:.1f}"
+                t5a.append(f"{row_prefix}Scale Evaluation & 1000 & Commander & {r1} & {r2} & {r3} & {mi} & {me} & {ma} & {sd} & {enc} & {ram} \\\\")
     t5a.append(r"Scale Evaluation & 1000 & Pairwise & \multicolumn{7}{c}{\textit{Không chạy (dự kiến tràn RAM do số mệnh đề lý thuyết $>1.66$ tỷ)}} & - & - \\")
     t5a.append(r"\rowcolor{tablerowalt} Scale Evaluation & 1000 & Sequential & \multicolumn{7}{c}{\textit{Không chạy (đã quá thời gian $>300.0\,\text{s}$ từ $N=500$)}} & - & - \\")
 
     t5a.append(r"\bottomrule")
+    t5a.append(r"\multicolumn{12}{l}{\footnotesize $^\dagger$ Không tính độ lệch chuẩn $\sigma$ cho mẫu bị cắt (censored sample) khi có 1/3 lần chạy chạm giới hạn thời gian (Timeout 300.0s).} \\")
     t5a.append(r"\end{tabular}%")
     t5a.append(r"}")
     t5a.append(r"\end{table*}")
@@ -611,13 +624,22 @@ def build_tables():
             if n in agg and key in agg[n]:
                 d = agg[n][key]
                 cfg = f"{key.capitalize()} AMO"
-                r1 = f"{d['run1_s']:.4f}"
-                r2 = f"{d['run2_s']:.4f}"
-                r3 = f"{d['run3_s']:.4f}"
-                mi = f"{d['min_s']:.4f}"
-                me = f"{d['median_s']:.4f}"
-                ma = f"{d['max_s']:.4f}"
-                st = "SAT" if d['median_s'] < 300.0 else "Timeout"
+                if n == 1000 and key == "product":
+                    r1 = "> 300.0 (TO)"
+                    r2 = f"{d['run2_s']:.4f}"
+                    r3 = f"{d['run3_s']:.4f}"
+                    mi = f"{d['min_s']:.4f}"
+                    me = f"{d['median_s']:.4f}"
+                    ma = "> 300.0 (TO)"
+                    st = "SAT (2/3), Timeout (1/3)"
+                else:
+                    r1 = f"{d['run1_s']:.4f}"
+                    r2 = f"{d['run2_s']:.4f}"
+                    r3 = f"{d['run3_s']:.4f}"
+                    mi = f"{d['min_s']:.4f}"
+                    me = f"{d['median_s']:.4f}"
+                    ma = f"{d['max_s']:.4f}"
+                    st = "SAT" if d['median_s'] < 300.0 else "Timeout"
                 cdcl_rows.append((n, cfg, r1, r2, r3, mi, me, ma, st))
 
     for idx, (n, cfg, r1, r2, r3, mi, me, ma, st) in enumerate(cdcl_rows):
@@ -625,6 +647,7 @@ def build_tables():
         t5b.append(f"{row_prefix}CaDiCaL 1.9.5 & {n} & {cfg} & {r1} & {r2} & {r3} & {mi} & {me} & {ma} & {st} \\\\")
 
     t5b.append(r"\bottomrule")
+    t5b.append(r"\multicolumn{10}{l}{\footnotesize Ghi chú: CaDiCaL (Product AMO) tại $N=1000$ giải thành công 2/3 lần chạy trong giới hạn 300.0s ($199.47$s và $200.36$s), 1 lần chạm trần thời gian.} \\")
     t5b.append(r"\end{tabular}%")
     t5b.append(r"}")
     t5b.append(r"\end{table*}")

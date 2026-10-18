@@ -156,6 +156,12 @@ def update_content(content):
     except Exception as e:
         print(f"Warning: could not run enhance_bold_headings: {e}")
 
+    try:
+        from apply_critique_fixes import apply_fixes
+        content = apply_fixes(content)
+    except Exception as e:
+        print(f"Warning: could not run apply_fixes: {e}")
+
     return content
 
 def main():
