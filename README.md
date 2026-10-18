@@ -46,8 +46,8 @@ nqueens_sat_project/
 │   ├── solver_comparison.json# Dữ liệu so sánh thời gian giải giữa SAT, CP-SAT, Gurobi, SCIP (JSON)
 │   └── solver_comparison.csv # Bảng dữ liệu so sánh thời gian giải (CSV)
 ├── report/
-│   ├── nqueens_report_elsevier.tex # Báo cáo khoa học LaTeX theo chuẩn Elsevier cas-sc (Tiếng Việt)
-│   ├── nqueens_report_standard.tex # Báo cáo khoa học LaTeX bản chuẩn article (dễ biên dịch mọi nơi)
+│   ├── nqueens_report_elsevier.tex # Báo cáo khoa học LaTeX theo chuẩn Elsevier cas-sc
+│   ├── nqueens_report_standard.tex # Báo cáo khoa học LaTeX bản chuẩn article
 │   ├── references.bib        # Danh mục tài liệu tham khảo học thuật BibTeX
 │   ├── README_OVERLEAF.md    # Hướng dẫn chi tiết biên dịch trên Overleaf
 │   └── figures/              # Chứa các biểu đồ xuất ra cho báo cáo
@@ -103,23 +103,3 @@ Vui lòng xem hướng dẫn chi tiết tại [report/README_OVERLEAF.md](report
 - Nén toàn bộ thư mục `report/` thành file zip và upload lên Overleaf.
 - Trên Overleaf, chọn file `nqueens_report_elsevier.tex` (hoặc `nqueens_report_standard.tex`) và bấm **Recompile** để xuất file PDF hoàn chỉnh.
 
----
-
-## 🌐 Hướng dẫn Đẩy dự án lên GitHub
-
-Theo yêu cầu của đề bài:
-> *"Sinh viên chỉ rõ link Github (or others) về Repository lưu mã nguồn và kết quả thực nghiệm của bài toán trong Báo cáo BTL số 1 (để phần Data Availability)."*
-
-Các bước đẩy mã nguồn lên GitHub:
-```bash
-# Khởi tạo git repository
-git init
-git add .
-git commit -m "feat: N-Queens SAT Solver with 5 AMO encodings, CP/ILP/Gurobi benchmarks, and LaTeX report"
-
-# Liên kết với remote repository của bạn trên GitHub
-git branch -M main
-git remote add origin https://github.com/Ckipmunk/nqueens-sat-solver.git
-git push -u origin main
-```
-Kho lưu trữ chính thức đã được tích hợp trực tiếp vào mục **Data Availability** trong toàn bộ các tệp báo cáo LaTeX.
